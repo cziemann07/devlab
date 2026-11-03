@@ -17,6 +17,12 @@ export const vueGithub: CourseContent = {
       { rotulo: 'Documentação do Vue', url: 'https://vuejs.org/guide/introduction.html' },
       { rotulo: 'GitHub Pages', url: 'https://docs.github.com/pt/pages' },
     ],
+    acesso: { rotulo: 'Gratuito' },
+    aviso: {
+      titulo: 'Conteúdo em preparação',
+      texto:
+        'Datas e horários são os do minicurso. Os títulos e tópicos dos encontros seguem o planejamento preliminar e podem mudar. Materiais, exercícios e códigos são demonstrativos e serão substituídos pelo material oficial das equipes.',
+    },
   },
   encontros: [
     {
@@ -38,71 +44,43 @@ export const vueGithub: CourseContent = {
     {
       id: '01',
       tipo: 'encontro',
-      titulo: 'Fundamentos do Vue',
+      titulo: 'Introdução ao Vue.js',
       resumo:
-        'Criamos um projeto com Vite, entendemos a anatomia de um componente e construímos uma lista de tarefas reativa do zero.',
+        'Conceitos fundamentais, estrutura de uma aplicação, componentes, interpolação e diretivas, com a prática de construção de uma aplicação simples.',
       status: 'publicado',
       origem: 'demonstrativo',
       data: '2026-11-24',
       horario: { inicio: '19:00', fim: '22:00' },
       local: 'Laboratório de informática — IFPR Foz do Iguaçu',
       descricao: 'encontros/encontro-01.md',
+      // Tópicos do planejamento preliminar; ordem e horários a definir pela equipe.
       sequencia: [
-        { horario: '19:00', titulo: 'Por que Vue?', detalhe: 'SPA, componentes e o ecossistema' },
-        {
-          horario: '19:20',
-          titulo: 'Criando o projeto com Vite',
-          detalhe: 'npm create vue@latest e estrutura de pastas',
-        },
-        {
-          horario: '19:50',
-          titulo: 'Anatomia de um componente',
-          detalhe: '<template>, <script setup> e <style>',
-        },
-        { horario: '20:30', titulo: 'Intervalo', detalhe: '15 min' },
-        {
-          horario: '20:45',
-          titulo: 'Reatividade e eventos',
-          detalhe: 'ref, v-model e @click',
-        },
-        { horario: '21:20', titulo: 'Mão na massa', detalhe: 'Exercícios 01.1 a 01.3' },
+        { titulo: 'Conceitos fundamentais do Vue.js' },
+        { titulo: 'Estrutura de uma aplicação' },
+        { titulo: 'Componentes' },
+        { titulo: 'Interpolação e diretivas' },
+        { titulo: 'Prática', detalhe: 'Construção de uma aplicação simples' },
       ],
     },
     {
       id: '02',
       tipo: 'encontro',
-      titulo: 'Git, GitHub e publicação',
+      titulo: 'Continuação do projeto, GitHub e publicação',
       resumo:
-        'Versionamos o projeto, organizamos commits e branches e colocamos a aplicação no ar com GitHub Pages.',
+        'Retomada do projeto, introdução a repositórios, commits e branches, envio de arquivos e publicação com GitHub Pages.',
       status: 'publicado',
       origem: 'demonstrativo',
       data: '2026-11-26',
       horario: { inicio: '19:00', fim: '22:00' },
       local: 'Laboratório de informática — IFPR Foz do Iguaçu',
       descricao: 'encontros/encontro-02.md',
+      // Tópicos do planejamento preliminar; ordem e horários a definir pela equipe.
       sequencia: [
-        {
-          horario: '19:00',
-          titulo: 'O que é versionar',
-          detalhe: 'Histórico, commits e estados do Git',
-        },
-        {
-          horario: '19:30',
-          titulo: 'Repositório remoto e push',
-          detalhe: 'origin, main e boas mensagens de commit',
-        },
-        {
-          horario: '20:15',
-          titulo: 'Branches e pull requests',
-          detalhe: 'Fluxo colaborativo no GitHub',
-        },
-        { horario: '20:45', titulo: 'Intervalo', detalhe: '15 min' },
-        {
-          horario: '21:00',
-          titulo: 'GitHub Pages',
-          detalhe: 'Build, workflow de deploy e verificação',
-        },
-        { horario: '21:40', titulo: 'Revisão e próximos passos', detalhe: 'Como continuar estudando' },
+        { titulo: 'Retomada do projeto', detalhe: 'Continuação da aplicação do encontro 01' },
+        { titulo: 'Repositórios' },
+        { titulo: 'Commits e branches' },
+        { titulo: 'Envio de arquivos' },
+        { titulo: 'Publicação com GitHub Pages' },
       ],
     },
   ],
@@ -150,11 +128,10 @@ export const vueGithub: CourseContent = {
     {
       id: 'slides-01',
       encontroId: '01',
-      titulo: 'Slides · Fundamentos do Vue',
+      titulo: 'Slides · Introdução ao Vue.js',
       tipo: 'slides',
       descricao: 'Apresentação do encontro em PDF.',
-      localizacao: { arquivo: 'materiais/vue-github/encontro-01-slides.pdf' },
-      status: 'publicado',
+      status: 'em_breve',
       origem: 'demonstrativo',
     },
     {
@@ -163,8 +140,7 @@ export const vueGithub: CourseContent = {
       titulo: 'Apostila do encontro 01',
       tipo: 'pdf',
       descricao: 'Resumo dos conceitos e roteiro de prática.',
-      localizacao: { arquivo: 'materiais/vue-github/apostila-encontro-01.pdf' },
-      status: 'publicado',
+      status: 'em_breve',
       origem: 'demonstrativo',
     },
     {
@@ -189,11 +165,10 @@ export const vueGithub: CourseContent = {
     {
       id: 'slides-02',
       encontroId: '02',
-      titulo: 'Slides · Git, GitHub e publicação',
+      titulo: 'Slides · Continuação do projeto, GitHub e publicação',
       tipo: 'slides',
       descricao: 'Apresentação do encontro em PDF.',
-      localizacao: { arquivo: 'materiais/vue-github/encontro-02-slides.pdf' },
-      status: 'publicado',
+      status: 'em_breve',
       origem: 'demonstrativo',
     },
     {

@@ -4,6 +4,7 @@ import { RouterLink, useRoute } from 'vue-router'
 import Badge from '../components/Badge.vue'
 import CodeBlock from '../components/CodeBlock.vue'
 import DemoBadge from '../components/DemoBadge.vue'
+import DemoNotice from '../components/DemoNotice.vue'
 import Prose from '../components/Prose.vue'
 import ResourceList from '../components/ResourceList.vue'
 import NotFoundView from './NotFoundView.vue'
@@ -128,9 +129,9 @@ function exercisesCount(stage: RenderedEncontro): number {
               <strong>{{ meetingTime }}</strong>
               {{ course.curso.local ?? 'online' }}
             </div>
-            <div>
-              <strong>Gratuito</strong>
-              sem cadastro
+            <div v-if="course.curso.acesso">
+              <strong>{{ course.curso.acesso.rotulo }}</strong>
+              {{ course.curso.acesso.detalhe }}
             </div>
           </div>
         </div>
@@ -150,6 +151,12 @@ function exercisesCount(stage: RenderedEncontro): number {
             <p>Cada etapa reúne materiais, exercícios e código no mesmo lugar.</p>
           </div>
         </div>
+
+        <DemoNotice
+          v-if="course.curso.aviso"
+          :titulo="course.curso.aviso.titulo"
+          :texto="course.curso.aviso.texto"
+        />
 
         <div class="timeline">
           <component
@@ -203,7 +210,8 @@ function exercisesCount(stage: RenderedEncontro): number {
                 {{ step.titulo }}
               </li>
               <li v-if="stage.sequencia.length > 4" class="stage-more">
-                + {{ stage.sequencia.length - 4 }} etapas
+                {{ stage.sequencia.length - 4 }}
+                {{ stage.sequencia.length - 4 === 1 ? 'etapa' : 'etapas' }}
               </li>
             </ol>
 
@@ -297,9 +305,11 @@ function exercisesCount(stage: RenderedEncontro): number {
 
         <div class="about">
           <p>
-            <strong>DevLab</strong> é uma plataforma de apoio a minicursos de tecnologia do
-            TADS / IFPR Campus Foz do Iguaçu. Reúne cronograma, materiais, exercícios e código
-            em um só lugar, antes, durante e depois do evento.
+            <strong>DevLab</strong> é uma plataforma de apoio a minicursos de tecnologia,
+            desenvolvida por estudantes do TADS / IFPR Campus Foz do Iguaçu no Projeto de
+            Extensão II. Reúne cronograma, materiais, exercícios e código em um só lugar,
+            antes, durante e depois do evento. É uma iniciativa estudantil, não um sistema
+            oficial do IFPR.
           </p>
           <p class="muted">
             TADS · IFPR Campus Foz do Iguaçu · Projeto de Extensão II

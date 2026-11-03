@@ -2,10 +2,11 @@ O segundo encontro conecta o projeto ao mundo: versionamento, repositório remot
 
 ## Roteiro
 
-1. Entender o que é um commit e como o Git guarda histórico.
-2. Criar o repositório remoto no GitHub.
-3. Enviar o projeto com `push`.
-4. Configurar o GitHub Pages e acompanhar o deploy.
+1. Retomar o projeto iniciado no encontro 01.
+2. Entender o que é um commit e como o Git guarda histórico.
+3. Criar o repositório remoto no GitHub.
+4. Enviar o projeto com `push`.
+5. Configurar o GitHub Pages e acompanhar o deploy.
 
 ## Comandos que vamos usar
 
@@ -20,4 +21,4 @@ git push -u origin main
 
 O GitHub Pages publica arquivos estáticos gerados pelo build. Neste projeto, o deploy é feito por um workflow do GitHub Actions a cada push na branch `main`.
 
-> O roteiro e os exemplos deste encontro são demonstrativos e podem mudar até a data do minicurso.
+> O título e os tópicos deste encontro seguem o planejamento preliminar do minicurso e podem mudar. O texto e os exemplos desta página são demonstrativos.
