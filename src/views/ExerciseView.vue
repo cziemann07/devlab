@@ -474,6 +474,16 @@ const { goExerciseSection } = useSectionNav()
   list-style: none;
 }
 
+/* .solution usa overflow: hidden; o anel de foco precisa ficar para dentro. */
+.solution > summary:focus-visible {
+  outline-offset: -2px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.solution:not([open]) > summary:focus-visible {
+  border-radius: var(--radius-lg);
+}
+
 .solution > summary::-webkit-details-marker {
   display: none;
 }

@@ -10,6 +10,12 @@ function rowProps(item: ResourceItem): Record<string, unknown> {
   return item.to ? { to: item.to } : {}
 }
 
+function hrefLabel(item: ResourceItem): string {
+  return item.external
+    ? `Abrir ${item.titulo} (abre em nova aba)`
+    : `Ver ${item.titulo}`
+}
+
 function hrefAttributes(item: ResourceItem): Record<string, string> {
   return item.external
     ? { target: '_blank', rel: 'noopener noreferrer' }
@@ -47,6 +53,7 @@ function hrefAttributes(item: ResourceItem): Record<string, string> {
               v-bind="hrefAttributes(item)"
               class="btn btn-sm"
               :href="item.href"
+              :aria-label="hrefLabel(item)"
             >
               {{ item.external ? 'Abrir ↗' : 'Ver' }}
             </a>
@@ -54,6 +61,7 @@ function hrefAttributes(item: ResourceItem): Record<string, string> {
               v-if="item.downloadHref"
               class="btn btn-sm"
               :href="item.downloadHref"
+              :aria-label="`Baixar ${item.titulo}`"
               download
             >
               Baixar
@@ -97,6 +105,12 @@ function hrefAttributes(item: ResourceItem): Record<string, string> {
 
 .resource--link:hover {
   background: var(--surface-2);
+}
+
+/* A lista usa overflow: hidden; o anel de foco precisa ficar para dentro. */
+.resource--link:focus-visible {
+  outline-offset: -2px;
+  border-radius: 0;
 }
 
 .resource-icon {
