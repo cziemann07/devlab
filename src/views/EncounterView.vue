@@ -154,7 +154,12 @@ function encounterTitle(type: string, id: string): string {
             aria-labelledby="sequencia-titulo"
           >
             <h2 id="sequencia-titulo">Sequência</h2>
-            <p class="muted">Roteiro previsto. Os horários podem variar.</p>
+            <p class="muted">
+              Roteiro previsto.
+              <template v-if="encounter.sequencia.some((step) => step.horario)">
+                Os horários podem variar.
+              </template>
+            </p>
             <ol class="agenda">
               <li v-for="step in encounter.sequencia" :key="`${step.titulo}-${step.horario}`">
                 <time v-if="step.horario">{{ step.horario }}</time>

@@ -235,6 +235,8 @@ export async function renderContent(
         local: course.curso.local,
         repositorioUrl: course.curso.repositorioUrl,
         links: course.curso.links ?? [],
+        acesso: course.curso.acesso,
+        aviso: course.curso.aviso,
       },
       encontros: activeEncounters.map((encounter) =>
         renderEncounter(encounter, courseDir, renderer),

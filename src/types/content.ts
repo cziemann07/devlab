@@ -19,6 +19,10 @@ export interface Curso {
   local?: string
   repositorioUrl?: string
   links?: { rotulo: string; url: string }[]
+  /** Condição de participação exibida no topo da landing (ex.: gratuito). */
+  acesso?: { rotulo: string; detalhe?: string }
+  /** Aviso do curso sobre o estado do conteúdo, exibido na landing. */
+  aviso?: { titulo: string; texto?: string }
 }
 
 export interface Encontro extends Disponibilidade {
@@ -96,6 +100,8 @@ export interface RenderedCurso {
   local?: string
   repositorioUrl?: string
   links: { rotulo: string; url: string }[]
+  acesso?: { rotulo: string; detalhe?: string }
+  aviso?: { titulo: string; texto?: string }
 }
 
 export interface RenderedEncontro {

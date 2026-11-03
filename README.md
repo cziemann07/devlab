@@ -1,6 +1,6 @@
 # DevLab
 
-Plataforma web de apoio a minicursos de tecnologia do TADS / IFPR Campus Foz do Iguaçu. O primeiro minicurso é **Vue.js + GitHub**.
+Plataforma web de apoio a minicursos de tecnologia, desenvolvida por estudantes do TADS / IFPR Campus Foz do Iguaçu no Projeto de Extensão II. É uma iniciativa estudantil, não um sistema oficial do IFPR. O primeiro minicurso é **Vue.js + GitHub**.
 
 **Site publicado:** https://cziemann07.github.io/devlab/
 
@@ -63,6 +63,11 @@ Todo o conteúdo estruturado fica em arquivos TypeScript dentro de `content/`. T
 2. Registre o curso em `content/index.ts`.
 3. Defina `site.cursoDestaque` com o slug do curso exibido em `/`.
 
+Campos opcionais do curso exibidos na landing:
+
+- `acesso`: condição de participação (ex.: `{ rotulo: 'Gratuito', detalhe: 'inscrições a confirmar' }`).
+- `aviso`: aviso sobre o estado do conteúdo (`{ titulo, texto }`), útil enquanto parte do material é preliminar ou demonstrativa.
+
 ### Encontro
 
 Adicione um item em `encontros` no `index.ts` do curso. Use `tipo: 'preparacao'` para a etapa inicial ou `tipo: 'encontro'` para os encontros com data e horário. O texto de apoio fica em `encontros/<arquivo>.md` e é referenciado em `descricao`.
@@ -112,7 +117,7 @@ O deploy é automático a cada push na branch `main`:
 2. `npm run build`
 3. Publicação do conteúdo de `dist/` no GitHub Pages
 
-O workflow está em `.github/workflows/deploy.yml`. O `base` do Vite é `./` e o roteamento usa hash, então o site funciona tanto em `https://<usuario>.github.io/<repositorio>/` quanto em um domínio próprio sem reconfiguração.
+O workflow está em `.github/workflows/deploy.yml`. Pull requests para a `main` executam o mesmo `npm ci` + `npm run build` (`.github/workflows/ci.yml`), sem publicar, para que erros de tipo ou de conteúdo apareçam antes do merge. O `base` do Vite é `./` e o roteamento usa hash, então o site funciona tanto em `https://<usuario>.github.io/<repositorio>/` quanto em um domínio próprio sem reconfiguração.
 
 ## Identificação institucional
 

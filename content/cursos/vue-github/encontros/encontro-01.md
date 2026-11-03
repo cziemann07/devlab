@@ -21,4 +21,4 @@ npm run dev
 
 Durante a criação, aceite TypeScript e Vue Router. Os demais recursos são opcionais para o minicurso.
 
-> O roteiro e os exemplos deste encontro são demonstrativos e podem mudar até a data do minicurso.
+> O título e os tópicos deste encontro seguem o planejamento preliminar do minicurso e podem mudar. O texto e os exemplos desta página são demonstrativos.

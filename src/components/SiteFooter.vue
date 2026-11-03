@@ -12,6 +12,7 @@ const course = getCourse()
         Tecnologia em Análise e Desenvolvimento de Sistemas · IFPR Campus Foz do Iguaçu
       </div>
       <div class="footer-links">
+        Iniciativa estudantil, não é um sistema oficial do IFPR.
         Conteúdo produzido pelas equipes do minicurso.
         <template v-if="course?.curso.repositorioUrl">
           Código aberto no
