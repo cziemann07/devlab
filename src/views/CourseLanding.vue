@@ -579,6 +579,10 @@ function exercisesCount(stage: RenderedEncontro): number {
     grid-template-columns: 1fr;
   }
 
+  .hero-terminal {
+    display: none;
+  }
+
   .timeline {
     grid-template-columns: 1fr;
   }
