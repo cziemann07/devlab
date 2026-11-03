@@ -123,6 +123,12 @@ const { goHomeSection } = useSectionNav()
   color: var(--text);
 }
 
+/* .site-nav rola no eixo x e cortaria um contorno externo. */
+.nav-link:focus-visible {
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+
 @media (max-width: 720px) {
   .container {
     gap: 0.65rem;

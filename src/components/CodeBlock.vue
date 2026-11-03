@@ -54,6 +54,7 @@ onBeforeUnmount(() => {
         v-if="codigo.githubUrl"
         class="btn btn-sm"
         :href="codigo.githubUrl"
+        :aria-label="`GitHub: ${codigo.titulo} (abre em nova aba)`"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -64,7 +65,7 @@ onBeforeUnmount(() => {
         class="btn btn-sm copy-btn"
         type="button"
         :data-copied="copyState === 'copied' ? 'true' : 'false'"
-        :aria-label="`Copiar ${codigo.titulo}`"
+        :aria-label="`${copyLabel} ${codigo.titulo}`"
         @click="copyCode"
       >
         {{ copyLabel }}
