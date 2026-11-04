@@ -6,6 +6,7 @@ import { useSectionNav } from '../composables/useSectionNav'
 
 const course = getCourse()
 const repositoryUrl = computed(() => course?.curso.repositorioUrl)
+const courseTitle = computed(() => course?.curso.titulo)
 
 const { goHomeSection } = useSectionNav()
 </script>
@@ -13,10 +14,13 @@ const { goHomeSection } = useSectionNav()
 <template>
   <header class="site-header">
     <div class="container">
-      <RouterLink class="brand" to="/" aria-label="DevLab, página inicial">
+      <RouterLink class="brand" to="/">
         <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
         <span class="brand-name">DevLab</span>
-        <small>· TADS IFPR</small>
+        <span v-if="courseTitle" class="brand-course">
+          <span class="sr-only">, minicurso</span>
+          {{ courseTitle }}
+        </span>
       </RouterLink>
 
       <nav class="site-nav" aria-label="Principal">
@@ -79,14 +83,16 @@ const { goHomeSection } = useSectionNav()
   border: 1px solid var(--border);
   border-radius: 7px;
   background: var(--surface-2);
-  color: var(--primary);
+  color: var(--brand);
   font-family: var(--font-mono);
   font-size: 0.78rem;
 }
 
-.brand small {
+.brand-course {
+  padding-left: 0.65rem;
+  border-left: 1px solid var(--border);
   color: var(--text-2);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: 500;
 }
 
@@ -134,7 +140,7 @@ const { goHomeSection } = useSectionNav()
     gap: 0.65rem;
   }
 
-  .brand small {
+  .brand-course {
     display: none;
   }
 

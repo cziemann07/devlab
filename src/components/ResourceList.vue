@@ -10,14 +10,17 @@ function rowProps(item: ResourceItem): Record<string, unknown> {
   return item.to ? { to: item.to } : {}
 }
 
+function actionText(item: ResourceItem): string {
+  return item.acao ?? (item.external ? 'Abrir' : 'Ver')
+}
+
 function hrefLabel(item: ResourceItem): string {
-  return item.external
-    ? `Abrir ${item.titulo} (abre em nova aba)`
-    : `Ver ${item.titulo}`
+  const label = `${actionText(item)} ${item.titulo}`
+  return item.newTab || item.external ? `${label} (abre em nova aba)` : label
 }
 
 function hrefAttributes(item: ResourceItem): Record<string, string> {
-  return item.external
+  return item.newTab || item.external
     ? { target: '_blank', rel: 'noopener noreferrer' }
     : {}
 }
@@ -55,7 +58,7 @@ function hrefAttributes(item: ResourceItem): Record<string, string> {
               :href="item.href"
               :aria-label="hrefLabel(item)"
             >
-              {{ item.external ? 'Abrir ↗' : 'Ver' }}
+              {{ actionText(item) }}{{ item.newTab || item.external ? ' ↗' : '' }}
             </a>
             <a
               v-if="item.downloadHref"

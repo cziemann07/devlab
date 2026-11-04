@@ -15,7 +15,7 @@ body {
   margin: 0;
   min-width: 360px;
   background:
-    radial-gradient(ellipse 70% 45% at 50% -10%, rgba(66, 184, 131, 0.08), transparent 70%),
+    radial-gradient(ellipse 70% 45% at 50% -10%, rgba(236, 232, 223, 0.045), transparent 70%),
     var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
@@ -82,7 +82,7 @@ samp {
 }
 
 ::selection {
-  background: rgba(66, 184, 131, 0.35);
+  background: var(--primary-line);
 }
 
 :focus-visible {
@@ -176,7 +176,7 @@ samp {
 }
 
 .btn:hover {
-  border-color: #3d4754;
+  border-color: var(--border-strong);
   background: var(--surface-2);
 }
 
@@ -191,8 +191,8 @@ samp {
 }
 
 .btn-primary:hover {
-  border-color: #4fc791;
-  background: #4fc791;
+  border-color: var(--primary-hover);
+  background: var(--primary-hover);
 }
 
 .btn-sm {

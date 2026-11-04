@@ -130,7 +130,7 @@ onBeforeUnmount(() => {
 }
 
 .copy-btn[data-copied="true"] {
-  border-color: rgba(66, 184, 131, 0.4);
+  border-color: var(--primary-line);
   color: var(--primary);
 }
 

@@ -2,6 +2,7 @@ import data from 'virtual:devlab-content'
 import type {
   RenderedCodigo,
   RenderedCourseContent,
+  RenderedDesafio,
   RenderedEncontro,
   RenderedExercicio,
   RenderedMaterial,
@@ -82,4 +83,22 @@ export function exercisesOfEncounter(
   encounterId: string,
 ): RenderedExercicio[] {
   return course.exercicios.filter((exercise) => exercise.encontroId === encounterId)
+}
+
+export function getChallenge(
+  course: RenderedCourseContent,
+  id: string,
+): RenderedDesafio | undefined {
+  return course.desafios.find((challenge) => challenge.id === id)
+}
+
+export function challengesFor(
+  course: RenderedCourseContent,
+  encounterId: string,
+): RenderedDesafio[] {
+  return course.desafios.filter((challenge) => challenge.encontroId === encounterId)
+}
+
+export function coursePath(course: RenderedCourseContent, ...parts: string[]): string {
+  return ['', 'cursos', course.curso.slug, ...parts].join('/')
 }

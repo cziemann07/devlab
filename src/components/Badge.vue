@@ -33,7 +33,7 @@ withDefaults(
 }
 
 .badge--primary {
-  border-color: rgba(66, 184, 131, 0.35);
+  border-color: var(--primary-line);
   background: var(--primary-soft);
   color: var(--primary);
 }

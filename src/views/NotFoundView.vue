@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
 <template>
   <section class="not-found">
     <div class="container">
-      <p class="eyebrow">// erro 404</p>
+      <p class="eyebrow">Erro 404</p>
       <h1>Página não encontrada</h1>
       <p class="lead">
         O endereço que você tentou abrir não existe ou o conteúdo ainda não foi publicado.

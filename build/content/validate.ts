@@ -5,6 +5,8 @@ import type { CourseContent, Site } from '../../src/types/content'
 const KEBAB_CASE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/
+const HEX_COLOR = /^#[0-9a-fA-F]{6}$/
+const QUESTIONNAIRE_TYPES = new Set(['diagnostico', 'final'])
 const SUPPORTED_LANGUAGES = new Set(['vue', 'ts', 'js', 'html', 'css', 'bash', 'json'])
 
 type Rule = `V${number}` | 'W'
@@ -126,6 +128,8 @@ export function validateContent(
     const materials = course.materiais
     const exercises = course.exercicios
     const codes = course.codigos
+    const questionnaires = course.questionarios ?? []
+    const challenges = course.desafios ?? []
 
     const encounterById = new Map(encounters.map((item) => [item.id, item]))
     const codeById = new Map(codes.map((item) => [item.id, item]))
@@ -137,12 +141,16 @@ export function validateContent(
     duplicateIds(course, 'material', materials.map((item) => item.id))
     duplicateIds(course, 'exercicio', exercises.map((item) => item.id))
     duplicateIds(course, 'codigo', codeIds)
+    duplicateIds(course, 'questionario', questionnaires.map((item) => item.id))
+    duplicateIds(course, 'desafio', challenges.map((item) => item.id))
 
     for (const [entity, items] of [
       ['encontro', encounters],
       ['material', materials],
       ['exercicio', exercises],
       ['codigo', codes],
+      ['questionario', questionnaires],
+      ['desafio', challenges],
     ] as const) {
       for (const item of items) {
         if (!KEBAB_CASE.test(item.id)) {
@@ -167,6 +175,19 @@ export function validateContent(
     checkExternalUrl('curso', slug, 'repositorioUrl', course.curso.repositorioUrl)
     for (const link of course.curso.links ?? []) {
       checkExternalUrl('curso', slug, 'links.url', link.url)
+    }
+
+    const { tema, tituloDestaque, titulo } = course.curso
+    if (tema) {
+      if (!HEX_COLOR.test(tema.destaque)) {
+        addError('V11', slug, 'curso', slug, 'tema.destaque', `Cor inválida: "${tema.destaque}". Use hex no formato #rrggbb.`)
+      }
+      if (tema.tinta && !HEX_COLOR.test(tema.tinta)) {
+        addError('V11', slug, 'curso', slug, 'tema.tinta', `Cor inválida: "${tema.tinta}". Use hex no formato #rrggbb.`)
+      }
+    }
+    if (tituloDestaque && !titulo.includes(tituloDestaque)) {
+      addError('V11', slug, 'curso', slug, 'tituloDestaque', `"${tituloDestaque}" não aparece no título "${titulo}".`)
     }
 
     if (!isValidDate(course.curso.periodo.inicio) || !isValidDate(course.curso.periodo.fim)) {
@@ -451,6 +472,73 @@ export function validateContent(
             'papel',
             `Código final publicado é referenciado apenas por resolução em breve; isso vazaria a solução. Publique a resolução ou o código.`,
           )
+        }
+      }
+    }
+
+    const seenQuestionnaireTypes = new Set<string>()
+    for (const questionnaire of questionnaires) {
+      if (!QUESTIONNAIRE_TYPES.has(questionnaire.tipo)) {
+        addError('V8', slug, 'questionario', questionnaire.id, 'tipo', `Tipo "${questionnaire.tipo}" inválido. Use: diagnostico, final.`)
+      }
+      if (seenQuestionnaireTypes.has(questionnaire.tipo)) {
+        addWarning(slug, 'questionario', questionnaire.id, 'tipo', `Há mais de um questionário do tipo "${questionnaire.tipo}".`)
+      }
+      seenQuestionnaireTypes.add(questionnaire.tipo)
+      if (questionnaire.status === 'publicado' && !questionnaire.url) {
+        addError('V6', slug, 'questionario', questionnaire.id, 'url', 'Questionário publicado exige o link do formulário externo.')
+      }
+      if (questionnaire.url && !questionnaire.url.startsWith('https://')) {
+        addError('V6', slug, 'questionario', questionnaire.id, 'url', `O link do formulário deve usar https://: ${questionnaire.url}`)
+      }
+    }
+
+    for (const challenge of challenges) {
+      if (challenge.encontroId && !encounterById.has(challenge.encontroId)) {
+        addError(
+          'V4',
+          slug,
+          'desafio',
+          challenge.id,
+          'encontroId',
+          `Encontro "${challenge.encontroId}" não existe. Encontros disponíveis: ${encounterIds.join(', ') || '(nenhum)'}.`,
+        )
+      }
+      if (challenge.status === 'publicado') {
+        if (challenge.perguntas.length === 0) {
+          addError('V6', slug, 'desafio', challenge.id, 'perguntas', 'Desafio publicado exige ao menos uma pergunta.')
+        }
+        const encounter = challenge.encontroId ? encounterById.get(challenge.encontroId) : undefined
+        if (encounter?.status === 'rascunho') {
+          addError('V7', slug, 'desafio', challenge.id, 'encontroId', `Desafio publicado está vinculado ao encontro em rascunho "${encounter.id}".`)
+        }
+      }
+      for (const [index, question] of challenge.perguntas.entries()) {
+        const field = `perguntas[${index}]`
+        if (!question.enunciado.trim()) {
+          addError('V6', slug, 'desafio', challenge.id, `${field}.enunciado`, 'Pergunta sem enunciado.')
+        }
+        if (question.alternativas.length < 2 || question.alternativas.length > 6) {
+          addError('V12', slug, 'desafio', challenge.id, `${field}.alternativas`, `Use de 2 a 6 alternativas (há ${question.alternativas.length}).`)
+        }
+        if (question.alternativas.some((option) => !option.trim())) {
+          addError('V12', slug, 'desafio', challenge.id, `${field}.alternativas`, 'Há alternativa vazia.')
+        }
+        if (new Set(question.alternativas).size !== question.alternativas.length) {
+          addError('V12', slug, 'desafio', challenge.id, `${field}.alternativas`, 'Há alternativas repetidas.')
+        }
+        if (!Number.isInteger(question.correta) || question.correta < 0 || question.correta >= question.alternativas.length) {
+          addError(
+            'V12',
+            slug,
+            'desafio',
+            challenge.id,
+            `${field}.correta`,
+            `Índice ${question.correta} fora das alternativas (use de 0 a ${question.alternativas.length - 1}).`,
+          )
+        }
+        if (!question.explicacao.trim()) {
+          addError('V6', slug, 'desafio', challenge.id, `${field}.explicacao`, 'Explique a alternativa correta.')
         }
       }
     }

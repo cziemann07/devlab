@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { getCourse, getEncounter, getExercise } from './content'
+import { getChallenge, getCourse, getEncounter, getExercise } from './content'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -25,13 +25,21 @@ const router = createRouter({
       component: () => import('./views/ExerciseView.vue'),
     },
     {
+      path: '/cursos/:slug/desafios/:id',
+      name: 'challenge',
+      component: () => import('./views/ChallengeView.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('./views/NotFoundView.vue'),
     },
   ],
-  scrollBehavior(_to, _from, savedPosition) {
-    return savedPosition ?? { top: 0 }
+  scrollBehavior(to, _from, savedPosition) {
+    if (savedPosition) return savedPosition
+    // Âncoras dentro de uma página (ex.: #exercicios no encontro).
+    if (to.hash) return { el: to.hash, top: 88 }
+    return { top: 0 }
   },
 })
 
@@ -68,6 +76,14 @@ router.afterEach((to) => {
     const exercise = getExercise(course, String(to.params.id ?? ''))
     document.title = exercise
       ? `Exercício ${exercise.codigo} · ${exercise.titulo} — DevLab`
+      : notFoundTitle
+    return
+  }
+
+  if (to.name === 'challenge') {
+    const challenge = getChallenge(course, String(to.params.id ?? ''))
+    document.title = challenge
+      ? `Desafio · ${challenge.titulo} — ${course.curso.titulo} — DevLab`
       : notFoundTitle
     return
   }

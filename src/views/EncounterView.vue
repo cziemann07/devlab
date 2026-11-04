@@ -11,6 +11,7 @@ import Prose from '../components/Prose.vue'
 import ResourceList from '../components/ResourceList.vue'
 import NotFoundView from './NotFoundView.vue'
 import {
+  challengesFor,
   codesFor,
   exercisesFor,
   getCourse,
@@ -23,7 +24,9 @@ import {
   formatTimeRange,
   temporalStatusFor,
 } from '../utils/date'
-import { exerciseToResource, materialToResource } from '../utils/resources'
+import { challengeToResource, exerciseToResource, materialToResource } from '../utils/resources'
+import { groupSequence } from '../utils/sequence'
+import { useClock } from '../composables/useCourseMoment'
 
 const route = useRoute()
 
@@ -43,10 +46,23 @@ const next = computed(() =>
     : undefined,
 )
 
+const { now } = useClock()
 const temporal = computed(() =>
   course.value && encounter.value
-    ? temporalStatusFor(course.value.encontros, encounter.value)
+    ? temporalStatusFor(course.value.encontros, encounter.value, now.value)
     : null,
+)
+
+const sequenceGroups = computed(() =>
+  encounter.value ? groupSequence(encounter.value.sequencia) : [],
+)
+
+const challengeItems = computed(() =>
+  course.value && encounter.value
+    ? challengesFor(course.value, encounter.value.id).map((challenge) =>
+        challengeToResource(challenge, course.value!.curso.slug),
+      )
+    : [],
 )
 
 const materialItems = computed(() =>
@@ -126,13 +142,14 @@ function encounterTitle(type: string, id: string): string {
 
         <header class="encounter-head">
           <p class="eyebrow">
-            // {{ encounter.tipo === 'preparacao' ? 'preparação' : `encontro ${encounter.id}` }}
+            {{ encounter.tipo === 'preparacao' ? 'Preparação' : `Encontro ${encounter.id}` }}
           </p>
           <h1>{{ encounter.titulo }}</h1>
           <p class="lead">{{ encounter.resumo }}</p>
 
           <div class="encounter-facts">
             <Badge v-if="encounter.tipo === 'preparacao'">antes do curso</Badge>
+            <Badge v-else-if="temporal === 'hoje'" variant="primary" dot>hoje</Badge>
             <Badge v-else-if="temporal === 'proximo'" variant="primary" dot>
               próximo encontro
             </Badge>
@@ -160,28 +177,54 @@ function encounterTitle(type: string, id: string): string {
                 Os horários podem variar.
               </template>
             </p>
-            <ol class="agenda">
-              <li v-for="step in encounter.sequencia" :key="`${step.titulo}-${step.horario}`">
-                <time v-if="step.horario">{{ step.horario }}</time>
-                <strong>{{ step.titulo }}</strong>
-                <span v-if="step.detalhe">{{ step.detalhe }}</span>
-              </li>
-            </ol>
+            <div v-for="group in sequenceGroups" :key="group.grupo ?? 'sem-grupo'" class="agenda-group">
+              <h3 v-if="group.grupo" class="agenda-label">{{ group.grupo }}</h3>
+              <ol class="agenda">
+                <li v-for="step in group.itens" :key="`${step.titulo}-${step.horario}`">
+                  <time v-if="step.horario">{{ step.horario }}</time>
+                  <strong>{{ step.titulo }}</strong>
+                  <span v-if="step.detalhe">{{ step.detalhe }}</span>
+                </li>
+              </ol>
+            </div>
           </section>
 
-          <section v-if="materialItems.length" class="block" aria-labelledby="materiais-titulo">
+          <section
+            v-if="materialItems.length"
+            id="materiais"
+            class="block"
+            aria-labelledby="materiais-titulo"
+          >
             <h2 id="materiais-titulo">Materiais</h2>
             <p class="muted">Slides, apostilas e referências desta etapa.</p>
             <ResourceList :items="materialItems" />
           </section>
 
-          <section v-if="exerciseItems.length" class="block" aria-labelledby="exercicios-titulo">
+          <section
+            v-if="exerciseItems.length"
+            id="exercicios"
+            class="block"
+            aria-labelledby="exercicios-titulo"
+          >
             <h2 id="exercicios-titulo">Exercícios</h2>
             <p class="muted">Cada exercício tem enunciado, dicas e resolução quando publicada.</p>
             <ResourceList :items="exerciseItems" />
           </section>
 
-          <section v-if="codeItems.length" class="block" aria-labelledby="codigo-titulo">
+          <section
+            v-if="challengeItems.length"
+            id="desafios"
+            class="block"
+            aria-labelledby="desafios-titulo"
+          >
+            <h2 id="desafios-titulo">Desafios</h2>
+            <p class="muted">
+              Perguntas rápidas para conferir o que ficou. Respondidas no navegador, sem nota nem ranking.
+            </p>
+            <ResourceList :items="challengeItems" />
+          </section>
+
+          <section v-if="codeItems.length" id="codigo" class="block" aria-labelledby="codigo-titulo">
             <h2 id="codigo-titulo">Código desta etapa</h2>
             <p class="muted">
               Os arquivos completos estão no GitHub. Aqui ficam os trechos principais.
@@ -363,6 +406,19 @@ function encounterTitle(type: string, id: string): string {
 .block > .muted {
   margin: 0 0 1.25rem;
   font-size: 0.93rem;
+}
+
+.agenda-group + .agenda-group {
+  margin-top: 0.4rem;
+}
+
+.agenda-label {
+  margin: 0 0 0.85rem;
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .agenda {
