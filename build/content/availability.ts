@@ -3,14 +3,18 @@ import { join } from 'node:path'
 import type {
   Codigo,
   CourseContent,
+  Desafio,
   Encontro,
   Exercicio,
   Material,
+  Questionario,
   RenderedCodigo,
   RenderedCourseContent,
+  RenderedDesafio,
   RenderedEncontro,
   RenderedExercicio,
   RenderedMaterial,
+  RenderedQuestionario,
   RenderedResolucao,
   Site,
   SiteData,
@@ -62,7 +66,7 @@ function renderMaterial(material: Material): RenderedMaterial {
   if (available && material.localizacao) {
     if ('arquivo' in material.localizacao) {
       href = publicHref(material.localizacao.arquivo)
-      if (material.tipo === 'pdf') downloadHref = href
+      downloadHref = href
     } else {
       href = material.localizacao.url
       external = true
@@ -193,6 +197,40 @@ function renderExercise(
   }
 }
 
+function renderQuestionnaire(questionnaire: Questionario): RenderedQuestionario {
+  const available = questionnaire.status === 'publicado'
+  return {
+    id: questionnaire.id,
+    tipo: questionnaire.tipo,
+    titulo: questionnaire.titulo,
+    descricao: questionnaire.descricao,
+    disponivel: available,
+    demonstrativo: isDemonstrativo(questionnaire),
+    url: available ? questionnaire.url : undefined,
+  }
+}
+
+function renderChallenge(challenge: Desafio, renderer: Renderer): RenderedDesafio {
+  const available = challenge.status === 'publicado'
+  return {
+    id: challenge.id,
+    encontroId: challenge.encontroId,
+    titulo: challenge.titulo,
+    resumo: challenge.resumo,
+    disponivel: available,
+    demonstrativo: isDemonstrativo(challenge),
+    totalPerguntas: challenge.perguntas.length,
+    perguntas: available
+      ? challenge.perguntas.map((question) => ({
+          enunciadoHtml: renderer.inlineMarkdown(question.enunciado),
+          alternativasHtml: question.alternativas.map((option) => renderer.inlineMarkdown(option)),
+          correta: question.correta,
+          explicacaoHtml: renderer.inlineMarkdown(question.explicacao),
+        }))
+      : [],
+  }
+}
+
 export async function renderContent(
   site: Site,
   courses: CourseContent[],
@@ -221,6 +259,15 @@ export async function renderContent(
       return true
     })
 
+    const visibleQuestionnaires = (course.questionarios ?? []).filter(
+      (questionnaire) => questionnaire.status !== 'rascunho',
+    )
+    const visibleChallenges = (course.desafios ?? []).filter((challenge) => {
+      if (challenge.status === 'rascunho') return false
+      if (challenge.encontroId && !activeEncounterIds.has(challenge.encontroId)) return false
+      return true
+    })
+
     const codeMap = new Map(
       visibleCodes.map((code) => [code.id, renderCode(code, courseDir, renderer)]),
     )
@@ -229,6 +276,7 @@ export async function renderContent(
       curso: {
         slug: course.curso.slug,
         titulo: course.curso.titulo,
+        tituloDestaque: course.curso.tituloDestaque,
         subtitulo: course.curso.subtitulo,
         descricao: course.curso.descricao,
         periodo: course.curso.periodo,
@@ -237,6 +285,7 @@ export async function renderContent(
         links: course.curso.links ?? [],
         acesso: course.curso.acesso,
         aviso: course.curso.aviso,
+        tema: course.curso.tema,
       },
       encontros: activeEncounters.map((encounter) =>
         renderEncounter(encounter, courseDir, renderer),
@@ -246,6 +295,8 @@ export async function renderContent(
         renderExercise(exercise, courseDir, renderer, codeMap),
       ),
       codigos: [...codeMap.values()],
+      questionarios: visibleQuestionnaires.map(renderQuestionnaire),
+      desafios: visibleChallenges.map((challenge) => renderChallenge(challenge, renderer)),
     }
   })
 

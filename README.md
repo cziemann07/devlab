@@ -1,6 +1,6 @@
 # DevLab
 
-Plataforma web de apoio a minicursos de tecnologia, desenvolvida por estudantes do TADS / IFPR Campus Foz do Iguaçu no Projeto de Extensão II. É uma iniciativa estudantil, não um sistema oficial do IFPR. O primeiro minicurso é **Vue.js + GitHub**.
+Plataforma web de apoio a minicursos de tecnologia, desenvolvida por estudantes do TADS / IFPR Campus Foz do Iguaçu no Projeto de Extensão II. É uma iniciativa estudantil, não um sistema oficial do IFPR. O primeiro minicurso é **Já Vue.js? — A arte de desenvolver com Vue.js**, com o mascote Vuati.
 
 **Site publicado:** https://cziemann07.github.io/devlab/
 
@@ -34,6 +34,7 @@ O `build` executa a checagem de tipos e a validação do conteúdo. Qualquer err
 
 ```
 content/
+  README.md                    # como publicar apostila, slides, questionários e desafios
   index.ts                     # site + registro dos cursos
   cursos/vue-github/
     index.ts                   # exporta o CourseContent do curso
@@ -51,7 +52,28 @@ src/
   views/                       # CourseLanding, EncounterView, ExerciseView, NotFoundView
   components/                  # CodeBlock, Prose, ResourceList, HintList, ...
   styles/tokens.css            # tokens do design system
+  assets/vuati/                # poses do mascote + regras de uso (README.md)
+scripts/
+  vuati-isolar-poses.py        # isola as poses da imagem-conceito (Python + Pillow)
 ```
+
+## Identidade: plataforma × curso
+
+A marca **DevLab** é neutra (off-white sobre grafite) e não depende da
+tecnologia de nenhum curso. Cada curso pode definir `curso.tema` (cor de
+destaque e uso do mascote); essa cor vale dentro do conteúdo do curso, enquanto
+cabeçalho e rodapé mantêm a identidade DevLab.
+
+## Landing contextual
+
+A landing dá prioridade ao que importa no momento do estudante: antes do curso
+(preparação), no dia de um encontro (atalhos para o encontro, exercícios e
+código), entre encontros (revisão e próximo encontro) e depois (revisão e
+questionário final). **A data muda só a prioridade visual**: todo conteúdo
+publicado continua acessível pelo cronograma e pelas páginas internas.
+
+Para conferir os estados, use `?simular=AAAA-MM-DD`, por exemplo
+`/#/?simular=2026-11-25`.
 
 ## Como adicionar conteúdo
 
@@ -91,6 +113,13 @@ resolucao: {
 
 Uma resolução `em_breve` não tem o texto nem o código enviados ao navegador. Para liberar, altere o status para `publicado` e faça um novo deploy.
 
+### Questionários e desafios
+
+`questionarios` aponta para formulários externos (o DevLab não coleta
+respostas) e `desafios` define quizzes de múltipla escolha resolvidos no
+navegador, acessíveis em `/cursos/<slug>/desafios/<id>`. Detalhes e exemplos em
+[`content/README.md`](content/README.md).
+
 ### Código
 
 Arquivos-fonte ficam em `content/cursos/<slug>/codigo/`. Use `arquivo` (relativo à pasta do curso) ou `fonte` inline, nunca os dois. O campo `githubUrl` aponta para o arquivo completo no GitHub. O campo `papel` pode ser `exemplo`, `inicial` ou `final`.
@@ -107,7 +136,7 @@ Todo o conteúdo atual é demonstrativo.
 
 ## Validação
 
-O pipeline em `build/content/` valida identificadores, referências, arquivos locais, campos obrigatórios, consistência de status, datas/horários e vazamento de resoluções. As mensagens informam curso, entidade, id, campo e a correção sugerida. Avisos não interrompem o build.
+O pipeline em `build/content/` valida identificadores, referências, arquivos locais, campos obrigatórios, consistência de status, datas/horários, vazamento de resoluções, cores do tema, links de questionários e estrutura dos desafios (alternativas e resposta correta). As mensagens informam curso, entidade, id, campo e a correção sugerida. Avisos não interrompem o build.
 
 ## Publicação
 

@@ -4,12 +4,26 @@
   --bg: #0b0f14;
   --surface: #151b23;
   --surface-2: #1d2630;
-  --primary: #42b883;
-  --primary-ink: #0b0f14;
-  --primary-soft: rgba(66, 184, 131, 0.12);
+  --surface-3: #252f3a;
+
+  /*
+   * Identidade DevLab: neutra, off-white sobre grafite (as cores do traje do
+   * Vuati). Não depende da tecnologia de nenhum curso.
+   */
+  --brand: #ece8df;
+  --brand-ink: #0b0f14;
+
+  /*
+   * Destaque do contexto atual. Fora de um curso é a cor da marca; dentro de um
+   * curso, App.vue substitui por curso.tema (ex.: verde nesta edição de Vue).
+   */
+  --primary: var(--brand);
+  --primary-ink: var(--brand-ink);
+
   --text: #f3f4f6;
   --text-2: #9ca3af;
   --border: #303843;
+  --border-strong: #3d4754;
   --warn: #e3b341;
   --warn-soft: rgba(227, 179, 65, 0.12);
   --info: #79c0ff;
@@ -27,4 +41,16 @@
   --container: 1120px;
   --header-height: 64px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/*
+ * Variações derivadas do destaque. Declaradas também em .course-theme para que
+ * sejam recalculadas onde o destaque do curso é aplicado.
+ */
+:root,
+.course-theme {
+  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
+  --primary-line: color-mix(in srgb, var(--primary) 38%, transparent);
+  --primary-glow: color-mix(in srgb, var(--primary) 9%, transparent);
+  --primary-hover: color-mix(in srgb, var(--primary) 86%, white);
 }

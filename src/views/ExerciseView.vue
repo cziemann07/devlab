@@ -9,6 +9,7 @@ import DemoNotice from '../components/DemoNotice.vue'
 import EmptyState from '../components/EmptyState.vue'
 import HintList from '../components/HintList.vue'
 import Prose from '../components/Prose.vue'
+import VuatiMascot from '../components/VuatiMascot.vue'
 import NotFoundView from './NotFoundView.vue'
 import {
   exercisesFor,
@@ -202,7 +203,10 @@ const { goExerciseSection } = useSectionNav()
             aria-labelledby="dicas-titulo"
           >
             <h2 id="dicas-titulo" tabindex="-1"><span class="n">05</span>Dicas</h2>
-            <p class="muted">Revele uma por vez. Tente antes de abrir a próxima.</p>
+            <div class="hints-intro">
+              <VuatiMascot v-if="course.curso.tema?.mascote" pose="side" size="sm" />
+              <p class="muted">Revele uma por vez. Tente antes de abrir a próxima.</p>
+            </div>
             <HintList :hints="exercise.dicasHtml" />
           </section>
 
@@ -305,6 +309,22 @@ const { goExerciseSection } = useSectionNav()
 </template>
 
 <style scoped>
+.hints-intro {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.hints-intro p {
+  margin: 0;
+}
+
+.hints-intro :deep(.vuati) {
+  --vuati-h: 64px;
+  margin-left: -0.5rem;
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 220px;

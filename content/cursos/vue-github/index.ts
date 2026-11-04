@@ -6,10 +6,11 @@ const codeBase = `${repositoryBase}/blob/main/content/cursos/vue-github/codigo`
 export const vueGithub: CourseContent = {
   curso: {
     slug: 'vue-github',
-    titulo: 'Vue.js + GitHub',
-    subtitulo: 'Do primeiro componente ao primeiro push',
+    titulo: 'Já Vue.js?',
+    tituloDestaque: 'Vue.js',
+    subtitulo: 'A arte de desenvolver com Vue.js',
     descricao:
-      'Um minicurso introdutório para quem está começando em desenvolvimento web: construímos uma aplicação Vue, versionamos com Git e publicamos no GitHub Pages.',
+      'Minicurso introdutório para quem está começando em desenvolvimento web. Você constrói uma aplicação com Vue.js do zero e, no segundo encontro, versiona e publica o projeto com GitHub.',
     periodo: { inicio: '2026-11-24', fim: '2026-11-26' },
     local: 'IFPR Campus Foz do Iguaçu',
     repositorioUrl: repositoryBase,
@@ -18,6 +19,8 @@ export const vueGithub: CourseContent = {
       { rotulo: 'GitHub Pages', url: 'https://docs.github.com/pt/pages' },
     ],
     acesso: { rotulo: 'Gratuito' },
+    // Identidade desta edição; a marca DevLab continua neutra.
+    tema: { destaque: '#42b883', tinta: '#0b0f14', mascote: true },
     aviso: {
       titulo: 'Conteúdo em preparação',
       texto:
@@ -53,13 +56,18 @@ export const vueGithub: CourseContent = {
       horario: { inicio: '19:00', fim: '22:00' },
       local: 'Laboratório de informática — IFPR Foz do Iguaçu',
       descricao: 'encontros/encontro-01.md',
-      // Tópicos do planejamento preliminar; ordem e horários a definir pela equipe.
+      // Decisão de 03/11: teoria até o intervalo, prática depois.
+      // Os horários de cada tópico não foram definidos e não devem ser inventados.
       sequencia: [
-        { titulo: 'Conceitos fundamentais do Vue.js' },
-        { titulo: 'Estrutura de uma aplicação' },
-        { titulo: 'Componentes' },
-        { titulo: 'Interpolação e diretivas' },
-        { titulo: 'Prática', detalhe: 'Construção de uma aplicação simples' },
+        { grupo: 'Teoria · até o intervalo', titulo: 'Conceitos fundamentais do Vue.js' },
+        { grupo: 'Teoria · até o intervalo', titulo: 'Estrutura de uma aplicação' },
+        { grupo: 'Teoria · até o intervalo', titulo: 'Componentes' },
+        { grupo: 'Teoria · até o intervalo', titulo: 'Interpolação e diretivas' },
+        {
+          grupo: 'Prática · depois do intervalo',
+          titulo: 'Atividades práticas',
+          detalhe: 'Construção de uma aplicação simples',
+        },
       ],
     },
     {
@@ -444,6 +452,73 @@ export const vueGithub: CourseContent = {
       encontroId: '02',
       status: 'publicado',
       origem: 'demonstrativo',
+    },
+  ],
+  questionarios: [
+    {
+      id: 'diagnostico',
+      tipo: 'diagnostico',
+      titulo: 'Questionário diagnóstico',
+      descricao:
+        'Ajuda a equipe a conhecer o que você já sabe sobre os assuntos do minicurso. Responda antes do primeiro encontro.',
+      status: 'em_breve',
+      origem: 'oficial',
+    },
+    {
+      id: 'final',
+      tipo: 'final',
+      titulo: 'Questionário final',
+      descricao:
+        'Avalia a experiência e o que você aprendeu, para comparar com o diagnóstico. Responda depois do segundo encontro.',
+      status: 'em_breve',
+      origem: 'oficial',
+    },
+  ],
+  desafios: [
+    {
+      id: 'primeiros-passos-vue',
+      encontroId: '01',
+      titulo: 'Primeiros passos com Vue',
+      resumo: 'Cinco perguntas rápidas sobre template, reatividade e diretivas.',
+      status: 'publicado',
+      origem: 'demonstrativo',
+      perguntas: [
+        {
+          enunciado: 'Como exibir o valor da variável `nome` dentro do `<template>`?',
+          alternativas: ['`{{ nome }}`', '`${nome}`', '`<nome />`', '`v-text="{{ nome }}"`'],
+          correta: 0,
+          explicacao:
+            'A interpolação com chaves duplas, `{{ nome }}`, insere o valor no template e é atualizada quando o dado muda.',
+        },
+        {
+          enunciado: 'Em `<script setup>`, qual linha cria um número reativo começando em zero?',
+          alternativas: ['`let total = 0`', '`const total = ref(0)`', '`const total = reactive(0)`', '`this.total = 0`'],
+          correta: 1,
+          explicacao:
+            '`ref(0)` cria um valor reativo. Uma variável comum não avisa o Vue quando muda, e `reactive` trabalha com objetos, não com números.',
+        },
+        {
+          enunciado: 'Dentro do `<script setup>`, como ler o valor atual de `const nome = ref(\'\')`?',
+          alternativas: ['`nome`', '`nome.value`', '`nome()`', '`nome.get()`'],
+          correta: 1,
+          explicacao:
+            'No script, o valor de um `ref` fica em `.value`. No template o Vue faz isso automaticamente, por isso lá basta `{{ nome }}`.',
+        },
+        {
+          enunciado: 'Qual diretiva mantém um `<input>` e o estado sincronizados nos dois sentidos?',
+          alternativas: ['`v-bind`', '`v-if`', '`v-model`', '`v-on`'],
+          correta: 2,
+          explicacao:
+            '`v-model` atualiza o estado quando você digita e atualiza o campo quando o estado muda. `v-bind` liga um atributo em um único sentido.',
+        },
+        {
+          enunciado: 'Qual diretiva renderiza um elemento para cada item de um array?',
+          alternativas: ['`v-for`', '`v-show`', '`v-each`', '`v-list`'],
+          correta: 0,
+          explicacao:
+            '`v-for="item in itens"` repete o elemento para cada item. Use também `:key` com um valor único para cada item.',
+        },
+      ],
     },
   ],
 }

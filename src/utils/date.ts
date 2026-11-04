@@ -44,6 +44,19 @@ export function formatDateShort(iso: string): string {
     .replace('.', '')
 }
 
+/** "24 e 26 de novembro" (mesmo mês) ou "28 de novembro e 2 de dezembro". */
+export function formatDayList(isos: string[]): string {
+  const month = (iso: string) =>
+    new Intl.DateTimeFormat('pt-BR', { month: 'long', timeZone: TIME_ZONE }).format(dateFromIso(iso))
+  const day = (iso: string) => String(Number(iso.slice(8, 10)))
+  const join = (items: string[]) =>
+    items.length <= 1 ? items.join('') : `${items.slice(0, -1).join(', ')} e ${items[items.length - 1]}`
+  if (isos.length === 0) return ''
+  const sameMonth = isos.every((iso) => iso.slice(0, 7) === isos[0].slice(0, 7))
+  if (sameMonth) return `${join(isos.map(day))} de ${month(isos[0])}`
+  return join(isos.map((iso) => `${day(iso)} de ${month(iso)}`))
+}
+
 export function formatDay(iso: string): string {
   return new Intl.DateTimeFormat('pt-BR', {
     day: '2-digit',
@@ -84,15 +97,36 @@ export function formatDuration(minutes?: number): string {
   return minutes ? `~${minutes} min` : ''
 }
 
-export type TemporalStatus = 'proximo' | 'realizado' | null
+export type TemporalStatus = 'hoje' | 'proximo' | 'realizado' | null
+
+/** Data (YYYY-MM-DD) no fuso do minicurso. */
+export function isoDateIn(now: Date = new Date()): string {
+  return partsFor(now).date
+}
+
+/** Dias de calendário entre duas datas ISO (b - a). */
+export function daysBetween(a: string, b: string): number {
+  return Math.round((dateFromIso(b).getTime() - dateFromIso(a).getTime()) / 86_400_000)
+}
+
+/**
+ * Converte "YYYY-MM-DD" em um instante às 12h no fuso do minicurso. Usado pela
+ * simulação de data (?simular=YYYY-MM-DD); retorna undefined se for inválida.
+ */
+export function middayOf(iso: string): Date | undefined {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return undefined
+  const date = new Date(`${iso}T12:00:00-03:00`)
+  return Number.isNaN(date.getTime()) || isoDateIn(date) !== iso ? undefined : date
+}
 
 export function temporalStatusFor(
   encounters: RenderedEncontro[],
   encounter: RenderedEncontro,
+  at: Date = new Date(),
 ): TemporalStatus {
   if (encounter.tipo !== 'encontro' || !encounter.data) return null
 
-  const now = partsFor(new Date())
+  const now = partsFor(at)
   const occurred = (item: RenderedEncontro) => {
     if (!item.data) return false
     const end = item.horario?.fim ?? item.horario?.inicio ?? '23:59'
@@ -100,6 +134,7 @@ export function temporalStatusFor(
   }
 
   if (occurred(encounter)) return 'realizado'
+  if (encounter.data === now.date) return 'hoje'
 
   const upcoming = encounters
     .filter((item) => item.tipo === 'encontro' && item.data && !occurred(item))
