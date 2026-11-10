@@ -172,8 +172,11 @@ function encounterTitle(type: string, id: string): string {
           >
             <h2 id="sequencia-titulo">Sequência</h2>
             <p class="muted">
-              Roteiro previsto.
-              <template v-if="encounter.sequencia.some((step) => step.horario)">
+              Roteiro do encontro.
+              <template v-if="encounter.sequencia.some((step) => step.intervaloMin)">
+                Os minutos são relativos ao início de cada bloco, conforme os roteiros oficiais.
+              </template>
+              <template v-else-if="encounter.sequencia.some((step) => step.horario)">
                 Os horários podem variar.
               </template>
             </p>
@@ -182,6 +185,7 @@ function encounterTitle(type: string, id: string): string {
               <ol class="agenda">
                 <li v-for="step in group.itens" :key="`${step.titulo}-${step.horario}`">
                   <time v-if="step.horario">{{ step.horario }}</time>
+                  <span v-else-if="step.intervaloMin" class="agenda-relative">{{ step.intervaloMin.inicio }}–{{ step.intervaloMin.fim }} min</span>
                   <strong>{{ step.titulo }}</strong>
                   <span v-if="step.detalhe">{{ step.detalhe }}</span>
                 </li>
@@ -196,7 +200,7 @@ function encounterTitle(type: string, id: string): string {
             aria-labelledby="materiais-titulo"
           >
             <h2 id="materiais-titulo">Materiais</h2>
-            <p class="muted">Slides, apostilas e referências desta etapa.</p>
+            <p class="muted">Roteiros oficiais, apoio, slides e apostilas desta etapa.</p>
             <ResourceList :items="materialItems" />
           </section>
 
@@ -445,7 +449,8 @@ function encounterTitle(type: string, id: string): string {
   content: "";
 }
 
-.agenda time {
+.agenda time,
+.agenda .agenda-relative {
   color: var(--primary);
   font-family: var(--font-mono);
   font-size: 0.78rem;

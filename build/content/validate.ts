@@ -211,6 +211,12 @@ export function validateContent(
         }
       }
       for (const [index, step] of encounter.sequencia.entries()) {
+        if (step.intervaloMin) {
+          const { inicio, fim } = step.intervaloMin
+          if (step.horario || !Number.isInteger(inicio) || !Number.isInteger(fim) || inicio < 0 || fim <= inicio) {
+            addError('V10', slug, 'encontro', encounter.id, `sequencia[${index}].intervaloMin`, 'Use minutos inteiros não negativos, com fim maior que início e sem horário de relógio na mesma etapa.')
+          }
+        }
         if (step.horario && !TIME.test(step.horario)) {
           addError(
             'V10',

@@ -20,7 +20,14 @@ export interface TemaCurso {
   mascote?: boolean
 }
 
-export type Sequencia = { horario?: string; titulo: string; detalhe?: string; grupo?: string }[]
+export type Sequencia = {
+  horario?: string
+  /** Minutos relativos ao início do bloco; não representam um horário do relógio. */
+  intervaloMin?: { inicio: number; fim: number }
+  titulo: string
+  detalhe?: string
+  grupo?: string
+}[]
 
 export interface Curso {
   slug: string
@@ -53,7 +60,7 @@ export interface Encontro extends Disponibilidade {
   sequencia: Sequencia
 }
 
-export type TipoMaterial = 'slides' | 'pdf' | 'tutorial' | 'referencia' | 'link'
+export type TipoMaterial = 'slides' | 'pdf' | 'tutorial' | 'referencia' | 'link' | 'codigo' | 'roteiro'
 
 export interface Material extends Disponibilidade {
   id: string

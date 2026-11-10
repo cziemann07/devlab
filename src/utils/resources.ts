@@ -14,6 +14,8 @@ const MATERIAL_LABELS: Record<TipoMaterial, string> = {
   tutorial: 'Tutorial',
   referencia: 'Referência',
   link: 'Link',
+  codigo: 'Código-base',
+  roteiro: 'Roteiro',
 }
 
 const MATERIAL_ICONS: Record<TipoMaterial, string> = {
@@ -22,6 +24,8 @@ const MATERIAL_ICONS: Record<TipoMaterial, string> = {
   tutorial: 'DOC',
   referencia: 'REF',
   link: 'URL',
+  codigo: '</>',
+  roteiro: 'DOC',
 }
 
 const LEVEL_LABELS = {
