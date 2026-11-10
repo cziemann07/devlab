@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import SiteFooter from './components/SiteFooter.vue'
 import SiteHeader from './components/SiteHeader.vue'
+import InventoryDialog from './components/InventoryDialog.vue'
 import { getCourse } from './content'
 
 const main = ref<HTMLElement>()
@@ -10,7 +11,7 @@ const route = useRoute()
 
 // A identidade temática do curso vale dentro de <main>; cabeçalho e rodapé
 // mantêm a identidade neutra do DevLab.
-const courseTheme = computed<Record<string, string>>(() => {
+const courseTheme = computed((): Record<string, string> => {
   if (route.name === 'not-found') return {}
   const slug = typeof route.params.slug === 'string' ? route.params.slug : undefined
   const tema = getCourse(slug)?.curso.tema
@@ -41,6 +42,7 @@ function skipToContent(): void {
   </main>
 
   <SiteFooter />
+  <InventoryDialog />
 </template>
 
 <style scoped>

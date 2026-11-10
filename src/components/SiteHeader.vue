@@ -3,12 +3,14 @@ import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { getCourse } from '../content'
 import { useSectionNav } from '../composables/useSectionNav'
+import { useInventory } from '../composables/useInventory'
 
 const course = getCourse()
 const repositoryUrl = computed(() => course?.curso.repositorioUrl)
 const courseTitle = computed(() => course?.curso.titulo)
 
 const { goHomeSection } = useSectionNav()
+const { isInventoryOpen, openInventory } = useInventory()
 </script>
 
 <template>
@@ -32,6 +34,10 @@ const { goHomeSection } = useSectionNav()
         </button>
         <button class="nav-link" type="button" @click="goHomeSection('recursos')">
           Recursos
+        </button>
+        <button class="nav-link nav-inventory" type="button" aria-haspopup="dialog" aria-controls="inventario" :aria-expanded="isInventoryOpen" @click="openInventory">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5V4a3 3 0 0 1 6 0v1M7 5h10a3 3 0 0 1 3 3v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a3 3 0 0 1 3-3Z"/><path d="M8 22v-7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v7M9 9h6"/></svg>
+          Inventário
         </button>
         <a
           v-if="repositoryUrl"
@@ -129,6 +135,10 @@ const { goHomeSection } = useSectionNav()
   color: var(--text);
 }
 
+.nav-inventory { display: inline-flex; align-items: center; gap: 6px; }
+.nav-inventory svg { width: 16px; height: 16px; flex: none; }
+.nav-inventory[aria-expanded='true'] { color: var(--text); background: var(--surface-2); }
+
 /* .site-nav rola no eixo x e cortaria um contorno externo. */
 .nav-link:focus-visible {
   outline-offset: -2px;
@@ -156,9 +166,12 @@ const { goHomeSection } = useSectionNav()
   }
 
   .nav-link {
-    padding: 0.35rem 0.35rem;
+    padding: 0.35rem 0.25rem;
     font-size: 0.76rem;
   }
+
+  .nav-inventory { gap: 4px; }
+  .nav-inventory svg { width: 14px; height: 14px; }
 
   .nav-link--external {
     display: none;

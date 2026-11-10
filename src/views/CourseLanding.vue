@@ -9,6 +9,8 @@ import DemoNotice from '../components/DemoNotice.vue'
 import Prose from '../components/Prose.vue'
 import ResourceList from '../components/ResourceList.vue'
 import VuatiStage from '../components/VuatiStage.vue'
+import VuatiCompanion from '../components/VuatiCompanion.vue'
+import { useInventory } from '../composables/useInventory'
 import NotFoundView from './NotFoundView.vue'
 import {
   challengesFor,
@@ -48,6 +50,7 @@ const course = computed(() =>
 const { moment, now, simulated } = useCourseMoment(course)
 const view = computed(() => (course.value ? describeMoment(course.value, moment.value) : undefined))
 const atento = ref(false)
+const { openInventory } = useInventory()
 
 const stages = computed(() => (course.value ? orderedStages(course.value) : []))
 const meetings = computed(() => (course.value ? datedMeetings(course.value) : []))
@@ -357,6 +360,10 @@ const referenceResources = computed(() =>
             <Prose :html="preparation.descricaoHtml" />
           </div>
           <div class="prep-side">
+            <div v-if="hasMascot" class="prep-vuati-guide">
+              <VuatiCompanion pose="notebook" size="sm" />
+              <p>Ambiente pronto?<br /><strong>Já podemos começar.</strong></p>
+            </div>
             <h3>Downloads e links</h3>
             <ResourceList :items="preparationResources" />
           </div>
@@ -379,12 +386,22 @@ const referenceResources = computed(() =>
           </div>
         </div>
 
+        <div class="inventory-callout">
+          <VuatiCompanion v-if="hasMascot" pose="pointing" class="callout-vuati" />
+          <div>
+            <p class="eyebrow">Seu inventário</p>
+            <h3>O material da aula vai com você.</h3>
+            <p>Encontre slides, apostilas, código-base e os roteiros recebidos em um só lugar.</p>
+          </div>
+          <button class="btn" type="button" aria-haspopup="dialog" aria-controls="inventario" @click="openInventory">Abrir inventário <span aria-hidden="true">→</span></button>
+        </div>
+
         <div class="lost">
           <h3 class="lost-title">Perdeu uma etapa durante a aula?</h3>
           <ol class="lost-steps">
             <li><b>Abra o encontro do dia</b> no cronograma.</li>
-            <li><b>Entre no exercício</b> em que a turma está.</li>
-            <li><b>Copie o código inicial</b> ou revele uma dica e volte para o VS Code.</li>
+            <li><b>Consulte o roteiro oficial</b> e localize a etapa atual.</li>
+            <li><b>Confira o ponto de controle</b> na atividade ou revele uma dica e volte para o VS Code.</li>
           </ol>
         </div>
 
@@ -432,6 +449,21 @@ const referenceResources = computed(() =>
 </template>
 
 <style scoped>
+.prep-vuati-guide { display: flex; align-items: center; gap: 20px; margin: 0 0 20px; }
+.prep-vuati-guide p { margin: 0; color: var(--text-2); font-size: .82rem; }
+.prep-vuati-guide strong { color: var(--text); font-weight: 500; }
+.inventory-callout { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; padding: 24px; border: 1px solid var(--primary-line); border-radius: var(--radius-lg); background: linear-gradient(115deg, var(--primary-soft), var(--surface)); }
+.callout-vuati { --vuati-h: 120px; }
+.inventory-callout .eyebrow { margin-bottom: 6px; }
+.inventory-callout h3 { margin: 0 0 7px; font-size: 1.15rem; }
+.inventory-callout p:not(.eyebrow) { margin: 0; color: var(--text-2); font-size: .86rem; }
+.inventory-callout .btn { margin-left: auto; flex: none; }
+@media (max-width: 760px) {
+  .inventory-callout { flex-wrap: wrap; gap: 16px; padding: 20px; }
+  .callout-vuati { --vuati-h: 88px; }
+  .inventory-callout > div { flex: 1; min-width: 150px; }
+  .inventory-callout .btn { margin-left: 0; }
+}
 /* Hero */
 .hero {
   position: relative;

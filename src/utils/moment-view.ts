@@ -94,7 +94,7 @@ export function describeMoment(
         rotulo: `Hoje · ${formatTimeRange(atual.horario)}`,
         titulo: `${meetingLabel(atual)} · ${atual.titulo}`,
         texto:
-          'Perdeu alguma etapa durante a aula? Os exercícios, as dicas e o código estão no encontro, sem precisar interromper a turma.',
+          'Perdeu alguma etapa durante a aula? Consulte o roteiro oficial, localize o ponto de controle na atividade e retome com a turma.',
         acoes: compact([
           { label: 'Abrir o encontro de hoje', to: encounterTo(course, atual), primary: true },
           hasExercises && { label: 'Exercícios', to: encounterTo(course, atual, '#exercicios') },
