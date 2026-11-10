@@ -1,24 +1,38 @@
-O segundo encontro conecta o projeto ao mundo: versionamento, repositório remoto e publicação. Vamos transformar a pasta local em um projeto que qualquer pessoa pode acessar.
+O segundo encontro desenvolve o projeto principal **TodoList**, uma lista de tarefas com **Vue.js e Bootstrap**, conforme o plano oficial enviado pelos ministrantes. O Git acompanha o desenvolvimento desde o setup até o envio ao GitHub.
 
 ## Roteiro
 
-1. Retomar o projeto iniciado no encontro 01.
-2. Entender o que é um commit e como o Git guarda histórico.
-3. Criar o repositório remoto no GitHub.
-4. Enviar o projeto com `push`.
-5. Configurar o GitHub Pages e acompanhar o deploy.
+1. Iniciar o repositório do TodoList e configurar a autoria local.
+2. Integrar o layout Bootstrap e a estrutura de componentes Vue.
+3. Registrar o primeiro commit com o setup concluído.
+4. Implementar a lógica de adicionar e remover tarefas.
+5. Registrar o segundo commit e enviar o projeto ao GitHub.
+6. Conferir arquivos e histórico remoto antes da limpeza local orientada pelos ministrantes.
 
-## Comandos que vamos usar
+O plano define essa ordem, mas não informa uma duração por etapa. O passo a passo em Markdown é um material de apoio anterior, com recursos adicionais como edição e validação.
+
+## Identidade local ao projeto
+
+Depois de inicializar o repositório, configure e confira sua autoria:
 
 ```bash
-git status
-git add .
-git commit -m "feat: primeiro componente"
-git push -u origin main
+git config --local user.name "Seu Nome e Sobrenome"
+git config --local user.email "seu_email_do_github@exemplo.com"
+git config --local --get user.name
+git config --local --get user.email
 ```
 
-## Publicação
+## Dois pontos de versionamento
 
-O GitHub Pages publica arquivos estáticos gerados pelo build. Neste projeto, o deploy é feito por um workflow do GitHub Actions a cada push na branch `main`.
+- **Primeiro commit:** depois do layout e da estrutura inicial com Vue e Bootstrap.
+- **Segundo commit:** depois da lógica de criar e excluir tarefas, seguido do envio ao repositório remoto.
 
-> O título e os tópicos deste encontro seguem o planejamento preliminar do minicurso e podem mudar. O texto e os exemplos desta página são demonstrativos.
+Confirme o destino com `git remote -v` e confira no GitHub a branch `main`, os arquivos e os commits. O objetivo descrito no plano é compartilhar o repositório; publicação de um site no GitHub Pages não faz parte deste roteiro oficial.
+
+## Laboratório compartilhado
+
+O plano determina configuração com `--local`, uso da autenticação sob orientação dos ministrantes e ausência de credenciais salvas na máquina. Confira o envio ao remoto antes de realizar a limpeza local orientada pela equipe.
+
+## Materiais
+
+O PDF **Aula 2 · plano oficial do TodoList** reúne o escopo pedagógico e o guia de Git/GitHub. Slides, apostila e arquivos iniciais do projeto ainda aguardam envio e aparecem assim identificados no inventário.

@@ -4,7 +4,7 @@ Antes do primeiro encontro, reserve cerca de 30 minutos para deixar o ambiente p
 
 ## Checklist
 
-1. Instale o **Node.js LTS** (versão 20 ou superior).
+1. Tenha **Node.js e npm** compatíveis com o projeto fornecido pelos ministrantes. Se precisar instalar no seu notebook, confira com a equipe a versão usada na aula.
 2. Instale o **Git**.
 3. Instale o **VS Code** e a extensão oficial **Vue - Official**.
 4. Crie uma conta no **GitHub** e confirme o e-mail.
@@ -14,3 +14,24 @@ Antes do primeiro encontro, reserve cerca de 30 minutos para deixar o ambiente p
 Abra o terminal e execute os comandos do painel abaixo. Se as versões aparecerem, está tudo certo.
 
 Se algum comando não for reconhecido, feche e abra o terminal novamente. Se o problema continuar, chegue 15 minutos antes do encontro que a equipe ajuda na configuração.
+
+## Git no laboratório compartilhado
+
+O plano oficial determina que a identificação seja feita **dentro do repositório de cada projeto**, com `git config --local`. Não use `--global` nos computadores compartilhados.
+
+Depois de abrir ou criar o repositório, antes do primeiro commit:
+
+```bash
+git config --local user.name "Seu Nome e Sobrenome"
+git config --local user.email "seu_email_do_github@exemplo.com"
+git config --local --get user.name
+git config --local --get user.email
+```
+
+Esses comandos precisam de um repositório Git existente. A inicialização será feita durante a prática; a conferência de versões do painel abaixo pode ser feita antes.
+
+Siga a orientação dos ministrantes para autenticar no GitHub. Conforme o plano, não salve credenciais na máquina compartilhada. Antes da limpeza local orientada pela equipe, confira no GitHub os arquivos e os commits enviados.
+
+## Materiais para começar
+
+O roteiro prático da aula 1 pressupõe um projeto com HTML e CSS prontos. **O ZIP dessa base ainda aguarda envio** e aparecerá no inventário quando for disponibilizado. Os roteiros oficiais em PDF já podem ser consultados nas páginas dos encontros.
