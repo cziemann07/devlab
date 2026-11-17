@@ -10,7 +10,7 @@ Confira Node.js, npm, Git, VS Code e a extensão Vue - Official. O roteiro prát
 
 Um arquivo `.vue` reúne `<script setup>` (lógica), `<template>` (interface) e `<style>` (estilos). `src/main.js` monta `App.vue` no elemento `#app`. O Vue pode ser adotado em uma parte da interface; a reatividade mantém o HTML de acordo com o estado. No script, um `ref` usa `.value`; no template, o Vue o desembrulha.
 
-A teoria também distingue Options API e Composition API, vantagens e limitações do framework e o fluxo `status → add → commit → push`. Commit registra localmente; push envia ao GitHub. A revisão de sete perguntas permanece nos desafios do encontro.
+A teoria também distingue Options API e Composition API, vantagens e limitações do framework e o fluxo `status → add → commit → push`. Commit registra localmente; push envia ao GitHub.
 
 ## Base da prática
 
