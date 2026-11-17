@@ -152,31 +152,39 @@ O workflow está em `.github/workflows/deploy.yml`. Pull requests para a `main` 
 
 TADS · IFPR Campus Foz do Iguaçu · Projeto de Extensão II
 
-## Playground e prática
+## Trilha oficial por encontro
 
-`/#/playground` executa um único `App.vue` no navegador, com JavaScript ou TypeScript,
-execução automática/manual, exemplos e mensagens de erro. O compilador é carregado
-sob demanda. A prévia usa um iframe sandbox sem acesso ao DOM ou armazenamento do
-DevLab; CSS fica dentro da prévia. Somente imports de `vue` são suportados. Router,
-múltiplos arquivos, diálogos nativos e dependências externas devem ser usados no
-projeto local. Erros de compilação preservam a última prévia; erros de execução são
-exibidos e a execução seguinte recria a prévia. Código com loop infinito ainda pode
-travar a aba; o playground não é um executor com limite de CPU.
+O encontro 01 reúne a Unidade 01 (Ecossistema Vue.js) e a Unidade 02 (Pizza Vue).
+O encontro 02 reúne a Unidade 03 (To-Do List). As páginas de unidade organizam
+leitura, apostila e missões canônicas, sem duplicar cadastros entre catálogos.
 
-`?exemplo=pizza` e `?exemplo=todo-crud` abrem referências alinhadas aos roteiros.
-Os exemplos são adaptações didáticas: a Pizza usa o App.vue e o CSS do repositório
-[enviado pelo ministrante](https://github.com/MathuCardoso/projeto-vuejs-aula1), com
-confirmação na interface; o TodoList simplifica a estrutura para um único arquivo.
-Os repositórios completos e as demonstrações recebidas ficam nos materiais de cada aula.
+O curso possui 23 missões com código inicial e quatro aprofundamentos locais.
+Núcleo, progressão e opcionais estão identificados em texto. A conclusão é manual,
+salva somente no navegador; identificadores novos não herdam a conclusão das
+atividades antigas.
 
-`/#/atividades` e `/#/desafios` oferecem filtro por aula. A conclusão é manual e
-armazenada apenas neste navegador, por curso e exercício. Falhas de armazenamento
-não impedem estudar nem marcar progresso durante a sessão. O quiz continua separado
-dos desafios de programação.
+`/#/playground` executa um `App.vue` inicial de cada missão, com JavaScript ou
+TypeScript, execução automática/manual, restauração e mensagens de erro.
+Somente imports de `vue` são suportados. A prévia fica isolada em iframe sandbox;
+Router, múltiplos arquivos, Git e comandos npm pertencem ao projeto local.
+Código com loop infinito ainda pode travar a aba. Não há limite de CPU.
 
-Verificação de navegador: com Playwright e Chromium instalados e o site rodando,
-execute `node tests/semana-academica.cjs`. Opcionalmente informe `TEST_BASE_URL`,
-`PLAYWRIGHT_MODULE` (caminho do pacote instalado), `CHROMIUM_PATH` e `SCREENSHOT_DIR`.
-Use `TEST_BROWSER=firefox` para executar a mesma suíte no Firefox e informe seu
-executável em `CHROMIUM_PATH` se necessário.
-O teste cobre exemplos, erros, isolamento, CRUD, progresso, PDFs e telas de 390/1440px.
+As versões completas anteriores de Pizza/To-Do foram substituídas pelos iniciais.
+Os aliases `?exemplo=pizza` e `?exemplo=todo-crud` abrem a primeira missão
+correspondente. Guias dos ministrantes, soluções e PowerPoints permanecem fora
+do repositório público. São publicados três PDFs de apostila e, provisoriamente,
+dois PDFs de slides. Procedimento reversível em `content/README.md`.
+
+## Verificação da trilha
+
+```bash
+npm run build
+npm run verify:public
+```
+
+Com a prévia de produção rodando em `127.0.0.1:5178`, execute
+`node tests/semana-academica.cjs`. Informe `PLAYWRIGHT_MODULE` e `CHROMIUM_PATH`
+se necessário; `TEST_BASE_URL` permite outro endereço/subcaminho. Execute a mesma
+suíte com `TEST_BROWSER=firefox` e o executável Firefox em `CHROMIUM_PATH`.
+A suíte verifica os 23 iniciais, navegação por unidade/missão, restauração,
+isolamento/erros, progresso, cinco PDFs e telas de 390/1440 px.

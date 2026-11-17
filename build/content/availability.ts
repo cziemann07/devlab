@@ -161,7 +161,9 @@ function renderExercise(
 
   if (!available) {
     return {
-      id: exercise.id,
+      unidadeId: exercise.unidadeId,
+    etapa: exercise.etapa,
+    id: exercise.id,
       encontroId: exercise.encontroId,
       codigo: exercise.codigo,
       titulo: exercise.titulo,
@@ -175,6 +177,8 @@ function renderExercise(
   }
 
   return {
+    unidadeId: exercise.unidadeId,
+    etapa: exercise.etapa,
     id: exercise.id,
     encontroId: exercise.encontroId,
     codigo: exercise.codigo,
@@ -275,6 +279,11 @@ export async function renderContent(
     )
 
     return {
+      unidades: (course.unidades ?? []).map(({ descricao, ...unit }) => ({
+        ...unit,
+        descricaoHtml: renderer.markdown(readFileSync(join(courseDir, descricao), 'utf8')),
+      })),
+      redirecionamentos: course.redirecionamentos ?? {},
       curso: {
         slug: course.curso.slug,
         titulo: course.curso.titulo,

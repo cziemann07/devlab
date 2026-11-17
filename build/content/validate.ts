@@ -144,6 +144,44 @@ export function validateContent(
     duplicateIds(course, 'questionario', questionnaires.map((item) => item.id))
     duplicateIds(course, 'desafio', challenges.map((item) => item.id))
 
+    const units = course.unidades ?? []
+    const unitById = new Map(units.map(unit => [unit.id, unit]))
+    duplicateIds(course, 'unidade', units.map(unit => unit.id))
+    for (const unit of units) {
+      if (!KEBAB_CASE.test(unit.id) || !unit.titulo.trim()) {
+        addError('V2', slug, 'unidade', unit.id, 'id/titulo', 'Unidade exige ID válido e título.')
+      }
+      if (!encounterById.has(unit.encontroId)) {
+        addError('V4', slug, 'unidade', unit.id, 'encontroId', 'Encontro da unidade não existe.')
+      }
+      if (!unit.descricao || !existsSync(join(courseDir, unit.descricao))) {
+        addError('V5', slug, 'unidade', unit.id, 'descricao', 'Texto de estudo da unidade não encontrado.')
+      }
+      const booklet = materials.find(item => item.id === unit.apostilaId)
+      if (!booklet || booklet.encontroId !== unit.encontroId) {
+        addError('V4', slug, 'unidade', unit.id, 'apostilaId', 'Apostila deve existir e pertencer ao mesmo encontro.')
+      }
+    }
+    for (const exercise of exercises) {
+      if (exercise.unidadeId) {
+        const unit = unitById.get(exercise.unidadeId)
+        if (!unit || unit.encontroId !== exercise.encontroId) {
+          addError('V4', slug, 'exercicio', exercise.id, 'unidadeId', 'Missão deve pertencer a uma unidade do mesmo encontro.')
+        }
+        if (!exercise.etapa || !['nucleo', 'progressao', 'opcional'].includes(exercise.etapa)) {
+          addError('V6', slug, 'exercicio', exercise.id, 'etapa', 'Informe núcleo, progressão ou opcional.')
+        }
+        if (exercise.playgroundExemplo && (exercise.playgroundExemplo !== exercise.id || exercise.codigoInicialIds?.length !== 1)) {
+          addError('V4', slug, 'exercicio', exercise.id, 'playgroundExemplo', 'Missão do playground exige o próprio ID e um código inicial.')
+        }
+      }
+    }
+    for (const [oldId, targetId] of Object.entries(course.redirecionamentos ?? {})) {
+      if (exerciseById.has(oldId) || !exerciseById.has(targetId)) {
+        addError('V4', slug, 'redirecionamento', oldId, 'destino', 'Alias deve substituir ID antigo e apontar para missão existente.')
+      }
+    }
+
     for (const [entity, items] of [
       ['encontro', encounters],
       ['material', materials],

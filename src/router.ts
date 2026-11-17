@@ -25,6 +25,7 @@ const router = createRouter({
       name: 'course',
       component: () => import('./views/CourseLanding.vue'),
     },
+    { path: '/cursos/:slug/unidades/:id', name: 'unit', component: () => import('./views/UnitView.vue') },
     {
       path: '/cursos/:slug/encontros/:id',
       name: 'encounter',
@@ -56,6 +57,13 @@ const router = createRouter({
 
 const notFoundTitle = 'Página não encontrada — DevLab'
 
+router.beforeEach((to) => {
+  if (to.name !== 'exercise') return
+  const course = getCourse(String(to.params.slug ?? ''))
+  const successor = course?.redirecionamentos[String(to.params.id ?? '')]
+  if (successor) return { name: 'exercise', params: { slug: course!.curso.slug, id: successor }, replace: true }
+})
+
 router.afterEach((to) => {
   const slug = typeof to.params.slug === 'string' ? to.params.slug : undefined
   const course = getCourse(slug)
@@ -82,6 +90,12 @@ router.afterEach((to) => {
 
   if (to.name === 'practice' || to.name === 'programming-challenges') {
     document.title = `${to.name === 'practice' ? 'Atividades' : 'Desafios de programação'} — DevLab`
+    return
+  }
+
+  if (to.name === 'unit') {
+    const unit = course.unidades.find(unit => unit.id === to.params.id)
+    document.title = unit ? `Unidade ${unit.id} · ${unit.titulo} — DevLab` : notFoundTitle
     return
   }
 

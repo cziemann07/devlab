@@ -30,3 +30,6 @@ jobs:
       # Checagem de tipos, validação do conteúdo e build de produção.
       - name: Build
         run: npm run build
+
+      - name: Verify public materials
+        run: npm run verify:public

@@ -4,7 +4,7 @@ export const inventoryCategories = [
   { id: 'todos', label: 'Tudo' },
   { id: 'slides', label: 'Slides' },
   { id: 'apostilas', label: 'Apostilas e PDFs' },
-  { id: 'codigo', label: 'Código-base' },
+  { id: 'codigo', label: 'Código inicial' },
   { id: 'apoio', label: 'Roteiros e apoio' },
 ] as const
 
@@ -30,7 +30,7 @@ export function matchesInventoryCategory(material: RenderedMaterial, category: I
 
 export function inventoryTypeLabel(type: TipoMaterial): string {
   const labels: Partial<Record<TipoMaterial, string>> = {
-    slides: 'Slides', pdf: 'PDF', codigo: 'Código-base', roteiro: 'Roteiro', tutorial: 'Apoio',
+    slides: 'Slides', pdf: 'PDF', codigo: 'Código inicial', roteiro: 'Roteiro', tutorial: 'Apoio',
   }
   return labels[type] ?? 'Material'
 }

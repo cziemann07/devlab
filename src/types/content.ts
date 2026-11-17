@@ -91,6 +91,8 @@ export interface Resolucao extends Disponibilidade {
 }
 
 export interface Exercicio extends Disponibilidade {
+  unidadeId?: string
+  etapa?: EtapaMissao
   tipo?: 'atividade' | 'desafio'
   playgroundExemplo?: string
   id: string
@@ -138,7 +140,24 @@ export interface Desafio extends Disponibilidade {
   perguntas: PerguntaDesafio[]
 }
 
+export interface Unidade {
+  id: string
+  encontroId: string
+  titulo: string
+  resumo: string
+  descricao: string
+  apostilaId: string
+}
+
+export interface RenderedUnidade extends Omit<Unidade, 'descricao'> {
+  descricaoHtml: string
+}
+
+export type EtapaMissao = 'nucleo' | 'progressao' | 'opcional'
+
 export interface CourseContent {
+  unidades?: Unidade[]
+  redirecionamentos?: Record<string, string>
   curso: Curso
   encontros: Encontro[]
   materiais: Material[]
@@ -212,6 +231,8 @@ export interface RenderedResolucao {
 }
 
 export interface RenderedExercicio {
+  unidadeId?: string
+  etapa?: EtapaMissao
   tipo?: 'atividade' | 'desafio'
   playgroundExemplo?: string
   id: string
@@ -262,6 +283,8 @@ export interface RenderedDesafio {
 }
 
 export interface RenderedCourseContent {
+  unidades: RenderedUnidade[]
+  redirecionamentos: Record<string, string>
   curso: RenderedCurso
   encontros: RenderedEncontro[]
   materiais: RenderedMaterial[]

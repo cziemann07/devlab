@@ -140,3 +140,65 @@ continua em `desafios` no contrato do curso. `playgroundExemplo` liga a atividad
 id de `src/content/playground-examples.ts` (por exemplo `pizza` ou `todo-crud`).
 A conclusão manual usa o par slug/id; mantenha esses identificadores estáveis.
 Textos de apoio adaptados devem continuar marcados como demonstrativos.
+
+
+## Edição oficial — unidades por encontro (17/11/2026)
+
+A fonte da trilha atual é `projeto-vue.zip`, SHA-256
+`ee27cd30c7c4e8b402676b39897033642c008d4b41cffbbaaadd19ec0b6191ff`.
+As instruções desta seção prevalecem sobre exemplos genéricos de publicação acima.
+
+| Fonte | Destino canônico |
+| --- | --- |
+| Unidade 01 — apostila do aluno | `unidades/01.md`, missões `u01-m01`–`u01-m09`, opcional `u01-componentes` |
+| Unidade 02 — apostila do aluno | `unidades/02.md`, missões `u02-m01`–`u02-m07`, opcional `u02-componentes` |
+| Unidade 03 — apostila do aluno | `unidades/03.md`, missões `u03-m01`–`u03-m07`, opcionais `u03-componentes` e `u03-rotas` |
+| Apostilas PDF | `public/materiais/vue-github/oficiais/apostila-unidade-01.pdf` até `03.pdf` |
+| Apresentações PDF | `public/materiais/vue-github/oficiais/slides-aula-01.pdf` e `02.pdf` |
+| Guias, mediação, soluções, PowerPoints e projetos finais | Permanecem no pacote original com a equipe, fora do repositório público |
+
+Os textos conceituais e os fechamentos de `wiki/` foram consolidados na leitura da
+unidade; enunciados apontam para códigos iniciais cadastrados uma vez. A preparação
+e as páginas dos encontros usam o cronograma consolidado. Os PDFs públicos são
+preservados sem alterações; na Unidade 01 foi escolhida a apostila diretamente
+na pasta `01/`, cuja capa não tem a sobreposição vista na cópia aninhada.
+
+### Substituições
+
+Foram retirados os seis PDFs antigos: `roteiro-aula-01-teoria.pdf`,
+`roteiro-aula-01-pratica.pdf`, `projeto-aula-01.pdf`, `plano-aula-02.pdf`,
+`projeto-aula-02.pdf` e `pratica-aula-02.pdf`, além dos três apoios Markdown
+anteriores. Os exemplos completos e resoluções da trilha anterior também foram
+retirados da árvore atual. Recuperação técnica pelo histórico Git, sem arquivo
+histórico público ou reescrita de histórico.
+
+Os IDs antigos apontam para os sucessores em `redirecionamentos` no cadastro do
+curso. Essa relação não transfere progresso: uma missão nova tem seu próprio ID.
+Os projetos finais externos não são oferecidos como pontos de partida das missões.
+O PDF e o quiz do Kahoot permanecem removidos.
+
+### Retirar provisoriamente os slides
+
+A decisão atual permite somente os PDFs dos slides. Para revertê-la:
+
+1. Nos dois materiais `slides-01` e `slides-02` do cadastro do curso, mudar
+   `status` para `em_breve` e retirar `localizacao`.
+2. Retirar os dois `slides-aula-*.pdf` de `public/materiais/vue-github/oficiais/`.
+   Apenas mudar o status não impede o acesso direto ao arquivo.
+3. Rodar `npm run build` e `node tests/oficiais-publicacao.cjs --sem-slides`.
+4. Conferir que só as três apostilas estão no resultado e que nenhum link de
+   slide é gerado. Adequar a expectativa de publicação do CI à decisão aprovada.
+5. Para restaurar, recuperar os dois PDFs originais da pasta privada da equipe
+   ou do commit autorizado, restaurar os cadastros, rodar o build, a verificação
+   normal de publicação e aguardar o CI verde antes de publicar.
+
+Esta reversão não exige alterar componentes, unidades, apostilas ou missões.
+Guias e PowerPoints não devem ser adicionados ao Git durante o procedimento.
+
+### Ambiente local e limites
+
+Missões de componentes/Router utilizam o projeto que a dupla construiu.
+Criar o projeto local com Vite e copiar apenas o código inicial da missão atual;
+não distribuir `projeto-local/` recebido, pois contém o resultado completo.
+Git fica no terminal, com autoria local; push e autenticação pessoal não são
+requisitos do núcleo. Não há banco de dados, persistência das tarefas ou checkout.

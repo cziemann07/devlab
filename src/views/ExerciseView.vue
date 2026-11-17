@@ -14,6 +14,9 @@ import VuatiMascot from '../components/VuatiMascot.vue'
 import NotFoundView from './NotFoundView.vue'
 import {
   exercisesFor,
+  exercisesForUnit,
+  unitPath,
+  stageLabel,
   getCourse,
   getEncounter,
   getExercise,
@@ -36,7 +39,7 @@ const encounter = computed(() =>
 
 const siblings = computed(() =>
   course.value && encounter.value
-    ? exercisesFor(course.value, encounter.value.id)
+    ? exercise.value?.unidadeId ? exercisesForUnit(course.value, exercise.value.unidadeId) : exercisesFor(course.value, encounter.value.id)
     : [],
 )
 const position = computed(() =>
@@ -107,6 +110,7 @@ const { goExerciseSection } = useSectionNav()
           :items="[
             { label: course.curso.titulo, to: '/' },
             { label: encounterLabel, to: encounterPath() },
+            ...(exercise.unidadeId ? [{ label: `Unidade ${exercise.unidadeId}`, to: unitPath(course, exercise.unidadeId) }] : []),
             { label: exercise.codigo },
           ]"
         />
@@ -122,6 +126,8 @@ const { goExerciseSection } = useSectionNav()
           <p class="lead">{{ exercise.resumo }}</p>
 
           <div class="exercise-facts">
+            <Badge>{{ stageLabel(exercise.etapa) }}</Badge>
+            <Badge>{{ exercise.playgroundExemplo ? 'Playground' : 'Projeto local' }}</Badge>
             <Badge v-if="formatDuration(exercise.duracaoMin)">
               {{ formatDuration(exercise.duracaoMin) }}
             </Badge>
@@ -140,8 +146,9 @@ const { goExerciseSection } = useSectionNav()
         <template v-if="exercise.disponivel">
           <div class="practice-actions">
             <button class="btn btn-primary btn-sm" type="button" :aria-pressed="isComplete(course.curso.slug, exercise.id)" @click="toggle(course.curso.slug, exercise.id)">{{ isComplete(course.curso.slug, exercise.id) ? 'Marcar como pendente' : 'Marcar como concluído' }}</button>
-            <RouterLink v-if="exercise.playgroundExemplo" class="btn btn-sm" :to="{ path: '/playground', query: { exemplo: exercise.playgroundExemplo } }">Abrir exemplo no playground</RouterLink>
-            <RouterLink class="btn btn-sm" :to="`/cursos/${course.curso.slug}/${exercise.tipo === 'desafio' ? 'desafios' : 'atividades'}`">Ver {{ exercise.tipo === 'desafio' ? 'desafios' : 'atividades' }}</RouterLink>
+            <RouterLink v-if="exercise.playgroundExemplo" class="btn btn-sm" :to="{ path: '/playground', query: { exemplo: exercise.playgroundExemplo } }">Abrir código inicial no playground</RouterLink>
+            <RouterLink class="btn btn-sm" :to="`/cursos/${course.curso.slug}/${exercise.tipo === 'desafio' ? 'desafios' : 'atividades'}`">Ver {{ exercise.tipo === 'desafio' ? 'opcionais' : 'atividades' }}</RouterLink>
+            <RouterLink v-if="exercise.unidadeId" class="btn btn-sm" :to="unitPath(course, exercise.unidadeId)">Ler unidade {{ exercise.unidadeId }}</RouterLink>
             <p>{{ storageAvailable ? 'Conclusão manual salva neste navegador; não há correção automática.' : 'Sem acesso ao armazenamento: conclusão mantida apenas nesta sessão.' }}</p>
           </div>
           <section
@@ -274,7 +281,7 @@ const { goExerciseSection } = useSectionNav()
               <small>próximo → {{ next.codigo }}</small>{{ next.titulo }}
             </RouterLink>
             <RouterLink v-else class="next" :to="encounterPath()">
-              <small>fim do encontro →</small>Voltar ao {{ encounterLabel }}
+              <small>fim da sequência →</small>Voltar ao {{ encounterLabel }}
             </RouterLink>
           </nav>
         </template>

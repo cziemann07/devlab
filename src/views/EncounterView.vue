@@ -3,7 +3,6 @@ import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import Badge from '../components/Badge.vue'
 import Breadcrumb from '../components/Breadcrumb.vue'
-import CodeBlock from '../components/CodeBlock.vue'
 import DemoBadge from '../components/DemoBadge.vue'
 import DemoNotice from '../components/DemoNotice.vue'
 import EmptyState from '../components/EmptyState.vue'
@@ -12,12 +11,14 @@ import ResourceList from '../components/ResourceList.vue'
 import NotFoundView from './NotFoundView.vue'
 import {
   challengesFor,
-  codesFor,
   exercisesFor,
   getCourse,
   getEncounter,
   materialsFor,
   orderedStages,
+  unitsFor,
+  exercisesForUnit,
+  unitPath,
 } from '../content'
 import {
   formatDateLong,
@@ -79,16 +80,8 @@ const exerciseItems = computed(() =>
     : [],
 )
 
-const codeItems = computed(() =>
-  course.value && encounter.value ? codesFor(course.value, encounter.value.id) : [],
-)
+const units = computed(() => course.value && encounter.value ? unitsFor(course.value, encounter.value.id) : [])
 
-const initialState = computed(() =>
-  codeItems.value.find((code) => code.papel === 'inicial' && code.githubUrl),
-)
-const finalState = computed(() =>
-  codeItems.value.find((code) => code.papel === 'final' && code.githubUrl),
-)
 
 function catalogLabel(index: number, type: string, data?: string): string {
   const base = String(index).padStart(2, '0')
@@ -163,6 +156,21 @@ function encounterTitle(type: string, id: string): string {
         </header>
 
         <template v-if="encounter.disponivel">
+          <section v-if="units.length" id="exercicios" class="block" aria-labelledby="unidades-titulo">
+            <h2 id="unidades-titulo">Por onde começar</h2>
+            <p class="muted">Estude a unidade e abra uma missão por vez. Núcleo e opcionais estão identificados em cada atividade.</p>
+            <div class="unit-cards">
+              <article v-for="unit in units" :key="unit.id" class="unit-card">
+                <p class="eyebrow">Unidade {{ unit.id }}</p>
+                <h3><RouterLink :to="unitPath(course, unit.id)">{{ unit.titulo }}</RouterLink></h3>
+                <p>{{ unit.resumo }}</p>
+                <p class="muted">{{ exercisesForUnit(course, unit.id).filter(item => item.etapa !== 'opcional').length }} missões de estudo · {{ exercisesForUnit(course, unit.id).filter(item => item.etapa === 'opcional').length }} {{ exercisesForUnit(course, unit.id).filter(item => item.etapa === 'opcional').length === 1 ? 'opcional' : 'opcionais' }}</p>
+                <RouterLink class="btn btn-primary btn-sm" :to="unitPath(course, unit.id)">Estudar unidade {{ unit.id }}</RouterLink>
+                <RouterLink v-if="exercisesForUnit(course, unit.id)[0]" class="btn btn-sm" :to="`/cursos/${course.curso.slug}/exercicios/${exercisesForUnit(course, unit.id)[0]!.id}`">Começar a primeira missão</RouterLink>
+              </article>
+            </div>
+          </section>
+
           <Prose v-if="encounter.descricaoHtml" class="encounter-description" :html="encounter.descricaoHtml" />
 
           <section
@@ -193,6 +201,7 @@ function encounterTitle(type: string, id: string): string {
             </div>
           </section>
 
+
           <section
             v-if="materialItems.length"
             id="materiais"
@@ -200,12 +209,12 @@ function encounterTitle(type: string, id: string): string {
             aria-labelledby="materiais-titulo"
           >
             <h2 id="materiais-titulo">Materiais</h2>
-            <p class="muted">Roteiros oficiais, apoio, slides e apostilas desta etapa.</p>
+            <p class="muted">Apostilas e apresentações oficiais. Cada material possui uma única versão publicada.</p>
             <ResourceList :items="materialItems" />
           </section>
 
           <section
-            v-if="exerciseItems.length"
+            v-if="exerciseItems.length && !units.length"
             id="exercicios"
             class="block"
             aria-labelledby="exercicios-titulo"
@@ -228,44 +237,7 @@ function encounterTitle(type: string, id: string): string {
             <ResourceList :items="challengeItems" />
           </section>
 
-          <section v-if="codeItems.length" id="codigo" class="block" aria-labelledby="codigo-titulo">
-            <h2 id="codigo-titulo">Código desta etapa</h2>
-            <p class="muted">
-              Os arquivos completos estão no GitHub. Aqui ficam os trechos principais.
-            </p>
-            <div class="code-actions">
-              <a
-                v-if="initialState?.githubUrl"
-                class="btn btn-sm"
-                :href="initialState.githubUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Estado inicial ↗
-              </a>
-              <a
-                v-if="finalState?.githubUrl"
-                class="btn btn-sm"
-                :href="finalState.githubUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Estado final ↗
-              </a>
-              <a
-                v-if="course.curso.repositorioUrl"
-                class="btn btn-sm"
-                :href="course.curso.repositorioUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Repositório do minicurso ↗
-              </a>
-            </div>
-            <div class="code-stack">
-              <CodeBlock v-for="code in codeItems" :key="code.id" :codigo="code" />
-            </div>
-          </section>
+
         </template>
 
         <EmptyState
@@ -301,6 +273,12 @@ function encounterTitle(type: string, id: string): string {
 </template>
 
 <style scoped>
+.unit-cards { display: grid; gap: 1rem; margin-top: 1.25rem; }
+.unit-card { padding: 1.4rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.unit-card h3 { margin-block: .35rem .75rem; }
+.unit-card h3 a { color: var(--text); }
+.unit-card .btn { margin: .6rem .5rem 0 0; }
+
 .layout {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);

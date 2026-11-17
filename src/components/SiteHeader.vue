@@ -27,7 +27,7 @@ const { isInventoryOpen, openInventory } = useInventory()
 
       <nav class="site-nav" aria-label="Principal">
         <RouterLink v-if="course" class="nav-link" :to="`/cursos/${course.curso.slug}/atividades`">Atividades</RouterLink>
-        <RouterLink v-if="course" class="nav-link" :to="`/cursos/${course.curso.slug}/desafios`">Desafios</RouterLink>
+        <RouterLink v-if="course" class="nav-link" :to="`/cursos/${course.curso.slug}/desafios`">Opcionais</RouterLink>
         <button class="nav-link" type="button" @click="goHomeSection('cronograma')">
           Cronograma
         </button>
