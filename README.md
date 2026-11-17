@@ -177,4 +177,6 @@ dos desafios de programação.
 Verificação de navegador: com Playwright e Chromium instalados e o site rodando,
 execute `node tests/semana-academica.cjs`. Opcionalmente informe `TEST_BASE_URL`,
 `PLAYWRIGHT_MODULE` (caminho do pacote instalado), `CHROMIUM_PATH` e `SCREENSHOT_DIR`.
+Use `TEST_BROWSER=firefox` para executar a mesma suíte no Firefox e informe seu
+executável em `CHROMIUM_PATH` se necessário.
 O teste cobre exemplos, erros, isolamento, CRUD, progresso, PDFs e telas de 390/1440px.

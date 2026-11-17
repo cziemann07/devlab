@@ -1,10 +1,11 @@
 // Run against npm run dev or npm run preview. Uses an installed Playwright package.
 const assert = require('node:assert/strict')
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright')
+const playwright = require(process.env.PLAYWRIGHT_MODULE || 'playwright')
+const browserType = playwright[process.env.TEST_BROWSER || 'chromium']
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:5178/'
 
 async function main() {
-  const browser = await chromium.launch({ headless: true, ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}) })
+  const browser = await browserType.launch({ headless: true, ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}) })
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
   const errors = []
   page.on('pageerror', error => errors.push(error.message))
