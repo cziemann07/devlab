@@ -184,7 +184,7 @@ onBeforeUnmount(() => {
                 <span v-else-if="item.disponivel" class="inventory-origin">Material recebido</span>
                 <div v-if="item.disponivel" class="inventory-actions">
                   <a v-if="item.href" :href="item.href" target="_blank" rel="noopener noreferrer" :aria-label="`Abrir ${item.titulo} em nova aba`">Abrir ↗</a>
-                  <a v-if="item.downloadHref" class="inventory-download" :href="item.downloadHref" download :aria-label="`Baixar ${item.titulo}`">Baixar <span aria-hidden="true">↓</span></a>
+                  <a v-if="item.downloadHref && !item.id.toLowerCase().includes('kahoot')" class="inventory-download" :href="item.downloadHref" download :aria-label="`Baixar ${item.titulo}`" > Baixar <span aria-hidden="true">↓</span> </a>
                 </div>
                 <span v-else class="inventory-pending-note">Disponível aqui quando enviado.</span>
               </div>
