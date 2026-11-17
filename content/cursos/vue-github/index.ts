@@ -142,7 +142,7 @@ export const vueGithub: CourseContent = {
       titulo: 'Kahoot · perguntas e gabarito oficiais',
       tipo: 'pdf',
       descricao: 'Sete perguntas sobre Pizza Vue e Git, com gabarito. PDF original; a revisão interativa também está nos desafios da aula 1.',
-      localizacao: { arquivo: 'materiais/vue-github/oficiais/kahoot-pizza-vue-git.pdf' },
+      localizacao: { arquivo: 'https://kahoot.it/'},
       status: 'publicado',
       origem: 'oficial',
     },
