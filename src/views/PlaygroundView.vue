@@ -8,16 +8,18 @@ import {
   version,
   watch,
 } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter, RouterLink } from 'vue-router'
 import { previewDocument } from '../utils/playground-preview'
 import Badge from '../components/Badge.vue'
 import {
   playgroundExamples,
+  findPlaygroundExample,
 } from '../content/playground-examples'
 import { buildPlayground } from '../utils/vue-playground'
 
 const route = useRoute()
-const initial = playgroundExamples.find(item => item.id === route.query.exemplo) ?? playgroundExamples[0]
+const router = useRouter()
+const initial = findPlaygroundExample(route.query.exemplo)
 const selectedExampleId = ref(initial.id)
 const source = ref(initial.code)
 const editor = ref<HTMLTextAreaElement>()
@@ -103,6 +105,7 @@ function changeExample(event: Event): void {
 
   selectedExampleId.value = example.id
   source.value = example.code
+  void router.replace({ path: route.path, query: { ...route.query, exemplo: id } })
 }
 
 function restoreExample(): void {
@@ -170,7 +173,7 @@ function onEditorKeydown(event: KeyboardEvent): void {
 watch(source, scheduleRun)
 
 watch(() => route.query.exemplo, id => {
-  const example = playgroundExamples.find(item => item.id === id)
+  const example = findPlaygroundExample(id)
   if (example) { selectedExampleId.value = example.id; source.value = example.code }
 })
 
@@ -195,7 +198,7 @@ onBeforeUnmount(() => {
           <h1>Vue.js no navegador</h1>
           <p class="lead">
             Edite um componente <code>App.vue</code>, use reatividade e veja o resultado na hora.
-            Os exemplos são adaptações didáticas dos materiais. O código executa em uma prévia isolada no navegador.
+            Comece pelo código inicial de uma missão oficial. O código executa em uma prévia isolada no navegador.
           </p>
         </div>
         <div class="head-meta">
@@ -204,13 +207,16 @@ onBeforeUnmount(() => {
         </div>
       </header>
 
+      <p class="mission-context">{{ playgroundExamples.find(item => item.id === selectedExampleId)?.group }} · {{ playgroundExamples.find(item => item.id === selectedExampleId)?.label }}
+        <RouterLink :to="`/cursos/vue-github/exercicios/${selectedExampleId}`">Ler enunciado da missão</RouterLink>
+      </p>
       <div class="toolbar">
         <label class="toolbar-select">
-          <span>Exemplo</span>
+          <span>Missão</span>
           <select aria-label="Exemplo" :value="selectedExampleId" @change="changeExample">
-            <option v-for="example in playgroundExamples" :key="example.id" :value="example.id">
-              {{ example.label }}
-            </option>
+            <optgroup v-for="group in [...new Set(playgroundExamples.map(item => item.group))]" :key="group" :label="group">
+              <option v-for="example in playgroundExamples.filter(item => item.group === group)" :key="example.id" :value="example.id">{{ example.label }}</option>
+            </optgroup>
           </select>
         </label>
 
@@ -307,6 +313,8 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+.mission-context { display: flex; gap: .75rem; flex-wrap: wrap; color: var(--text-2); font-size: .85rem; margin-block: 1rem; }
+.mission-context a { color: var(--primary); }
 .playground {
   padding-block: 3.5rem 4.5rem;
 }

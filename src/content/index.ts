@@ -102,3 +102,19 @@ export function challengesFor(
 export function coursePath(course: RenderedCourseContent, ...parts: string[]): string {
   return ['', 'cursos', course.curso.slug, ...parts].join('/')
 }
+
+export function unitsFor(course: RenderedCourseContent, encounterId: string) {
+  return course.unidades.filter(unit => unit.encontroId === encounterId)
+}
+
+export function exercisesForUnit(course: RenderedCourseContent, unitId: string) {
+  return course.exercicios.filter(exercise => exercise.unidadeId === unitId && exercise.disponivel)
+}
+
+export function unitPath(course: RenderedCourseContent, unitId: string): string {
+  return coursePath(course, 'unidades', unitId)
+}
+
+export function stageLabel(etapa?: string): string {
+  return etapa === 'opcional' ? 'Opcional' : etapa === 'progressao' ? 'Progressão' : 'Núcleo'
+}

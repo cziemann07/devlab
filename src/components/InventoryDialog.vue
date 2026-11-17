@@ -148,14 +148,14 @@ onBeforeUnmount(() => {
               <p class="inventory-speech">Separe seu material.<br /><strong>Vamos colocar a mão no código!</strong></p>
             </div>
             <div class="inventory-summary">
-              <p id="inventario-descricao">Slides, apostilas, código-base e roteiros para acompanhar as aulas.</p>
-              <p class="inventory-count"><span class="status-dot" /> {{ available }} disponíveis <span class="count-divider">/</span> {{ materials.length - available }} aguardando envio</p>
+              <p id="inventario-descricao">Apostilas e slides oficiais para acompanhar as unidades de cada encontro.</p>
+              <p class="inventory-count"><span class="status-dot" /> {{ available }} disponíveis <template v-if="materials.length > available"><span class="count-divider">/</span> {{ materials.length - available }} aguardando envio</template></p>
             </div>
           </section>
 
           <div class="inventory-toolbar">
             <div class="inventory-filters" role="group" aria-label="Tipo de material">
-              <button v-for="item in inventoryCategories" :key="item.id" type="button" :aria-pressed="category === item.id" @click="category = item.id">
+              <button v-for="item in inventoryCategories.filter(item => categoryCount(item.id) > 0)" :key="item.id" type="button" :aria-pressed="category === item.id" @click="category = item.id">
                 {{ item.label }} <span>{{ categoryCount(item.id) }}</span>
               </button>
             </div>
@@ -164,7 +164,7 @@ onBeforeUnmount(() => {
               <select v-model="encounter">
                 <option value="todos">Todas as aulas</option>
                 <option v-for="meeting in meetings" :key="meeting.id" :value="meeting.id">Aula {{ Number(meeting.id) || meeting.id }}</option>
-                <option value="geral">Aula a confirmar</option>
+                <option v-if="materials.some(item => !item.encontroId)" value="geral">Aula a confirmar</option>
               </select>
             </label>
           </div>
@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
             <p>Experimente outra aula ou veja todos os materiais.</p>
             <button type="button" class="btn btn-sm" @click="category = 'todos'; encounter = 'todos'">Limpar filtros</button>
           </div>
-          <p class="inventory-footnote">Os PDFs oficiais foram preservados como enviados pelos ministrantes. Consulte as páginas dos encontros para notas de leitura e atividades de apoio. Os demais materiais são liberados conforme o envio pela equipe.</p>
+          <p class="inventory-footnote">Os PDFs oficiais foram preservados. Consulte as unidades dos encontros para estudar e abrir os códigos iniciais de cada missão.</p>
         </div>
         <footer class="inventory-footer"><span>Seu ponto de apoio antes, durante e depois da aula.</span><button type="button" @click="close"><span aria-hidden="true">←</span> Voltar ao curso</button></footer>
       </div>

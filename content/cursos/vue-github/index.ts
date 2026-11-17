@@ -1,694 +1,1049 @@
 import type { CourseContent } from '../../../src/types/content'
 
-const repositoryBase = 'https://github.com/cziemann07/devlab'
-const codeBase = `${repositoryBase}/blob/main/content/cursos/vue-github/codigo`
-
 export const vueGithub: CourseContent = {
-  curso: {
-    slug: 'vue-github',
-    titulo: 'Já Vue.js?',
-    tituloDestaque: 'Vue.js',
-    subtitulo: 'A arte de desenvolver com Vue.js',
-    descricao:
-      'Aprenda Vue.js construindo o Pizza Vue no primeiro encontro e uma lista de tarefas com Bootstrap no segundo. Registre as etapas com Git e compartilhe seus projetos no GitHub.',
-    periodo: { inicio: '2026-11-24', fim: '2026-11-26' },
-    local: 'IFPR Campus Foz do Iguaçu',
-    repositorioUrl: repositoryBase,
-    links: [
-      { rotulo: 'Documentação do Vue', url: 'https://vuejs.org/guide/introduction.html' },
-      { rotulo: 'GitHub Docs', url: 'https://docs.github.com/pt' },
+  "curso": {
+    "slug": "vue-github",
+    "titulo": "Já Vue.js?",
+    "tituloDestaque": "Vue.js",
+    "subtitulo": "A arte de desenvolver com Vue.js",
+    "descricao": "Aprenda Vue.js com missões progressivas: fundamentos e Pizza Vue no primeiro encontro; To-Do List no segundo. Preveja, experimente, teste e explique suas decisões.",
+    "periodo": {
+      "inicio": "2026-11-24",
+      "fim": "2026-11-26"
+    },
+    "local": "IFPR Campus Foz do Iguaçu",
+    "repositorioUrl": "https://github.com/cziemann07/devlab",
+    "links": [
+      {
+        "rotulo": "Documentação do Vue",
+        "url": "https://vuejs.org/guide/introduction.html"
+      },
+      {
+        "rotulo": "GitHub Docs",
+        "url": "https://docs.github.com/pt"
+      }
     ],
-    acesso: { rotulo: 'Gratuito' },
-    // Identidade desta edição; a marca DevLab continua neutra.
-    tema: { destaque: '#42b883', tinta: '#0b0f14', mascote: true },
-    aviso: {
-      titulo: 'Roteiros oficiais disponíveis',
-      texto:
-        'A sequência das aulas segue os materiais enviados pelos ministrantes. Consulte os roteiros no inventário e em cada encontro. Repositórios e demonstrações dos projetos também estão disponíveis; slides e apostilas ainda aguardam envio.',
+    "acesso": {
+      "rotulo": "Gratuito"
     },
+    "tema": {
+      "destaque": "#42b883",
+      "tinta": "#0b0f14",
+      "mascote": true
+    }
   },
-  encontros: [
+  "encontros": [
     {
-      id: 'preparacao',
-      tipo: 'preparacao',
-      titulo: 'Prepare o ambiente',
-      resumo:
-        'Instale Node.js, Git e VS Code, ative a extensão oficial do Vue e crie sua conta no GitHub antes do primeiro encontro.',
-      status: 'publicado',
-      origem: 'oficial',
-      descricao: 'encontros/preparacao.md',
-      sequencia: [
-        { titulo: 'Node.js e npm', detalhe: 'Compatíveis com a base fornecida pelos ministrantes' },
-        { titulo: 'Git', detalhe: 'Controle de versão e configuração inicial' },
-        { titulo: 'VS Code + extensão Vue', detalhe: 'Extensão "Vue - Official"' },
-        { titulo: 'Conta no GitHub', detalhe: 'Crie a conta e confirme o e-mail' },
-      ],
+      "id": "preparacao",
+      "tipo": "preparacao",
+      "titulo": "Prepare o ambiente",
+      "resumo": "Comece pelo navegador. Para Git e os extras, confira o ambiente local com a equipe.",
+      "status": "publicado",
+      "origem": "oficial",
+      "descricao": "encontros/preparacao.md",
+      "sequencia": [
+        {
+          "titulo": "Navegador e playground"
+        },
+        {
+          "titulo": "Projeto local para Git e extras"
+        }
+      ]
     },
     {
-      id: '01',
-      tipo: 'encontro',
-      titulo: 'Pizza Vue · fundamentos, prática e Git',
-      resumo:
-        'Entenda estado, reatividade e o fluxo do Git. Transforme o formulário Pizza Vue em uma interface reativa e envie dois commits ao GitHub.',
-      status: 'publicado',
-      origem: 'oficial',
-      data: '2026-11-24',
-      horario: { inicio: '19:00', fim: '22:00' },
-      local: 'Laboratório de informática — IFPR Foz do Iguaçu',
-      descricao: 'encontros/encontro-01.md',
-      // Tempos relativos de cada bloco, conforme os PDFs oficiais. Não são horários do relógio.
-      sequencia: [
-        { grupo: 'Teoria · 60 min', intervaloMin: { inicio: 0, fim: 5 }, titulo: 'Demonstração do Pizza Vue' },
-        { grupo: 'Teoria · 60 min', intervaloMin: { inicio: 5, fim: 13 }, titulo: 'História e adoção progressiva' },
-        { grupo: 'Teoria · 60 min', intervaloMin: { inicio: 13, fim: 23 }, titulo: 'Vantagens e desvantagens' },
-        { grupo: 'Teoria · 60 min', intervaloMin: { inicio: 23, fim: 37 }, titulo: 'Estado e reatividade', detalhe: 'ref, .value, computed e estilos de API' },
-        { grupo: 'Teoria · 60 min', intervaloMin: { inicio: 37, fim: 46 }, titulo: 'Sintaxe do template', detalhe: 'Interpolação, v-model, v-for, v-if e eventos' },
-        { grupo: 'Teoria · 60 min', intervaloMin: { inicio: 46, fim: 60 }, titulo: 'Git e GitHub', detalhe: 'Histórico local, preparação, commit e envio' },
-        { grupo: 'Prática · 90 min', intervaloMin: { inicio: 0, fim: 10 }, titulo: 'Preparar HTML e CSS' },
-        { grupo: 'Prática · 90 min', intervaloMin: { inicio: 10, fim: 25 }, titulo: 'Nome: ref, interpolação e v-model' },
-        { grupo: 'Prática · 90 min', intervaloMin: { inicio: 25, fim: 45 }, titulo: 'Tamanho e sabores: v-for e arrays' },
-        { grupo: 'Prática · 90 min', intervaloMin: { inicio: 45, fim: 55 }, titulo: 'Quantidade entre 1 e 10' },
-        { grupo: 'Prática · 90 min', intervaloMin: { inicio: 55, fim: 70 }, titulo: 'Tamanho escolhido e total com computed' },
-        { grupo: 'Prática · 90 min', intervaloMin: { inicio: 70, fim: 80 }, titulo: 'Estados vazios com v-if e v-else' },
-        { grupo: 'Prática · 90 min', intervaloMin: { inicio: 80, fim: 90 }, titulo: 'Confirmar pedido, commit e push' },
-      ],
-    },
-    {
-      id: '02',
-      tipo: 'encontro',
-      titulo: 'TodoList · Vue, Bootstrap e versionamento',
-      resumo:
-        'Desenvolva uma lista de tarefas com Vue e Bootstrap, configure o Git para o laboratório compartilhado e registre duas etapas do projeto no GitHub.',
-      status: 'publicado',
-      origem: 'oficial',
-      data: '2026-11-26',
-      horario: { inicio: '19:00', fim: '22:00' },
-      local: 'Laboratório de informática — IFPR Foz do Iguaçu',
-      descricao: 'encontros/encontro-02.md',
-      // Tempos relativos do roteiro prático atualizado, páginas 1–5.
-      sequencia: [
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 0, fim: 15 }, titulo: 'Clonar a base e configurar identidade local' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 15, fim: 30 }, titulo: 'Conceitos e estrutura do projeto' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 30, fim: 45 }, titulo: 'Layout, rotas, Bootstrap e primeiro commit' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 45, fim: 65 }, titulo: 'Primeira tela reativa' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 65, fim: 85 }, titulo: 'Componentes Input e Button' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 85, fim: 105 }, titulo: 'Cadastro e validação' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 105, fim: 125 }, titulo: 'Listagem, edição por cópia e exclusão' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 125, fim: 140 }, titulo: 'Testar e registrar commits' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 140, fim: 155 }, titulo: 'Trocar origin e enviar ao GitHub' },
-        { grupo: 'Prática · 160 min', intervaloMin: { inicio: 155, fim: 160 }, titulo: 'Fechamento e limpeza orientada' },
-      ],
-    },
-  ],
-  materiais: [
-    { id: 'demo-01', encontroId: '01', titulo: 'Aula 01 · demonstração do projeto', tipo: 'link', descricao: 'Aplicação publicada enviada pelos ministrantes.', localizacao: { url: 'https://projeto-vuejs-aula1.vercel.app/' }, status: 'publicado', origem: 'oficial' },
-    { id: 'demo-02', encontroId: '02', titulo: 'Aula 02 · demonstração do projeto', tipo: 'link', descricao: 'Aplicação publicada enviada pelos ministrantes.', localizacao: { url: 'https://todolist-vuejs-curso.vercel.app/' }, status: 'publicado', origem: 'oficial' },
-    { id: 'projeto-01-atualizado', encontroId: '01', titulo: 'Aula 1 · projeto Pizza Vue atualizado', tipo: 'roteiro', descricao: '90 minutos, pontos de controle e bônus watch. Referência atual da prática.', localizacao: { arquivo: 'materiais/vue-github/oficiais/projeto-aula-01.pdf' }, status: 'publicado', origem: 'oficial' },
-    { id: 'projeto-02-completo', encontroId: '02', titulo: 'Aula 2 · projeto TodoList completo', tipo: 'roteiro', descricao: 'Código e componentes de referência. Para condução e Git, prevalece o roteiro prático atualizado.', localizacao: { arquivo: 'materiais/vue-github/oficiais/projeto-aula-02.pdf' }, status: 'publicado', origem: 'oficial' },
-    { id: 'pratica-02-atualizada', encontroId: '02', titulo: 'Aula 2 · prática atualizada com Git', tipo: 'roteiro', descricao: 'Clone, CRUD com validação e dois commits. As páginas 1–5 prevalecem sobre o apêndice.', localizacao: { arquivo: 'materiais/vue-github/oficiais/pratica-aula-02.pdf' }, status: 'publicado', origem: 'oficial' },
-    {
-      id: 'roteiro-01-teoria-oficial',
-      encontroId: '01',
-      titulo: 'Aula 1 · roteiro teórico oficial',
-      tipo: 'roteiro',
-      descricao: 'Fundamentos de Vue.js e Git em 60 minutos. PDF original enviado pelos ministrantes.',
-      localizacao: { arquivo: 'materiais/vue-github/oficiais/roteiro-aula-01-teoria.pdf' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'roteiro-01-pratica-oficial',
-      encontroId: '01',
-      titulo: 'Aula 1 · roteiro prático oficial',
-      tipo: 'roteiro',
-      descricao: 'Versão anterior da prática de Pizza Vue (82 minutos). Versão anterior, mantida para consulta; siga o roteiro de projeto atualizado.',
-      localizacao: { arquivo: 'materiais/vue-github/oficiais/roteiro-aula-01-pratica.pdf' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'plano-02-oficial',
-      encontroId: '02',
-      titulo: 'Aula 2 · plano oficial do TodoList',
-      tipo: 'roteiro',
-      descricao: 'Vue, Bootstrap, versionamento e orientações para o laboratório compartilhado. PDF original dos ministrantes.',
-      localizacao: { arquivo: 'materiais/vue-github/oficiais/plano-aula-02.pdf' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'roteiro-pizza-recebido',
-      encontroId: '01',
-      titulo: 'Pizza Vue · apoio em Markdown',
-      tipo: 'roteiro',
-      descricao:
-        'Passo a passo com código recebido anteriormente. Para a condução da aula, siga o roteiro prático oficial em PDF.',
-      localizacao: { arquivo: 'materiais/vue-github/recebidos/roteiro-pizza.md' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'roteiro-tarefas-recebido',
-      encontroId: '02',
-      titulo: 'TodoList · apoio em Markdown',
-      tipo: 'roteiro',
-      descricao:
-        'Passo a passo com código recebido anteriormente, incluindo edição e validação. Complementa o plano oficial da aula 2 em PDF.',
-      localizacao: { arquivo: 'materiais/vue-github/recebidos/roteiro-tarefas.md' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'options-composition-recebido',
-      encontroId: '01',
-      titulo: 'Options API × Composition API',
-      tipo: 'tutorial',
-      descricao:
-        'Comparação recebida como apoio aos estilos de API abordados na teoria da aula 1. Original em Markdown.',
-      localizacao: { arquivo: 'materiais/vue-github/recebidos/options-vs-composition.md' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'codigo-base-01',
-      encontroId: '01',
-      titulo: 'Código do Pizza Vue · repositório do ministrante',
-      tipo: 'codigo',
-      descricao: 'Projeto completo com App.vue e style.css. Consulte as etapas do roteiro para praticar.',
-      localizacao: { url: 'https://github.com/MathuCardoso/projeto-vuejs-aula1' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'codigo-base-02',
-      encontroId: '02',
-      titulo: 'Código do TodoList · repositório do ministrante',
-      tipo: 'codigo',
-      descricao: 'Projeto completo com componentes, rotas e CRUD. Clone para consulta; acompanhe o ponto inicial indicado pelo ministrante.',
-      localizacao: { url: 'https://github.com/MathuCardoso/todolist-vuejs-curso' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'apostila-02',
-      encontroId: '02',
-      titulo: 'Apostila do encontro 02',
-      tipo: 'pdf',
-      descricao: 'Material de consulta da segunda aula. Aguardando envio pelos ministrantes.',
-      status: 'em_breve',
-      origem: 'oficial',
-    },
-    {
-      id: 'node-js',
-      encontroId: 'preparacao',
-      titulo: 'Node.js LTS',
-      tipo: 'link',
-      descricao: 'Instalador oficial. Escolha a versão LTS.',
-      localizacao: { url: 'https://nodejs.org/' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'git-scm',
-      encontroId: 'preparacao',
-      titulo: 'Git',
-      tipo: 'link',
-      descricao: 'Download para Windows, macOS e Linux.',
-      localizacao: { url: 'https://git-scm.com/' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'vscode',
-      encontroId: 'preparacao',
-      titulo: 'Visual Studio Code',
-      tipo: 'link',
-      descricao: 'Editor recomendado. Instale também a extensão "Vue - Official".',
-      localizacao: { url: 'https://code.visualstudio.com/' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'conta-github',
-      encontroId: 'preparacao',
-      titulo: 'Conta no GitHub',
-      tipo: 'link',
-      descricao: 'Crie uma conta gratuita e confirme o e-mail.',
-      localizacao: { url: 'https://github.com/signup' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'slides-01',
-      encontroId: '01',
-      titulo: 'Slides · Aula 1 — Pizza Vue e Git',
-      tipo: 'slides',
-      descricao: 'Apresentação do encontro em PDF.',
-      status: 'em_breve',
-      origem: 'oficial',
-    },
-    {
-      id: 'apostila-01',
-      encontroId: '01',
-      titulo: 'Apostila do encontro 01',
-      tipo: 'pdf',
-      descricao: 'Resumo dos conceitos e roteiro de prática.',
-      status: 'em_breve',
-      origem: 'oficial',
-    },
-    {
-      id: 'doc-vue-essenciais',
-      encontroId: '01',
-      titulo: 'Documentação oficial: Essentials',
-      tipo: 'referencia',
-      descricao: 'Guia de criação de aplicações, reatividade e componentes.',
-      localizacao: { url: 'https://vuejs.org/guide/essentials/application.html' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'lista-impressa-01',
-      encontroId: '01',
-      titulo: 'Lista de exercícios impressa',
-      tipo: 'pdf',
-      descricao: 'Versão para imprimir, publicada após o encontro.',
-      status: 'rascunho',
-      origem: 'demonstrativo',
-    },
-    {
-      id: 'slides-02',
-      encontroId: '02',
-      titulo: 'Slides · Aula 2 — TodoList e Bootstrap',
-      tipo: 'slides',
-      descricao: 'Apresentação do encontro em PDF.',
-      status: 'em_breve',
-      origem: 'oficial',
-    },
-    {
-      id: 'livro-git',
-      encontroId: '02',
-      titulo: 'Pro Git — livro gratuito',
-      tipo: 'referencia',
-      descricao: 'Referência completa de Git, em português.',
-      localizacao: { url: 'https://git-scm.com/book/pt-br/v2' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'docs-github-pages',
-      encontroId: '02',
-      titulo: 'Documentação do GitHub Pages',
-      tipo: 'link',
-      descricao: 'Como publicar sites estáticos direto do repositório.',
-      localizacao: { url: 'https://docs.github.com/pt/pages' },
-      status: 'rascunho',
-      origem: 'demonstrativo',
-    },
-    {
-      id: 'checklist-deploy',
-      encontroId: '02',
-      titulo: 'Checklist de publicação',
-      tipo: 'pdf',
-      descricao: 'Checklist para conferir antes de publicar o projeto.',
-      status: 'rascunho',
-      origem: 'demonstrativo',
-    },
-    {
-      id: 'referencia-mdn-js',
-      titulo: 'MDN — JavaScript',
-      tipo: 'referencia',
-      descricao: 'Referência de JavaScript para consultar durante os exercícios.',
-      localizacao: { url: 'https://developer.mozilla.org/pt-BR/docs/Web/JavaScript' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'referencia-vue',
-      titulo: 'Vue.js — guia oficial',
-      tipo: 'referencia',
-      descricao: 'Documentação oficial do framework.',
-      localizacao: { url: 'https://vuejs.org/guide/introduction.html' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'referencia-github',
-      titulo: 'GitHub Docs',
-      tipo: 'link',
-      descricao: 'Documentação de repositórios, Actions e Pages.',
-      localizacao: { url: 'https://docs.github.com/pt' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-  ],
-  exercicios: [
-    { id: 'perfil-componentes', codigoInicialIds: ['app-inicial'], encontroId: '01', codigo: '01.D1', tipo: 'desafio', titulo: 'Página de perfil', resumo: 'Crie dois componentes, personalize sua apresentação e registre o progresso com Git.', playgroundExemplo: 'saudacao', enunciado: 'exercicios/perfil-componentes/enunciado.md', requisitos: ["Crie pelo menos dois componentes em um projeto local.", "Passe informações usando props.", "Adicione estilos próprios e registre um commit."], status: 'publicado', origem: 'demonstrativo', nivel: 'intermediario' },
-    { id: 'pizza-watch', codigoInicialIds: ['pizza-watch-inicial'], encontroId: '01', codigo: '01.D2', tipo: 'desafio', titulo: 'Pizza Vue · limite de sabores', resumo: 'Pratique watch para limitar sabores conforme o tamanho escolhido.', playgroundExemplo: 'pizza', enunciado: 'exercicios/pizza-watch/enunciado.md', requisitos: ["Associe limites de 1, 2 e 3 sabores aos tamanhos.", "Use watch para cortar excedentes ao diminuir o tamanho.", "Desabilite somente os sabores não selecionados quando atingir o limite."], status: 'publicado', origem: 'demonstrativo', nivel: 'intermediario' },
-    { id: 'tarefas-componentes', codigoInicialIds: ['tarefas-inicial'], encontroId: '02', codigo: '02.D1', tipo: 'desafio', titulo: 'Mini gerenciador de tarefas', resumo: 'Separe formulário e lista em componentes e acrescente conclusão de tarefas ao CRUD.', playgroundExemplo: 'todo-crud', enunciado: 'exercicios/tarefas-componentes/enunciado.md', requisitos: ["Mantenha cadastro, validação, edição e exclusão funcionando.", "Separe formulário e lista com props e eventos.", "Permita marcar tarefas como concluídas e preserve ids estáveis."], status: 'publicado', origem: 'demonstrativo', nivel: 'intermediario' },
-    {
-      id: 'pizza-vue',
-      playgroundExemplo: 'pizza',
-      encontroId: '01',
-      codigo: '01.1',
-      titulo: 'Pizza Vue · da interface estática ao pedido reativo',
-      resumo: 'Siga a prática oficial: formulário reativo, cálculo do total, confirmação e envio ao GitHub.',
-      duracaoMin: 90,
-      nivel: 'introdutorio',
-      enunciado: 'exercicios/pizza-vue/enunciado.md',
-      status: 'publicado',
-      origem: 'oficial',
-      objetivos: ['Conectar campos e resumo com estado reativo.', 'Calcular o total com computed.', 'Registrar e enviar duas etapas do projeto com Git.'],
-      requisitos: ['Use a base com HTML e CSS fornecidos pelos ministrantes.', 'A quantidade deve ficar entre 1 e 10.', 'Confira no GitHub os dois commits e a branch main.'],
-      dicas: ['No script, acesse um ref com `.value`; no template, use o nome diretamente.', 'O total depende do preço do tamanho escolhido e da quantidade.', 'Se o resumo não atualizar, confira o `v-model` e o estado exibido no template.'],
-      resolucao: { status: 'em_breve', origem: 'oficial' },
-    },
-    {
-      id: 'todo-list',
-      playgroundExemplo: 'todo-crud',
-      encontroId: '02',
-      codigo: '02.1',
-      titulo: 'TodoList · componentes, Bootstrap e Git',
-      resumo: 'Clone a base, valide, cadastre, liste, edite e exclua tarefas; registre duas etapas com Git.',
-      nivel: 'intermediario',
-      enunciado: 'exercicios/todo-list/enunciado.md',
-      status: 'publicado',
-      origem: 'oficial',
-      objetivos: ['Integrar o layout Bootstrap com componentes Vue.', 'Implementar cadastro, validação, listagem, edição por cópia e exclusão de tarefas.', 'Versionar o setup e a implementação e conferir o envio ao GitHub.'],
-      requisitos: ['Configure nome e e-mail com `git config --local` dentro do repositório.', 'Registre um commit após o setup e outro após a lógica.', 'Confira o projeto remoto antes da limpeza orientada do laboratório.'],
-      dicas: ['Mantenha o estado das tarefas no componente responsável pela lista.', 'Use uma chave estável em cada item renderizado com `v-for`.', 'Confira `git status` antes de cada commit e `git remote -v` antes do envio.'],
-      resolucao: { status: 'em_breve', origem: 'oficial' },
-    },
-    {
-      id: 'ola-componente',
-      playgroundExemplo: 'saudacao',
-      encontroId: '01',
-      codigo: '01.2',
-      titulo: 'Olá, componente',
-      resumo: 'Crie seu primeiro componente Vue com estado reativo e um campo de texto.',
-      duracaoMin: 10,
-      nivel: 'introdutorio',
-      status: 'publicado',
-      origem: 'demonstrativo',
-      enunciado: 'exercicios/ola-componente/enunciado.md',
-      objetivos: [
-        'Criar um componente com <script setup> e template.',
-        'Declarar estado com ref.',
-        'Derivar um valor com computed.',
-      ],
-      requisitos: [
-        'O componente exibe uma saudação com o nome digitado.',
-        'Um campo de texto atualiza o nome em tempo real.',
-        'Quando o campo está vazio, a saudação usa um valor padrão.',
-      ],
-      codigoInicialIds: ['app-inicial'],
-      dicas: [
-        'Use `ref` para o nome e `v-model` no `<input>`.',
-        'Uma template literal resolve a saudação: `` `Olá, ${nome.value}!` ``.',
-        '`computed` evita repetir a lógica de fallback no template.',
-      ],
-      resolucao: {
-        status: 'rascunho',
-        origem: 'demonstrativo',
-        explicacao: 'exercicios/ola-componente/resolucao.md',
+      "id": "01",
+      "tipo": "encontro",
+      "titulo": "Pizza Vue · fundamentos e pedido reativo",
+      "resumo": "Unidades 01 e 02: retome o ecossistema e construa o pedido em missões progressivas.",
+      "status": "publicado",
+      "origem": "oficial",
+      "descricao": "encontros/encontro-01.md",
+      "data": "2026-11-24",
+      "horario": {
+        "inicio": "19:00",
+        "fim": "22:00"
       },
+      "local": "Laboratório de informática — IFPR Foz do Iguaçu",
+      "sequencia": [
+        {
+          "horario": "19:00",
+          "titulo": "Conversa inicial e contrato das duplas",
+          "detalhe": "Até 19:12"
+        },
+        {
+          "horario": "19:12",
+          "titulo": "Problema e critérios de aceite da Pizza",
+          "detalhe": "Até 19:25"
+        },
+        {
+          "horario": "19:25",
+          "titulo": "Unidade 01 · retomada dos fundamentos",
+          "detalhe": "Até 19:43"
+        },
+        {
+          "horario": "19:43",
+          "titulo": "Playground · aquecimento, P01 e P02",
+          "detalhe": "Até 20:02"
+        },
+        {
+          "horario": "20:02",
+          "titulo": "Git 1 · registrar ponto de partida",
+          "detalhe": "Até 20:12"
+        },
+        {
+          "horario": "20:12",
+          "titulo": "P03 · tamanho e preço",
+          "detalhe": "Até 20:32"
+        },
+        {
+          "horario": "20:32",
+          "titulo": "Intervalo",
+          "detalhe": "Até 20:42"
+        },
+        {
+          "horario": "20:42",
+          "titulo": "P04 · seleção de sabores",
+          "detalhe": "Até 21:05"
+        },
+        {
+          "horario": "21:05",
+          "titulo": "P05 e P06 · quantidade, total e testes",
+          "detalhe": "Até 21:29"
+        },
+        {
+          "horario": "21:29",
+          "titulo": "Git 2 · registrar evolução",
+          "detalhe": "Até 21:44"
+        },
+        {
+          "horario": "21:44",
+          "titulo": "P07 opcional · autoria e teste entre duplas",
+          "detalhe": "Até 21:55"
+        },
+        {
+          "horario": "21:55",
+          "titulo": "Bilhete de saída",
+          "detalhe": "Até 22:00"
+        }
+      ]
     },
     {
-      id: 'contador-reativo',
-      playgroundExemplo: 'contador',
-      encontroId: '02',
-      codigo: '02.2',
-      titulo: 'Contador reativo',
-      resumo: 'Adicione botões para incrementar, decrementar e reiniciar um contador.',
-      duracaoMin: 15,
-      nivel: 'introdutorio',
-      status: 'publicado',
-      origem: 'demonstrativo',
-      enunciado: 'exercicios/contador-reativo/enunciado.md',
-      objetivos: [
-        'Manipular estado numérico com ref.',
-        'Responder a eventos de clique.',
-        'Evitar valores negativos com uma regra simples.',
-      ],
-      requisitos: [
-        'O contador começa em zero.',
-        'Os botões +1 e -1 alteram o valor.',
-        'O contador nunca fica abaixo de zero.',
-        'O botão de reiniciar volta para zero.',
-      ],
-      codigoInicialIds: ['contador-inicial'],
-      dicas: [
-        'Cada botão pode chamar uma função que altera `total.value`.',
-        'Use `Math.max(0, total.value - 1)` para impedir valores negativos.',
-      ],
-      resolucao: {
-        status: 'rascunho',
-        origem: 'demonstrativo',
-        explicacao: 'exercicios/contador-reativo/resolucao.md',
+      "id": "02",
+      "tipo": "encontro",
+      "titulo": "To-Do List · da necessidade à lista viva",
+      "resumo": "Unidade 03: crie, valide, liste e exclua tarefas. Bootstrap, edição e rotas são aprofundamentos.",
+      "status": "publicado",
+      "origem": "oficial",
+      "descricao": "encontros/encontro-02.md",
+      "data": "2026-11-26",
+      "horario": {
+        "inicio": "19:00",
+        "fim": "22:00"
       },
+      "local": "Laboratório de informática — IFPR Foz do Iguaçu",
+      "sequencia": [
+        {
+          "horario": "19:00",
+          "titulo": "Retomada com bug e transferência",
+          "detalhe": "Até 19:12"
+        },
+        {
+          "horario": "19:12",
+          "titulo": "Problema e critérios da lista",
+          "detalhe": "Até 19:25"
+        },
+        {
+          "horario": "19:25",
+          "titulo": "Objetos, arrays e Bootstrap como bônus",
+          "detalhe": "Até 19:37"
+        },
+        {
+          "horario": "19:37",
+          "titulo": "T01 · estrutura e Git 1",
+          "detalhe": "Até 19:55"
+        },
+        {
+          "horario": "19:55",
+          "titulo": "T02 · cadastro e validação",
+          "detalhe": "Até 20:20"
+        },
+        {
+          "horario": "20:20",
+          "titulo": "Intervalo",
+          "detalhe": "Até 20:30"
+        },
+        {
+          "horario": "20:30",
+          "titulo": "T03 · listagem, IDs e estado vazio",
+          "detalhe": "Até 20:55"
+        },
+        {
+          "horario": "20:55",
+          "titulo": "T04 · exclusão e cancelamento",
+          "detalhe": "Até 21:17"
+        },
+        {
+          "horario": "21:17",
+          "titulo": "T05 e aprofundamentos opcionais",
+          "detalhe": "Até 21:35"
+        },
+        {
+          "horario": "21:35",
+          "titulo": "Git 2 · registrar evolução",
+          "detalhe": "Até 21:47"
+        },
+        {
+          "horario": "21:47",
+          "titulo": "Galeria de soluções entre duplas",
+          "detalhe": "Até 21:56"
+        },
+        {
+          "horario": "21:56",
+          "titulo": "Bilhete de saída final",
+          "detalhe": "Até 22:00"
+        }
+      ]
+    }
+  ],
+  "unidades": [
+    {
+      "id": "01",
+      "encontroId": "01",
+      "titulo": "Ecossistema Vue.js",
+      "resumo": "HTML, CSS, JavaScript, Vue e as ferramentas do projeto.",
+      "descricao": "unidades/01.md",
+      "apostilaId": "apostila-01"
     },
     {
-      id: 'lista-de-tarefas',
-      encontroId: '02',
-      codigo: '02.3',
-      titulo: 'Lista dinâmica com v-for',
-      resumo: 'Pratique formulários, arrays reativos e renderização de uma lista antes do CRUD completo.',
-      duracaoMin: 30,
-      nivel: 'intermediario',
-      status: 'publicado',
-      origem: 'demonstrativo',
-      enunciado: 'exercicios/lista-de-tarefas/enunciado.md',
-      playgroundExemplo: 'tarefas',
-      codigoInicialIds: ['tarefas-inicial'],
-      requisitos: ['Use um array reativo.', 'Liste os itens com v-for e chave estável.', 'Adicione uma tarefa e limpe o campo; ignore texto vazio.'],
+      "id": "02",
+      "encontroId": "01",
+      "titulo": "Pizza Vue",
+      "resumo": "Do formulário estático ao pedido reativo, uma missão por vez.",
+      "descricao": "unidades/02.md",
+      "apostilaId": "apostila-02"
     },
     {
-      id: 'primeiro-commit',
-      encontroId: '01',
-      codigo: '01.3',
-      titulo: 'Primeiro commit',
-      resumo: 'Inicialize o repositório e registre o primeiro estado do projeto.',
-      duracaoMin: 15,
-      nivel: 'introdutorio',
-      status: 'publicado',
-      origem: 'demonstrativo',
-      enunciado: 'exercicios/primeiro-commit/enunciado.md',
-      objetivos: [
-        'Inicializar um repositório Git local.',
-        'Preparar arquivos para commit.',
-        'Escrever uma mensagem de commit descritiva.',
-      ],
-      requisitos: [
-        'O repositório é inicializado na pasta do projeto.',
-        'O commit inclui os arquivos do projeto Vue.',
-        'A mensagem do commit descreve a mudança.',
-      ],
-      codigoInicialIds: ['git-primeiro-commit'],
-      dicas: [
-        'Confira o estado com `git status` antes de adicionar.',
-        'Use `git add .` e depois `git commit -m "..."`.',
-      ],
-      resolucao: {
-        status: 'rascunho',
-        origem: 'demonstrativo',
-        explicacao: 'exercicios/primeiro-commit/resolucao.md',
+      "id": "03",
+      "encontroId": "02",
+      "titulo": "To-Do List",
+      "resumo": "Cadastrar, validar, listar e excluir tarefas com segurança.",
+      "descricao": "unidades/03.md",
+      "apostilaId": "apostila-03"
+    }
+  ],
+  "materiais": [
+    {
+      "id": "apostila-01",
+      "encontroId": "01",
+      "titulo": "Unidade 01 · Ecossistema Vue.js",
+      "tipo": "pdf",
+      "descricao": "Apostila do aluno · material oficial de estudo e consulta.",
+      "localizacao": {
+        "arquivo": "materiais/vue-github/oficiais/apostila-unidade-01.pdf"
       },
+      "status": "publicado",
+      "origem": "oficial"
     },
     {
-      id: 'publicar-no-pages',
-      encontroId: '02',
-      codigo: '02.2',
-      titulo: 'Publicar no GitHub Pages',
-      resumo: 'Conecte o repositório ao GitHub e acompanhe o deploy do site.',
-      duracaoMin: 20,
-      nivel: 'intermediario',
-      status: 'rascunho',
-      origem: 'demonstrativo',
-      enunciado: 'exercicios/publicar-no-pages/enunciado.md',
-      objetivos: [
-        'Configurar o repositório remoto.',
-        'Enviar o projeto para o GitHub.',
-        'Verificar a publicação no GitHub Pages.',
-      ],
-      requisitos: [
-        'O repositório remoto aponta para o GitHub.',
-        'O push foi concluído na branch main.',
-        'A URL pública do Pages abre o projeto.',
-      ],
-      codigoInicialIds: ['publicar-pages'],
-      dicas: [
-        'Confira o remote com `git remote -v`.',
-        'O deploy aparece na aba Actions do repositório.',
-      ],
-      resolucao: {
-        status: 'rascunho',
-        origem: 'demonstrativo',
-        explicacao: 'exercicios/publicar-no-pages/resolucao.md',
+      "id": "apostila-02",
+      "encontroId": "01",
+      "titulo": "Unidade 02 · Pizza Vue",
+      "tipo": "pdf",
+      "descricao": "Apostila do aluno · material oficial de estudo e consulta.",
+      "localizacao": {
+        "arquivo": "materiais/vue-github/oficiais/apostila-unidade-02.pdf"
       },
+      "status": "publicado",
+      "origem": "oficial"
     },
+    {
+      "id": "apostila-03",
+      "encontroId": "02",
+      "titulo": "Unidade 03 · To-Do List",
+      "tipo": "pdf",
+      "descricao": "Apostila do aluno · material oficial de estudo e consulta.",
+      "localizacao": {
+        "arquivo": "materiais/vue-github/oficiais/apostila-unidade-03.pdf"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "slides-01",
+      "encontroId": "01",
+      "titulo": "Slides · Aula 1 — Pizza Vue",
+      "tipo": "slides",
+      "descricao": "Apresentação oficial da aula em PDF.",
+      "localizacao": {
+        "arquivo": "materiais/vue-github/oficiais/slides-aula-01.pdf"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "slides-02",
+      "encontroId": "02",
+      "titulo": "Slides · Aula 2 — To-Do List",
+      "tipo": "slides",
+      "descricao": "Apresentação oficial da aula em PDF.",
+      "localizacao": {
+        "arquivo": "materiais/vue-github/oficiais/slides-aula-02.pdf"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "livro-git",
+      "encontroId": "02",
+      "titulo": "Pro Git — livro gratuito",
+      "tipo": "referencia",
+      "descricao": "Referência completa de Git, em português.",
+      "localizacao": {
+        "url": "https://git-scm.com/book/pt-br/v2"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "referencia-mdn-js",
+      "titulo": "MDN — JavaScript",
+      "tipo": "referencia",
+      "descricao": "Referência de JavaScript para consultar durante os exercícios.",
+      "localizacao": {
+        "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "referencia-vue",
+      "titulo": "Vue.js — guia oficial",
+      "tipo": "referencia",
+      "descricao": "Documentação oficial do framework.",
+      "localizacao": {
+        "url": "https://vuejs.org/guide/introduction.html"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "referencia-github",
+      "titulo": "GitHub Docs",
+      "tipo": "link",
+      "descricao": "Documentação de repositórios, Actions e Pages.",
+      "localizacao": {
+        "url": "https://docs.github.com/pt"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    }
   ],
-  codigos: [
-    { id: 'tarefas-inicial', encontroId: '02', titulo: 'App.vue · lista inicial', linguagem: 'vue', fonte: "<script setup>\nimport { ref } from \"vue\"\nconst nova = ref(\"\")\nconst tarefas = ref([])\n// Implemente adicionar e renderize as tarefas no template.\n</script>\n<template>\n  <input v-model=\"nova\" aria-label=\"Nova tarefa\" />\n</template>", papel: 'inicial', status: 'publicado', origem: 'demonstrativo' },
-    { id: 'pizza-watch-inicial', encontroId: '01', titulo: 'script · limites de sabores', linguagem: 'js', fonte: "const tamanhos = [\n  { id: \"p\", preco: 25, maxSabores: 1 },\n  { id: \"m\", preco: 35, maxSabores: 2 },\n  { id: \"g\", preco: 45, maxSabores: 3 },\n]\n// Acrescente watch e o bloqueio dos checkboxes ao Pizza Vue.", papel: 'inicial', status: 'publicado', origem: 'demonstrativo' },
+  "exercicios": [
     {
-      id: 'verificar-ambiente',
-      titulo: 'terminal',
-      descricao: 'Comandos para conferir Node.js, npm e Git.',
-      linguagem: 'bash',
-      fonte:
-        'node --version\nnpm --version\ngit --version',
-      papel: 'exemplo',
-      encontroId: 'preparacao',
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'git-identidade-local',
-      titulo: 'terminal · identidade no projeto',
-      descricao: 'Na pasta do projeto: crie o repositório apenas se ele ainda não existir e configure a autoria local antes do primeiro commit.',
-      linguagem: 'bash',
-      fonte: 'git init -b main\ngit config --local user.name "Seu Nome e Sobrenome"\ngit config --local user.email "seu_email_do_github@exemplo.com"\ngit config --local --get user.name\ngit config --local --get user.email',
-      papel: 'exemplo',
-      encontroId: '01',
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'git-pizza-segundo-commit',
-      titulo: 'terminal · segundo commit do Pizza Vue',
-      descricao: 'Nota de leitura do roteiro prático, página 2: git diff e git add são comandos separados. Prepare também main.js ou style.css se eles mudaram.',
-      linguagem: 'bash',
-      fonte: 'git status\ngit diff\ngit add src/App.vue\ngit commit -m "Implementa formulario e resumo reativo"\ngit log --oneline',
-      papel: 'exemplo',
-      encontroId: '01',
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
-      id: 'app-inicial',
-      titulo: 'src/App.vue',
-      descricao: 'Ponto de partida do exercício complementar Olá, componente.',
-      linguagem: 'vue',
-      arquivo: 'codigo/01-1/App.vue',
-      githubUrl: `${codeBase}/01-1/App.vue`,
-      papel: 'inicial',
-      encontroId: '01',
-      status: 'publicado',
-      origem: 'demonstrativo',
-    },
-    {
-      id: 'app-solucao',
-      titulo: 'src/App.vue · solução',
-      descricao: 'Solução comentada do exercício 01.1.',
-      linguagem: 'vue',
-      arquivo: 'codigo/01-1/App.solucao.vue',
-      githubUrl: `${codeBase}/01-1/App.solucao.vue`,
-      papel: 'final',
-      encontroId: '01',
-      status: 'rascunho',
-      origem: 'demonstrativo',
-    },
-    {
-      id: 'contador-inicial',
-      titulo: 'src/components/Contador.vue',
-      descricao: 'Ponto de partida do exercício complementar Contador reativo.',
-      linguagem: 'vue',
-      arquivo: 'codigo/01-2/Contador.vue',
-      githubUrl: `${codeBase}/01-2/Contador.vue`,
-      papel: 'inicial',
-      encontroId: '02',
-      status: 'publicado',
-      origem: 'demonstrativo',
-    },
-    {
-      id: 'git-primeiro-commit',
-      titulo: 'terminal · primeiro commit',
-      descricao: 'Sequência de comandos do exercício complementar Primeiro commit.',
-      linguagem: 'bash',
-      fonte:
-        'git init\ngit status\ngit add .\ngit commit -m "feat: primeiro componente"\ngit branch -M main',
-      papel: 'exemplo',
-      encontroId: '01',
-      status: 'publicado',
-      origem: 'demonstrativo',
-    },
-    {
-      id: 'publicar-pages',
-      titulo: 'terminal · publicação',
-      descricao: 'Build local, conferência e envio para o GitHub.',
-      linguagem: 'bash',
-      fonte:
-        'npm run build\nnpx vite preview --base ./ --port 4173\ngit remote add origin https://github.com/<usuario>/meu-app.git\ngit push -u origin main',
-      papel: 'exemplo',
-      encontroId: '02',
-      status: 'rascunho',
-      origem: 'demonstrativo',
-    },
-  ],
-  questionarios: [
-    {
-      id: 'diagnostico',
-      tipo: 'diagnostico',
-      titulo: 'Questionário diagnóstico',
-      descricao:
-        'Ajuda a equipe a conhecer o que você já sabe sobre os assuntos do minicurso. Responda antes do primeiro encontro.',
-      status: 'em_breve',
-      origem: 'oficial',
-    },
-    {
-      id: 'final',
-      tipo: 'final',
-      titulo: 'Questionário final',
-      descricao:
-        'Avalia a experiência e o que você aprendeu, para comparar com o diagnóstico. Responda depois do segundo encontro.',
-      status: 'em_breve',
-      origem: 'oficial',
-    },
-  ],
-  desafios: [
-    {
-      id: 'primeiros-passos-vue',
-      encontroId: '01',
-      titulo: 'Primeiros passos com Vue',
-      resumo: 'Cinco perguntas rápidas sobre template, reatividade e diretivas.',
-      status: 'rascunho',
-      origem: 'demonstrativo',
-      perguntas: [
-        {
-          enunciado: 'Como exibir o valor da variável `nome` dentro do `<template>`?',
-          alternativas: ['`{{ nome }}`', '`${nome}`', '`<nome />`', '`v-text="{{ nome }}"`'],
-          correta: 0,
-          explicacao:
-            'A interpolação com chaves duplas, `{{ nome }}`, insere o valor no template e é atualizada quando o dado muda.',
-        },
-        {
-          enunciado: 'Em `<script setup>`, qual linha cria um número reativo começando em zero?',
-          alternativas: ['`let total = 0`', '`const total = ref(0)`', '`const total = reactive(0)`', '`this.total = 0`'],
-          correta: 1,
-          explicacao:
-            '`ref(0)` cria um valor reativo. Uma variável comum não avisa o Vue quando muda, e `reactive` trabalha com objetos, não com números.',
-        },
-        {
-          enunciado: 'Dentro do `<script setup>`, como ler o valor atual de `const nome = ref(\'\')`?',
-          alternativas: ['`nome`', '`nome.value`', '`nome()`', '`nome.get()`'],
-          correta: 1,
-          explicacao:
-            'No script, o valor de um `ref` fica em `.value`. No template o Vue faz isso automaticamente, por isso lá basta `{{ nome }}`.',
-        },
-        {
-          enunciado: 'Qual diretiva mantém um `<input>` e o estado sincronizados nos dois sentidos?',
-          alternativas: ['`v-bind`', '`v-if`', '`v-model`', '`v-on`'],
-          correta: 2,
-          explicacao:
-            '`v-model` atualiza o estado quando você digita e atualiza o campo quando o estado muda. `v-bind` liga um atributo em um único sentido.',
-        },
-        {
-          enunciado: 'Qual diretiva renderiza um elemento para cada item de um array?',
-          alternativas: ['`v-for`', '`v-show`', '`v-each`', '`v-list`'],
-          correta: 0,
-          explicacao:
-            '`v-for="item in itens"` repete o elemento para cada item. Use também `:key` com um valor único para cada item.',
-        },
+      "id": "u01-m01",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "nucleo",
+      "codigo": "M01",
+      "titulo": "ESTRUTURA QUE COMUNICA",
+      "resumo": "Como alguém sabe qual campo deve preencher para pedir uma pizza?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m01/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m01"
       ],
+      "playgroundExemplo": "u01-m01",
+      "tipo": "atividade"
     },
+    {
+      "id": "u01-m02",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "nucleo",
+      "codigo": "M02",
+      "titulo": "APARÊNCIA TAMBÉM COMUNICA",
+      "resumo": "Uma página funciona, mas é difícil saber onde começa e termina o pedido. Como melhorar?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m02/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m02"
+      ],
+      "playgroundExemplo": "u01-m02",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u01-m03",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "nucleo",
+      "codigo": "M03",
+      "titulo": "DE ONDE VEM O TOTAL?",
+      "resumo": "Duas pizzas custam mais que uma. Como mostrar isso na tela sem escrever o total manualmente?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m03/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m03"
+      ],
+      "playgroundExemplo": "u01-m03",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u01-m04",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "nucleo",
+      "codigo": "M04",
+      "titulo": "DIGITEI, APARECEU!",
+      "resumo": "Como mostrar o nome do cliente enquanto ele digita, sem clicar em Enviar?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m04/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m04"
+      ],
+      "playgroundExemplo": "u01-m04",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u01-m05",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "progressao",
+      "codigo": "M05",
+      "titulo": "O PEDIDO NÃO PODE TER ZERO",
+      "resumo": "E se uma pessoa clicar no botão de diminuir até a quantidade ficar negativa?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m05/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m05"
+      ],
+      "playgroundExemplo": "u01-m05",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u01-m06",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "progressao",
+      "codigo": "M06",
+      "titulo": "CALCULAR SEM REDIGITAR",
+      "resumo": "Como manter o preço total correto sempre que a quantidade mudar?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m06/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m06"
+      ],
+      "playgroundExemplo": "u01-m06",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u01-m07",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "progressao",
+      "codigo": "M07",
+      "titulo": "QUANDO MOSTRAR UMA MENSAGEM?",
+      "resumo": "Uma pizzaria fechada não deveria mostrar a mesma mensagem de uma aberta.",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m07/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m07"
+      ],
+      "playgroundExemplo": "u01-m07",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u01-m08",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "progressao",
+      "codigo": "M08",
+      "titulo": "UMA LISTA, VÁRIOS ITENS",
+      "resumo": "A pizzaria tem vários sabores. Faz sentido escrever três `<li>` separados e repetidos?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m08/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m08"
+      ],
+      "playgroundExemplo": "u01-m08",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u01-m09",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "progressao",
+      "codigo": "M09",
+      "titulo": "UM CLIQUE, DOIS ESTADOS",
+      "resumo": "Como deixar visualmente claro que uma pizza foi selecionada?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-m09/enunciado.md",
+      "codigoInicialIds": [
+        "u01-m09"
+      ],
+      "playgroundExemplo": "u01-m09",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u01-componentes",
+      "encontroId": "01",
+      "unidadeId": "01",
+      "etapa": "opcional",
+      "codigo": "M10",
+      "titulo": "Uma parte da interface conversa com outra",
+      "resumo": "Crie um componente de resumo que receba um sabor por props e avise o pai sobre a intenção de remover com emit. Teste o fluxo de dados e a reutilização.",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u01-componentes/enunciado.md",
+      "tipo": "desafio"
+    },
+    {
+      "id": "u02-m01",
+      "encontroId": "01",
+      "unidadeId": "02",
+      "etapa": "nucleo",
+      "codigo": "P01",
+      "titulo": "O formulário começa com uma pergunta",
+      "resumo": "A pessoa consegue reconhecer onde digitar o nome e escolher o tamanho?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u02-m01/enunciado.md",
+      "codigoInicialIds": [
+        "u02-m01"
+      ],
+      "playgroundExemplo": "u02-m01",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u02-m02",
+      "encontroId": "01",
+      "unidadeId": "02",
+      "etapa": "nucleo",
+      "codigo": "P02",
+      "titulo": "O nome precisa aparecer enquanto digitamos",
+      "resumo": "Como o resumo pode mostrar o nome digitado imediatamente?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u02-m02/enunciado.md",
+      "codigoInicialIds": [
+        "u02-m02"
+      ],
+      "playgroundExemplo": "u02-m02",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u02-m03",
+      "encontroId": "01",
+      "unidadeId": "02",
+      "etapa": "nucleo",
+      "codigo": "P03",
+      "titulo": "O tamanho muda o preço",
+      "resumo": "O preço unitário pode ser escolhido manualmente pelo cliente?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u02-m03/enunciado.md",
+      "codigoInicialIds": [
+        "u02-m03"
+      ],
+      "playgroundExemplo": "u02-m03",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u02-m04",
+      "encontroId": "01",
+      "unidadeId": "02",
+      "etapa": "nucleo",
+      "codigo": "P04",
+      "titulo": "Um pedido aceita vários sabores",
+      "resumo": "Por que um único texto não representa bem várias escolhas?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u02-m04/enunciado.md",
+      "codigoInicialIds": [
+        "u02-m04"
+      ],
+      "playgroundExemplo": "u02-m04",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u02-m05",
+      "encontroId": "01",
+      "unidadeId": "02",
+      "etapa": "nucleo",
+      "codigo": "P05",
+      "titulo": "Quantidades precisam respeitar acordos",
+      "resumo": "Uma pessoa deveria pedir zero pizzas ou onze pizzas nesta simulação?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u02-m05/enunciado.md",
+      "codigoInicialIds": [
+        "u02-m05"
+      ],
+      "playgroundExemplo": "u02-m05",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u02-m06",
+      "encontroId": "01",
+      "unidadeId": "02",
+      "etapa": "nucleo",
+      "codigo": "P06",
+      "titulo": "O total não pode ficar desatualizado",
+      "resumo": "Se o tamanho ou a quantidade mudar, quem deve recalcular a conta?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u02-m06/enunciado.md",
+      "codigoInicialIds": [
+        "u02-m06"
+      ],
+      "playgroundExemplo": "u02-m06",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u02-m07",
+      "encontroId": "01",
+      "unidadeId": "02",
+      "etapa": "opcional",
+      "codigo": "P07",
+      "titulo": "Uma simulação também precisa dar retorno",
+      "resumo": "Como informar que o pedido foi finalizado sem simular uma compra real?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u02-m07/enunciado.md",
+      "codigoInicialIds": [
+        "u02-m07"
+      ],
+      "playgroundExemplo": "u02-m07",
+      "tipo": "desafio"
+    },
+    {
+      "id": "u02-componentes",
+      "encontroId": "01",
+      "unidadeId": "02",
+      "etapa": "opcional",
+      "codigo": "P08",
+      "titulo": "Duas peças conversando",
+      "resumo": "Separe o resumo do pedido em ResumoPedido.vue. O pai mantém os dados, envia props e recebe um evento para limpar o nome. Explique por que o filho não altera o estado do pai.",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u02-componentes/enunciado.md",
+      "tipo": "desafio"
+    },
+    {
+      "id": "u03-m01",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "nucleo",
+      "codigo": "T01",
+      "titulo": "Que problema nossa lista precisa resolver?",
+      "resumo": "Por que uma lista útil precisa mostrar tanto tarefas quanto a ação de criá-las?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-m01/enunciado.md",
+      "codigoInicialIds": [
+        "u03-m01"
+      ],
+      "playgroundExemplo": "u03-m01",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u03-m02",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "nucleo",
+      "codigo": "T02",
+      "titulo": "Uma tarefa em branco não resolve nada",
+      "resumo": "É correto cadastrar uma tarefa sem título ou descrição?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-m02/enunciado.md",
+      "codigoInicialIds": [
+        "u03-m02"
+      ],
+      "playgroundExemplo": "u03-m02",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u03-m03",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "nucleo",
+      "codigo": "T03",
+      "titulo": "Uma lista precisa mostrar todos os itens",
+      "resumo": "Como exibir três tarefas sem escrever manualmente três cards?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-m03/enunciado.md",
+      "codigoInicialIds": [
+        "u03-m03"
+      ],
+      "playgroundExemplo": "u03-m03",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u03-m04",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "nucleo",
+      "codigo": "T04",
+      "titulo": "Excluir exige confirmação",
+      "resumo": "O que acontece se uma pessoa clicar sem querer em Excluir?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-m04/enunciado.md",
+      "codigoInicialIds": [
+        "u03-m04"
+      ],
+      "playgroundExemplo": "u03-m04",
+      "tipo": "atividade"
+    },
+    {
+      "id": "u03-m05",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "opcional",
+      "codigo": "T05",
+      "titulo": "A aparência também comunica",
+      "resumo": "O formulário fica compreensível e utilizável em uma tela pequena?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-m05/enunciado.md",
+      "codigoInicialIds": [
+        "u03-m05"
+      ],
+      "playgroundExemplo": "u03-m05",
+      "tipo": "desafio"
+    },
+    {
+      "id": "u03-m06",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "opcional",
+      "codigo": "T06",
+      "titulo": "Editar sem salvar não deveria mudar o item",
+      "resumo": "É aceitável que o card mude antes de a pessoa clicar em Salvar edição?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-m06/enunciado.md",
+      "codigoInicialIds": [
+        "u03-m06"
+      ],
+      "playgroundExemplo": "u03-m06",
+      "tipo": "desafio"
+    },
+    {
+      "id": "u03-m07",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "opcional",
+      "codigo": "T07",
+      "titulo": "Quando a tarefa foi criada?",
+      "resumo": "Uma lista pode ajudar mais se mostrar quando a tarefa entrou?",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-m07/enunciado.md",
+      "codigoInicialIds": [
+        "u03-m07"
+      ],
+      "playgroundExemplo": "u03-m07",
+      "tipo": "desafio"
+    },
+    {
+      "id": "u03-componentes",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "opcional",
+      "codigo": "T08",
+      "titulo": "Reutilizar sem esconder a lógica",
+      "resumo": "Extraia TarefaCard.vue da sua lista. Passe a tarefa por props e emita a intenção de excluir, mantendo a alteração do array no componente pai.",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-componentes/enunciado.md",
+      "tipo": "desafio"
+    },
+    {
+      "id": "u03-rotas",
+      "encontroId": "02",
+      "unidadeId": "03",
+      "etapa": "opcional",
+      "codigo": "T09",
+      "titulo": "Duas telas com Vue Router",
+      "resumo": "No projeto local, instale vue-router, configure duas rotas (Início e Sobre), navegue por RouterLink e mostre a tela com RouterView. Preserve o núcleo da lista de tarefas.",
+      "status": "publicado",
+      "origem": "oficial",
+      "enunciado": "exercicios/u03-rotas/enunciado.md",
+      "tipo": "desafio"
+    }
   ],
+  "codigos": [
+    {
+      "id": "u01-m01",
+      "encontroId": "01",
+      "titulo": "M01 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m01.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u01-m02",
+      "encontroId": "01",
+      "titulo": "M02 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m02.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u01-m03",
+      "encontroId": "01",
+      "titulo": "M03 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m03.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u01-m04",
+      "encontroId": "01",
+      "titulo": "M04 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m04.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u01-m05",
+      "encontroId": "01",
+      "titulo": "M05 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m05.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u01-m06",
+      "encontroId": "01",
+      "titulo": "M06 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m06.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u01-m07",
+      "encontroId": "01",
+      "titulo": "M07 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m07.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u01-m08",
+      "encontroId": "01",
+      "titulo": "M08 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m08.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u01-m09",
+      "encontroId": "01",
+      "titulo": "M09 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u01-m09.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u02-m01",
+      "encontroId": "01",
+      "titulo": "P01 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u02-m01.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u02-m02",
+      "encontroId": "01",
+      "titulo": "P02 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u02-m02.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u02-m03",
+      "encontroId": "01",
+      "titulo": "P03 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u02-m03.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u02-m04",
+      "encontroId": "01",
+      "titulo": "P04 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u02-m04.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u02-m05",
+      "encontroId": "01",
+      "titulo": "P05 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u02-m05.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u02-m06",
+      "encontroId": "01",
+      "titulo": "P06 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u02-m06.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u02-m07",
+      "encontroId": "01",
+      "titulo": "P07 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u02-m07.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u03-m01",
+      "encontroId": "02",
+      "titulo": "T01 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u03-m01.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u03-m02",
+      "encontroId": "02",
+      "titulo": "T02 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u03-m02.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u03-m03",
+      "encontroId": "02",
+      "titulo": "T03 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u03-m03.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u03-m04",
+      "encontroId": "02",
+      "titulo": "T04 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u03-m04.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u03-m05",
+      "encontroId": "02",
+      "titulo": "T05 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u03-m05.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u03-m06",
+      "encontroId": "02",
+      "titulo": "T06 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u03-m06.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "u03-m07",
+      "encontroId": "02",
+      "titulo": "T07 · App.vue inicial",
+      "linguagem": "vue",
+      "arquivo": "codigo/missoes/u03-m07.vue",
+      "papel": "inicial",
+      "status": "publicado",
+      "origem": "oficial"
+    }
+  ],
+  "redirecionamentos": {
+    "ola-componente": "u01-m01",
+    "contador-reativo": "u01-m05",
+    "primeiro-commit": "u02-m01",
+    "publicar-no-pages": "u03-rotas",
+    "lista-de-tarefas": "u03-m01",
+    "pizza-vue": "u02-m01",
+    "todo-list": "u03-m01",
+    "perfil-componentes": "u01-componentes",
+    "pizza-watch": "u02-m07",
+    "tarefas-componentes": "u03-componentes"
+  },
+  "desafios": [],
+  "questionarios": [
+    {
+      "id": "diagnostico",
+      "tipo": "diagnostico",
+      "titulo": "Questionário diagnóstico",
+      "descricao": "Ajuda a equipe a conhecer o que você já sabe sobre os assuntos do minicurso. Responda antes do primeiro encontro.",
+      "status": "em_breve",
+      "origem": "oficial"
+    },
+    {
+      "id": "final",
+      "tipo": "final",
+      "titulo": "Questionário final",
+      "descricao": "Avalia a experiência e o que você aprendeu, para comparar com o diagnóstico. Responda depois do segundo encontro.",
+      "status": "em_breve",
+      "origem": "oficial"
+    }
+  ]
 }

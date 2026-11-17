@@ -89,7 +89,7 @@ export function describeMoment(
     case 'hoje': {
       const { atual } = moment
       const hasExercises = exercisesFor(course, atual.id).length > 0
-      const hasCode = codesFor(course, atual.id).some((code) => code.disponivel)
+      const hasCode = codesFor(course, atual.id).some((code) => code.disponivel && code.githubUrl)
       return {
         rotulo: `Hoje · ${formatTimeRange(atual.horario)}`,
         titulo: `${meetingLabel(atual)} · ${atual.titulo}`,

@@ -144,11 +144,9 @@ function counts(stage: RenderedEncontro): string[] {
   const materials = materialsFor(course.value, stage.id).length
   const exercises = exercisesFor(course.value, stage.id).length
   const challenges = challengesFor(course.value, stage.id).length
-  const codes = codesFor(course.value, stage.id).length
   if (materials) items.push(`${materials} ${materials === 1 ? 'material' : 'materiais'}`)
   if (exercises) items.push(`${exercises} ${exercises === 1 ? 'exercício' : 'exercícios'}`)
   if (challenges) items.push(`${challenges} ${challenges === 1 ? 'desafio' : 'desafios'}`)
-  if (codes) items.push(`${codes} ${codes === 1 ? 'código' : 'códigos'}`)
   return items
 }
 
@@ -391,7 +389,7 @@ const referenceResources = computed(() =>
           <div>
             <p class="eyebrow">Seu inventário</p>
             <h3>O material da aula vai com você.</h3>
-            <p>Encontre slides, apostilas, código-base e os roteiros recebidos em um só lugar.</p>
+            <p>Consulte as três apostilas e os slides oficiais. Para praticar, siga as unidades de cada encontro.</p>
           </div>
           <button class="btn" type="button" aria-haspopup="dialog" aria-controls="inventario" @click="openInventory">Abrir inventário <span aria-hidden="true">→</span></button>
         </div>
