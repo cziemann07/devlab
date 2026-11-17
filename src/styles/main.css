@@ -237,6 +237,7 @@ samp {
 
 /* Prose (Markdown renderizado no build) */
 .prose {
+  overflow-wrap: anywhere;
   max-width: 72ch;
   color: var(--text);
 }

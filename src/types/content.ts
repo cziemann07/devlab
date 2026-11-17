@@ -91,6 +91,8 @@ export interface Resolucao extends Disponibilidade {
 }
 
 export interface Exercicio extends Disponibilidade {
+  tipo?: 'atividade' | 'desafio'
+  playgroundExemplo?: string
   id: string
   encontroId: string
   codigo: string
@@ -210,6 +212,8 @@ export interface RenderedResolucao {
 }
 
 export interface RenderedExercicio {
+  tipo?: 'atividade' | 'desafio'
+  playgroundExemplo?: string
   id: string
   encontroId: string
   codigo: string

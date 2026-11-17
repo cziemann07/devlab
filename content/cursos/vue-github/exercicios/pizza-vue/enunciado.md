@@ -1,39 +1,26 @@
-Esta atividade organiza os pontos de controle do **roteiro prático oficial da aula 1**, disponível nos materiais do encontro. A prática tem 82 minutos contados a partir do início do laboratório.
+Construa o **Pizza Vue** seguindo o projeto atualizado da aula 1: 90 minutos, previstos das 20h30 às 22h. Consulte a explicação e os PDFs na página do encontro.
 
 ## Antes de começar
 
-Abra a base com HTML e CSS fornecidos pelos ministrantes. O ZIP ainda aguarda envio; consulte o inventário para acompanhar a disponibilidade. Mantenha a versão completa separada da base inicial, conforme a orientação da equipe.
-
-Execute `npm run dev`. Confira como `main.js` monta `App.vue` no elemento `#app` e se o CSS é importado por `main.js`.
+O [repositório do ministrante](https://github.com/MathuCardoso/projeto-vuejs-aula1) contém o resultado completo e `src/style.css`. Use o HTML inicial do PDF para a construção por etapas. O roteiro pressupõe um Hello World já criado e enviado ao GitHub na primeira parte da aula. No playground, o exemplo é uma referência adaptada em um arquivo único.
 
 ## Etapas
 
-1. **00–10 min · Base e primeiro commit.** Confira o repositório e a branch, configure a autoria com `--local` e registre a interface estática. Se a base já tiver Git, use o repositório existente.
-2. **10–24 min · Nome e tamanho.** Use `ref`, `v-model`, `v-for`, `:value` e `:key`. Mostre o nome no resumo e trate o campo vazio com `v-if` e `v-else`.
-3. **24–38 min · Sabores.** Gere os checkboxes, vincule-os ao array de seleção e use `join` no resumo. Confira também o estado sem sabores.
-4. **38–56 min · Quantidade e total.** Comece em 1, limite de 1 a 10 e use `@click`. Derive o tamanho escolhido e o total com `computed`.
-5. **56–65 min · Testes e segundo commit.** Ligue a confirmação a um alerta e confira os controles antes de registrar a versão funcional.
-6. **65–82 min · GitHub.** Confira o remoto, envie a branch `main` e verifique os dois commits no navegador.
+1. **00–10 min:** preparar o HTML e o CSS; abrir com `npm run dev` e conferir o console.
+2. **10–25 min:** criar o nome com `ref`, ligar o campo com `v-model` e mostrar o nome no resumo.
+3. **25–45 min:** gerar opções e checkboxes usando `v-for`, `:key` e `:value`; ligar sabores a um array.
+4. **45–55 min:** implementar os botões de quantidade, respeitando os limites 1 e 10.
+5. **55–70 min:** calcular tamanho escolhido e total com `computed`.
+6. **70–80 min:** tratar nome e sabores vazios com `v-if` e `v-else`.
+7. **80–90 min:** confirmar o pedido, testar, registrar um commit e enviar ao GitHub.
 
-## Confira antes do segundo commit
+## Confira o resultado
 
-- Digitar e apagar o nome atualiza o resumo.
-- O tamanho pequeno é a opção inicial.
-- Marcar dois sabores e desmarcar ambos atualiza a lista e a mensagem de seleção vazia.
-- Os botões não permitem quantidade menor que 1 ou maior que 10.
-- Duas pizzas médias totalizam R$ 70,00; duas grandes, R$ 90,00.
-- Confirmar o pedido exibe o alerta simulado.
+- Apagar o nome mostra “Não informado”.
+- Desmarcar todos os sabores mostra “Nenhum sabor selecionado”.
+- Quantidade começa em 1 e nunca passa dos limites.
+- Duas pizzas médias custam R$ 70,00; três grandes custam R$ 135,00.
+- Confirmar mostra a mensagem simulada; no projeto local, o roteiro usa `alert`.
+- O GitHub exibe o commit inicial e o da prática. Use `git status`, `git diff`, `git add`, `git commit` e só então `git push`.
 
-## Comandos em linhas separadas
-
-O PDF original une dois comandos na página 2. A sequência para leitura é:
-
-```bash
-git status
-git diff
-git add src/App.vue
-git commit -m "Implementa formulario e resumo reativo"
-git log --oneline
-```
-
-Prepare também `main.js` e `style.css` antes do commit se esses arquivos tiverem mudado. Ao final, confira no GitHub os arquivos, a branch `main` e os dois commits.
+O desafio **Pizza Vue · limite de sabores** propõe o bônus com `watch` para quem terminar ou quiser continuar em casa.

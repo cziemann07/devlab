@@ -26,6 +26,8 @@ const { isInventoryOpen, openInventory } = useInventory()
       </RouterLink>
 
       <nav class="site-nav" aria-label="Principal">
+        <RouterLink v-if="course" class="nav-link" :to="`/cursos/${course.curso.slug}/atividades`">Atividades</RouterLink>
+        <RouterLink v-if="course" class="nav-link" :to="`/cursos/${course.curso.slug}/desafios`">Desafios</RouterLink>
         <button class="nav-link" type="button" @click="goHomeSection('cronograma')">
           Cronograma
         </button>
@@ -35,9 +37,12 @@ const { isInventoryOpen, openInventory } = useInventory()
         <button class="nav-link" type="button" @click="goHomeSection('recursos')">
           Recursos
         </button>
-        <button class="nav-link nav-inventory" type="button" aria-haspopup="dialog" aria-controls="inventario" :aria-expanded="isInventoryOpen" @click="openInventory">
+        <RouterLink class="nav-link" active-class="is-active" to="/playground">
+          Playground
+        </RouterLink>
+        <button class="nav-link nav-inventory" type="button" aria-haspopup="dialog" aria-controls="inventario" aria-label="Abrir inventário de materiais" :aria-expanded="isInventoryOpen" @click="openInventory">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5V4a3 3 0 0 1 6 0v1M7 5h10a3 3 0 0 1 3 3v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a3 3 0 0 1 3-3Z"/><path d="M8 22v-7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v7M9 9h6"/></svg>
-          Inventário
+          <span class="nav-inventory-label">Inventário</span>
         </button>
         <a
           v-if="repositoryUrl"
@@ -135,6 +140,11 @@ const { isInventoryOpen, openInventory } = useInventory()
   color: var(--text);
 }
 
+.nav-link.is-active {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
 .nav-inventory { display: inline-flex; align-items: center; gap: 6px; }
 .nav-inventory svg { width: 16px; height: 16px; flex: none; }
 .nav-inventory[aria-expanded='true'] { color: var(--text); background: var(--surface-2); }
@@ -172,6 +182,14 @@ const { isInventoryOpen, openInventory } = useInventory()
 
   .nav-inventory { gap: 4px; }
   .nav-inventory svg { width: 14px; height: 14px; }
+
+  .nav-inventory {
+    padding-inline: 0.45rem;
+  }
+
+  .nav-inventory-label {
+    display: none;
+  }
 
   .nav-link--external {
     display: none;

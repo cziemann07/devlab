@@ -4,7 +4,7 @@ Antes do primeiro encontro, reserve cerca de 30 minutos para deixar o ambiente p
 
 ## Checklist
 
-1. Tenha **Node.js e npm** compatíveis com o projeto fornecido pelos ministrantes. Se precisar instalar no seu notebook, confira com a equipe a versão usada na aula.
+1. Tenha **Node.js e npm** compatíveis com o projeto fornecido pelos ministrantes. Os dois repositórios enviados exigem Node.js `^22.18.0 || >=24.12.0`; confira essa faixa antes de instalar as dependências.
 2. Instale o **Git**.
 3. Instale o **VS Code** e a extensão oficial **Vue - Official**.
 4. Crie uma conta no **GitHub** e confirme o e-mail.
@@ -28,10 +28,10 @@ git config --local --get user.name
 git config --local --get user.email
 ```
 
-Esses comandos precisam de um repositório Git existente. A inicialização será feita durante a prática; a conferência de versões do painel abaixo pode ser feita antes.
+Esses comandos precisam de um repositório Git existente. Na aula 2, o clone já cria esse repositório; a conferência de versões do painel abaixo pode ser feita antes.
 
 Siga a orientação dos ministrantes para autenticar no GitHub. Conforme o plano, não salve credenciais na máquina compartilhada. Antes da limpeza local orientada pela equipe, confira no GitHub os arquivos e os commits enviados.
 
 ## Materiais para começar
 
-O roteiro prático da aula 1 pressupõe um projeto com HTML e CSS prontos. **O ZIP dessa base ainda aguarda envio** e aparecerá no inventário quando for disponibilizado. Os roteiros oficiais em PDF já podem ser consultados nas páginas dos encontros.
+Os repositórios [Pizza Vue](https://github.com/MathuCardoso/projeto-vuejs-aula1) e [TodoList](https://github.com/MathuCardoso/todolist-vuejs-curso) já estão disponíveis, assim como os roteiros oficiais nas páginas dos encontros. Eles contêm projetos completos: o ponto inicial de cada etapa é orientado pelo roteiro e pelos ministrantes. O CSS da Pizza está em `src/style.css` no repositório da aula 1.

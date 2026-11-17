@@ -1,54 +1,52 @@
-O primeiro encontro combina **fundamentos de Vue.js e Git** com a construção do **Pizza Vue**, conforme os roteiros oficiais enviados pelos ministrantes.
+O primeiro encontro combina **fundamentos de Vue.js e Git** com o **Pizza Vue**. A teoria segue o PDF de 60 minutos; a prática segue o projeto atualizado de 90 minutos, previsto das 20h30 às 22h. Os tempos da sequência abaixo são relativos a cada bloco.
 
 ## O que vamos construir
 
-Um formulário de pedido de pizzaria com nome, tamanho, sabores, quantidade e resumo atualizado em tempo real. O total depende do tamanho e da quantidade. A confirmação do pedido é simulada por um alerta.
+Um formulário com nome, tamanho, sabores e quantidade. O resumo acompanha os campos e o total é calculado com `computed`. A confirmação é simulada: não envia um pedido real.
 
-## Como a aula se organiza
+## Preparação e primeira parte
 
-- **Teoria · 60 minutos:** demonstração, história e adoção progressiva, vantagens e desvantagens, estado e reatividade, sintaxe do template e fluxo Git/GitHub.
-- **Prática · 82 minutos:** partir da interface estática, implementar o formulário e o total, registrar dois commits e conferir o projeto no GitHub.
-- **Revisão:** as sete perguntas recebidas no material do Kahoot também estão disponíveis como desafio interativo nesta página.
+Confira Node.js, npm, Git, VS Code e a extensão Vue - Official. O roteiro prático pressupõe um projeto Hello World já criado e enviado ao GitHub na primeira parte. Configure nome e e-mail com `git config --local` dentro desse projeto.
 
-Os tempos da sequência abaixo reiniciam em zero em cada bloco. Eles são referências de duração dos PDFs, não horários do relógio. A condução do intervalo e dos demais momentos cabe aos ministrantes.
+Um arquivo `.vue` reúne `<script setup>` (lógica), `<template>` (interface) e `<style>` (estilos). `src/main.js` monta `App.vue` no elemento `#app`. O Vue pode ser adotado em uma parte da interface; a reatividade mantém o HTML de acordo com o estado. No script, um `ref` usa `.value`; no template, o Vue o desembrulha.
 
-## Antes de começar
+A teoria também distingue Options API e Composition API, vantagens e limitações do framework e o fluxo `status → add → commit → push`. Commit registra localmente; push envia ao GitHub. A revisão de sete perguntas permanece nos desafios do encontro.
 
-- Tenha o ambiente da etapa de preparação funcionando.
-- Abra o VS Code na pasta do projeto.
-- Deixe o terminal integrado visível: vamos usá-lo bastante.
-- Confira nome e e-mail **locais ao repositório** antes de registrar commits, conforme as orientações de preparação.
+## Base da prática
 
-## Código-base
+O PDF **Aula 1 · projeto Pizza Vue atualizado** contém o HTML inicial e a referência final. O [repositório enviado pelo ministrante](https://github.com/MathuCardoso/projeto-vuejs-aula1) contém o projeto completo e o [style.css](https://github.com/MathuCardoso/projeto-vuejs-aula1/blob/main/src/style.css). Veja também a [demonstração publicada](https://projeto-vuejs-aula1.vercel.app/). O código da main já implementa a versão final; use o HTML inicial do PDF para a atividade. O playground oferece uma **adaptação didática em um único arquivo**, com estilos próprios, para praticar enquanto acompanha o roteiro.
 
-O roteiro oficial pressupõe um ZIP com `App.vue`, `main.js` e `style.css` em `src/`, com HTML e CSS prontos. **Esse ZIP ainda aguarda envio pelos ministrantes**. Não confunda o roteiro com o projeto inicial completo.
-
-Na preparação da base, o documento orienta usar JavaScript e manter `package.json` e `index.html` gerados pela ferramenta. O CSS é importado em `main.js`:
-
-```js
-import './style.css'
-```
-
-O Markdown de apoio contém o passo a passo com código recebido anteriormente. O PDF **Aula 1 · roteiro prático oficial** é a referência para conduzir a atividade.
+No projeto local, siga a ligação de CSS indicada no PDF (`<link rel="stylesheet" href="src/style.css">` em `index.html`). Se a base já importar esse mesmo arquivo em `main.js`, mantenha uma única inclusão.
 
 ## Pontos de controle
 
-1. A interface estática abre e o primeiro commit registra a base.
-2. Nome, tamanho e sabores aparecem no resumo; a seleção vazia tem uma mensagem.
-3. A quantidade fica entre 1 e 10. Duas pizzas médias totalizam R$ 70,00 e duas grandes, R$ 90,00.
-4. A confirmação exibe um alerta e o segundo commit registra a interface reativa.
-5. O GitHub exibe a branch `main`, os arquivos e os dois commits.
+1. **00–10 min:** abrir o HTML e CSS estáticos; conferir a interface e o console.
+2. **10–25 min:** criar `nome` com `ref`, ligar o campo com `v-model` e mostrar `{{ nome }}` no resumo.
+3. **25–45 min:** gerar tamanhos e checkboxes com `v-for`, `:key` e `:value`; usar um array para os sabores marcados.
+4. **45–55 min:** ligar os botões com `@click`; quantidade começa em 1 e permanece entre 1 e 10.
+5. **55–70 min:** derivar o tamanho e o total com `computed`. Três pizzas grandes devem custar R$ 135,00.
+6. **70–80 min:** exibir “Não informado” e “Nenhum sabor selecionado” quando os campos estiverem vazios.
+7. **80–90 min:** confirmar o pedido, testar, registrar o commit e fazer push.
 
-## Nota de leitura do roteiro prático
+## Comandos para concluir
 
-Na página 2 do PDF original, `git diff` e `git add src/App.vue` aparecem unidos na mesma linha. Execute-os separadamente:
+Conforme o roteiro, registre o commit **antes** do push. Confira também as alterações e o histórico:
 
 ```bash
 git status
 git diff
-git add src/App.vue
-git commit -m "Implementa formulario e resumo reativo"
+git add .
+git commit -m "Formulário de pedido de pizza com Vue"
+git push
 git log --oneline
 ```
 
-Se `main.js` ou `style.css` também tiverem mudado, prepare esses arquivos antes do commit. O PDF disponível para download foi preservado como recebido; esta nota explicita o ajuste de leitura.
+Confira no GitHub o commit inicial e o da prática. Se o remoto ainda não estiver configurado, peça orientação antes do push.
+
+## Bônus: watch
+
+Cada tamanho permite 1, 2 ou 3 sabores. Um `watch` do tamanho corta a seleção excedente; os checkboxes restantes ficam desabilitados quando o limite é atingido. `computed` calcula valores; `watch` executa uma ação. O bônus é um desafio para casa se não houver tempo.
+
+## Consulta do código
+
+Consulte o PDF visualmente ou o repositório enviado pelo ministrante. A extração automática de texto pode trocar a ordem de linhas e chaves; confira os limites de `<script>`, `<template>` e funções antes de executar. O playground adapta a confirmação para uma mensagem na própria prévia; o projeto original usa `alert`.
