@@ -107,7 +107,9 @@ async function main() {
     await page.goto(`${base}#/desafios`)
     await page.getByRole('heading', { name: 'Desafios de programação', exact: true }).waitFor()
     assert.equal(await page.locator('.cards article').count(), 3)
-    await page.getByRole('link', { name: 'Pizza Vue + Git · revisão oficial' }).waitFor()
+    assert.equal(await page.getByRole('link', { name: 'Pizza Vue + Git · revisão oficial' }).count(), 0)
+    await page.goto(`${base}#/cursos/vue-github/desafios/pizza-vue-git-oficial`)
+    await page.getByRole('heading', { name: 'Página não encontrada' }).waitFor()
     await page.goto(`${base}#/cursos/vue-github/encontros/02`)
     await page.getByRole('heading', { name: 'TodoList · Vue, Bootstrap e versionamento', exact: true }).waitFor()
     assert.match(await page.locator('body').innerText(), /160 min/)
@@ -128,7 +130,7 @@ async function main() {
     await blockedPage.getByRole('button', { name: 'Marcar como pendente' }).waitFor()
     assert.match(await blockedPage.locator('.practice-actions').innerText(), /apenas nesta sessão/)
     await blocked.close()
-    console.log('PASS catálogo: filtros, progresso/reload, armazenamento inválido/bloqueado, desafios, quiz e 4 PDFs')
+    console.log('PASS catálogo: filtros, progresso/reload, armazenamento inválido/bloqueado, desafios, quiz oficial removido e 4 PDFs')
 
     for (const width of [1440, 390]) {
       await page.setViewportSize({ width, height: 900 })

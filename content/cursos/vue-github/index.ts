@@ -137,16 +137,6 @@ export const vueGithub: CourseContent = {
       origem: 'oficial',
     },
     {
-      id: 'kahoot-oficial-pdf',
-      encontroId: '01',
-      titulo: 'Kahoot · perguntas e gabarito oficiais',
-      tipo: 'pdf',
-      descricao: 'Sete perguntas sobre Pizza Vue e Git, com gabarito. PDF original; a revisão interativa também está nos desafios da aula 1.',
-      localizacao: { arquivo: 'https://kahoot.it/' },
-      status: 'publicado',
-      origem: 'oficial',
-    },
-    {
       id: 'roteiro-pizza-recebido',
       encontroId: '01',
       titulo: 'Pizza Vue · apoio em Markdown',
@@ -655,58 +645,6 @@ export const vueGithub: CourseContent = {
     },
   ],
   desafios: [
-    {
-      id: 'pizza-vue-git-oficial',
-      encontroId: '01',
-      titulo: 'Pizza Vue + Git · revisão oficial',
-      resumo: 'As sete perguntas e o gabarito do Kahoot enviado pelos ministrantes, em uma revisão no navegador. Explicações de apoio adaptadas pelo DevLab.',
-      status: 'publicado',
-      origem: 'oficial',
-      perguntas: [
-        {
-          enunciado: 'Você troca a pizza de média para grande. O total muda na hora. Que conceito explica isso?',
-          alternativas: ['Renderização condicional', 'Reatividade', 'Reutilização de componentes', 'Controle de versão'],
-          correta: 1,
-          explicacao: 'A reatividade permite que a interface acompanhe a mudança do estado. Ao trocar o tamanho, o total derivado dessa escolha é atualizado.',
-        },
-        {
-          enunciado: 'Uma pizzaria já tem um site. Ela consegue usar Vue só no formulário de pedidos?',
-          alternativas: ['Sim, mas precisa migrar o site inteiro primeiro', 'Sim, mas só se usar Vue em todas as páginas de pedidos', 'Sim, mas só se o site já for uma aplicação de página única', 'Sim, pode adicionar Vue apenas ao formulário'],
-          correta: 3,
-          explicacao: 'A adoção progressiva permite usar Vue em uma parte da página, como o formulário, e ampliar seu uso conforme a necessidade.',
-        },
-        {
-          enunciado: 'O total depende do preço da pizza e da quantidade. Qual recurso do Vue é mais adequado para calcular esse valor?',
-          alternativas: ['`computed`', '`ref`', '`v-model`', '`v-for`'],
-          correta: 0,
-          explicacao: '`computed` representa um valor derivado de outros dados reativos. Neste caso, o total é calculado a partir do preço e da quantidade.',
-        },
-        {
-          enunciado: 'O cliente desmarcou o último sabor. Qual diretiva ajuda a mostrar “Nenhum sabor selecionado” só quando a lista está vazia?',
-          alternativas: ['`v-for`', '`v-model`', '`v-if`', '`v-bind`'],
-          correta: 2,
-          explicacao: '`v-if` renderiza a mensagem quando a condição é verdadeira, por exemplo `saboresSelecionados.length === 0`.',
-        },
-        {
-          enunciado: 'O Pizza Vue já está no GitHub e você quer baixar uma cópia com o histórico. Qual comando usa?',
-          alternativas: ['`git init`', '`git clone`', '`git status`', '`git commit`'],
-          correta: 1,
-          explicacao: '`git clone` cria uma cópia local de um repositório existente, incluindo seu histórico. `git init` inicia um repositório local.',
-        },
-        {
-          enunciado: 'Você alterou o rodapé. Qual sequência permite conferir, preparar e registrar a mudança localmente?',
-          alternativas: ['`status → commit → add`', '`add → push → status`', '`status → pull → commit`', '`status → add → commit`'],
-          correta: 3,
-          explicacao: '`git status` mostra o estado dos arquivos, `git add` prepara as alterações e `git commit` registra o que foi preparado no histórico local.',
-        },
-        {
-          enunciado: 'O commit aparece no git log, mas ainda não o vê no GitHub. O remoto já está conectado. Qual comando falta?',
-          alternativas: ['`git push`', '`git pull`', '`git add`', '`git status`'],
-          correta: 0,
-          explicacao: '`git push` envia commits para o repositório remoto. Criar um commit local não o envia automaticamente ao GitHub.',
-        },
-      ],
-    },
     {
       id: 'primeiros-passos-vue',
       encontroId: '01',
