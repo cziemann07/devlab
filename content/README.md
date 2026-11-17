@@ -131,3 +131,12 @@ computadores institucionais.
 - `curso.titulo` / `curso.tituloDestaque` / `curso.subtitulo`: nome oficial.
 - `curso.tema.destaque`: cor da edição (a marca DevLab continua neutra).
 - `curso.tema.mascote`: exibe o Vuati. Regras em [`src/assets/vuati/README.md`](../src/assets/vuati/README.md).
+
+## Atividades, desafios de programação e playground
+
+Exercícios publicados aparecem em `/cursos/<slug>/atividades`. Use `tipo: 'desafio'`
+para exibi-los no catálogo de desafios de programação; o quiz de múltipla escolha
+continua em `desafios` no contrato do curso. `playgroundExemplo` liga a atividade a um
+id de `src/content/playground-examples.ts` (por exemplo `pizza` ou `todo-crud`).
+A conclusão manual usa o par slug/id; mantenha esses identificadores estáveis.
+Textos de apoio adaptados devem continuar marcados como demonstrativos.

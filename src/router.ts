@@ -4,10 +4,21 @@ import { getChallenge, getCourse, getEncounter, getExercise } from './content'
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
+    { path: '/atividades', redirect: '/cursos/vue-github/atividades' },
+    { path: '/desafios', redirect: '/cursos/vue-github/desafios' },
+    { path: '/aula/1', redirect: '/cursos/vue-github/encontros/01' },
+    { path: '/aula/2', redirect: '/cursos/vue-github/encontros/02' },
+    { path: '/cursos/:slug/atividades', name: 'practice', component: () => import('./views/PracticeView.vue') },
+    { path: '/cursos/:slug/desafios', name: 'programming-challenges', component: () => import('./views/PracticeView.vue') },
     {
       path: '/',
       name: 'home',
       component: () => import('./views/CourseLanding.vue'),
+    },
+    {
+      path: '/playground',
+      name: 'playground',
+      component: () => import('./views/PlaygroundView.vue'),
     },
     {
       path: '/cursos/:slug',
@@ -54,6 +65,11 @@ router.afterEach((to) => {
     return
   }
 
+  if (to.name === 'playground') {
+    document.title = 'Playground Vue.js — DevLab'
+    return
+  }
+
   if (to.name === 'home' || to.name === 'course') {
     document.title = course ? `${course.curso.titulo} — DevLab` : notFoundTitle
     return
@@ -61,6 +77,11 @@ router.afterEach((to) => {
 
   if (!course) {
     document.title = notFoundTitle
+    return
+  }
+
+  if (to.name === 'practice' || to.name === 'programming-challenges') {
+    document.title = `${to.name === 'practice' ? 'Atividades' : 'Desafios de programação'} — DevLab`
     return
   }
 

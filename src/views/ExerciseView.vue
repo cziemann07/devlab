@@ -1,5 +1,6 @@
 ﻿<script setup lang="ts">
 import { computed } from 'vue'
+import { useProgress } from '../composables/useProgress'
 import { RouterLink, useRoute } from 'vue-router'
 import Badge from '../components/Badge.vue'
 import Breadcrumb from '../components/Breadcrumb.vue'
@@ -21,6 +22,7 @@ import { formatDateShort, formatDuration } from '../utils/date'
 import { useSectionNav } from '../composables/useSectionNav'
 
 const route = useRoute()
+const { isComplete, toggle, storageAvailable } = useProgress()
 
 const course = computed(() => getCourse(String(route.params.slug ?? '')))
 const exercise = computed(() =>
@@ -136,6 +138,12 @@ const { goExerciseSection } = useSectionNav()
         </header>
 
         <template v-if="exercise.disponivel">
+          <div class="practice-actions">
+            <button class="btn btn-primary btn-sm" type="button" :aria-pressed="isComplete(course.curso.slug, exercise.id)" @click="toggle(course.curso.slug, exercise.id)">{{ isComplete(course.curso.slug, exercise.id) ? 'Marcar como pendente' : 'Marcar como concluído' }}</button>
+            <RouterLink v-if="exercise.playgroundExemplo" class="btn btn-sm" :to="{ path: '/playground', query: { exemplo: exercise.playgroundExemplo } }">Abrir exemplo no playground</RouterLink>
+            <RouterLink class="btn btn-sm" :to="`/cursos/${course.curso.slug}/${exercise.tipo === 'desafio' ? 'desafios' : 'atividades'}`">Ver {{ exercise.tipo === 'desafio' ? 'desafios' : 'atividades' }}</RouterLink>
+            <p>{{ storageAvailable ? 'Conclusão manual salva neste navegador; não há correção automática.' : 'Sem acesso ao armazenamento: conclusão mantida apenas nesta sessão.' }}</p>
+          </div>
           <section
             v-if="exercise.enunciadoHtml"
             id="enunciado"
@@ -309,6 +317,8 @@ const { goExerciseSection } = useSectionNav()
 </template>
 
 <style scoped>
+.practice-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-block: 1.5rem; }
+.practice-actions p { flex-basis: 100%; color: var(--text-2); font-size: .85rem; }
 .hints-intro {
   display: flex;
   align-items: center;

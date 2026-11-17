@@ -184,6 +184,8 @@ function renderExercise(
     nivel: exercise.nivel,
     disponivel: true,
     demonstrativo: isDemonstrativo(exercise),
+    tipo: exercise.tipo,
+    playgroundExemplo: exercise.playgroundExemplo,
     enunciadoHtml: exercise.enunciado
       ? renderer.markdown(readFileSync(join(courseDir, exercise.enunciado), 'utf8'))
       : undefined,

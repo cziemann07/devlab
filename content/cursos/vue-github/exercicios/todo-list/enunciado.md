@@ -1,35 +1,48 @@
-Esta atividade segue o **plano oficial da aula 2**, disponível nos materiais do encontro. O produto principal é uma lista de tarefas com Vue.js e Bootstrap. O plano não define tempo por etapa.
+Construa o cadastro de tarefas seguindo as **páginas 1–5 do roteiro prático atualizado da aula 2**. Os 160 minutos são relativos ao início da prática. O apêndice serve como referência do código; sua criação de projeto não precisa ser repetida após clonar.
 
-## Primeiro ponto de controle: setup versionado
-
-1. Abra o projeto TodoList e inicialize o repositório se ele ainda não existir.
-2. Configure a autoria apenas nesse projeto:
+## Base e preparação
 
 ```bash
+git clone https://github.com/MathuCardoso/todolist-vuejs-curso.git todo-projeto
+cd todo-projeto
 git config --local user.name "Seu Nome e Sobrenome"
 git config --local user.email "seu_email_do_github@exemplo.com"
-git config --local --get user.name
-git config --local --get user.email
+npm install
+npm run dev
 ```
 
-3. Integre o layout Bootstrap e a estrutura de componentes Vue.
-4. Confira os arquivos com `git status`, prepare as mudanças e registre o primeiro commit do setup.
+O repositório enviado contém a versão completa. Siga em aula o ponto inicial definido pelos ministrantes e use a main para consulta. O clone já cria o Git local, sem precisar de `git init`. Confira Node.js `^22.18.0 || >=24.12.0`.
 
-## Segundo ponto de controle: lógica e envio
+## Etapas e pontos de controle
 
-1. Implemente a adição de tarefas e a renderização da lista.
-2. Implemente a remoção de uma tarefa.
-3. Cadastre tarefas diferentes e confira que remover uma delas preserva as demais.
-4. Confira as mudanças e registre o segundo commit com a lógica implementada.
-5. Conecte o projeto ao seu repositório no GitHub, confira `git remote -v` e envie a branch `main`.
-6. Abra o GitHub e confira os arquivos e os dois commits.
+1. **00–30 min:** clone, identidade local, conceitos e estrutura do projeto.
+2. **30–45 min:** layout, Router e Bootstrap; registrar o primeiro commit.
+3. **45–65 min:** título e descrição reativos com `ref` e `v-model`.
+4. **65–85 min:** componentes Input e Button com props, emits, slot e v-model customizado.
+5. **85–105 min:** cadastro com validação, id estável, data e limpeza dos campos.
+6. **105–125 min:** listagem, edição e exclusão; editar uma cópia e salvar pelo id.
+7. **125–140 min:** testar e registrar o segundo commit.
+8. **140–155 min:** alterar `origin` para seu repositório vazio e fazer push.
+9. **155–160 min:** conferir arquivos e commits no GitHub; encerramento orientado.
 
-## Apoio e disponibilidade
+## Teste antes de concluir
 
-Consulte o plano em PDF para o fluxo de versionamento e as regras do laboratório. O passo a passo em Markdown recebido anteriormente inclui detalhes adicionais de componentes, validação e edição.
+- Campos vazios não cadastram; confira também o caso de apenas espaços.
+- Criar duas tarefas preserva os dados de ambas.
+- Digitar durante a edição não altera o card antes de salvar.
+- Excluir uma tarefa preserva as demais; cancelar a confirmação não remove nada.
+- Editar uma tarefa depois de excluir outra não modifica o item errado.
+- Os dados em memória somem ao recarregar a aplicação, como previsto no roteiro.
 
-Os arquivos iniciais do projeto, os slides e a apostila ainda aguardam envio pelos ministrantes. O inventário identifica a disponibilidade de cada material.
+## Repositório pessoal
 
-## Encerramento no laboratório
+Crie um repositório vazio no GitHub. `origin` já existe após o clone; substitua os marcadores e use:
 
-Siga a orientação da equipe para autenticação e não salve credenciais na máquina compartilhada. Confira o envio ao GitHub antes da limpeza local orientada pelos ministrantes.
+```bash
+git remote -v
+git remote set-url origin https://github.com/SEU_USUARIO/NOME_DO_REPO.git
+git branch -M main
+git push -u origin main
+```
+
+Confira os dois commits antes de encerrar as sessões e realizar a limpeza orientada. A página do encontro reúne as explicações, os comandos de cada commit, a demonstração e os PDFs.

@@ -805,6 +805,7 @@ const referenceResources = computed(() =>
 }
 
 .prep-copy {
+  min-width: 0;
   padding: 1.5rem;
 }
 
@@ -965,7 +966,7 @@ const referenceResources = computed(() =>
     grid-column: 2;
     grid-row: 2 / span 2;
     align-self: end;
-    margin-right: -2.4rem;
+    margin-right: 0;
   }
 
   .hero-mascot :deep(.vuati-fala) {
