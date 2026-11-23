@@ -522,6 +522,9 @@ export function validateContent(
 
     const seenQuestionnaireTypes = new Set<string>()
     for (const questionnaire of questionnaires) {
+      if (questionnaire.liberarEm && !isValidDate(questionnaire.liberarEm)) {
+        addError('V10', slug, 'questionario', questionnaire.id, 'liberarEm', 'Use uma data real no formato AAAA-MM-DD.')
+      }
       if (!QUESTIONNAIRE_TYPES.has(questionnaire.tipo)) {
         addError('V8', slug, 'questionario', questionnaire.id, 'tipo', `Tipo "${questionnaire.tipo}" inválido. Use: diagnostico, final.`)
       }

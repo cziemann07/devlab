@@ -3,9 +3,9 @@ const fs = require('node:fs')
 const path = require('node:path')
 const root = path.resolve(__dirname, '..')
 const walk = dir => fs.existsSync(dir) ? fs.readdirSync(dir, {withFileTypes:true}).flatMap(item => item.isDirectory() ? walk(path.join(dir,item.name)) : [path.join(dir,item.name)]) : []
-const expected = ['apostila-unidade-01.pdf','apostila-unidade-02.pdf','apostila-unidade-03.pdf',...(process.argv.includes('--sem-slides') ? [] : ['slides-aula-01.pdf','slides-aula-02.pdf'])]
+const expected = ['apostila-aula-01.pdf','apostila-unidade-03.pdf',...(process.argv.includes('--sem-slides') ? [] : ['slides-aula-01.pdf','slides-aula-02.pdf'])]
 const pdfs = walk(path.join(root,'public/materiais/vue-github')).filter(file=>file.endsWith('.pdf')).map(file=>path.basename(file)).sort()
-assert.deepEqual(pdfs,expected.slice().sort(),'Somente as três apostilas e os dois PDFs dos slides são públicos')
+assert.deepEqual(pdfs,expected.slice().sort(),'Somente os PDFs autorizados são públicos')
 for(const file of walk(path.join(root,'public/materiais/vue-github'))) {
  assert(!/Guia_Ministrante|solucoes|soluções|\.pptx$|kahoot|roteiro-definitivo|Mediacao/.test(file),'Material reservado na publicação: '+file)
 }

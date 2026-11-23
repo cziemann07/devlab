@@ -152,28 +152,39 @@ O workflow está em `.github/workflows/deploy.yml`. Pull requests para a `main` 
 
 TADS · IFPR Campus Foz do Iguaçu · Projeto de Extensão II
 
-## Trilha oficial por encontro
+## Hub por aula
 
-O encontro 01 reúne a Unidade 01 (Ecossistema Vue.js) e a Unidade 02 (Pizza Vue).
-O encontro 02 reúne a Unidade 03 (To-Do List). As páginas de unidade organizam
-leitura, apostila e missões canônicas, sem duplicar cadastros entre catálogos.
+A home reúne Preparação, Aula 01 (24/11) e Aula 02 (26/11). O dropdown
+Cronograma do cabeçalho permite abrir essas três etapas; o Inventário mantém os
+mesmos cadastros de material acessíveis de qualquer página.
 
-O curso possui 23 missões com código inicial e quatro aprofundamentos locais.
-Núcleo, progressão e opcionais estão identificados em texto. A conclusão é manual,
-salva somente no navegador; identificadores novos não herdam a conclusão das
-atividades antigas.
+As duas apostilas finais que a equipe vai enviar serão adaptadas diretamente em
+`encontros/01` e `encontros/02`, com sumário, explicações e exemplos para leitura
+na web. Os textos atuais são apoio provisório. Não foi criada nem unida uma nova
+apostila PDF nesta revisão. Os PDFs anteriores continuam como consulta até a
+conferência das fontes finais.
 
-`/#/playground` executa um `App.vue` inicial de cada missão, com JavaScript ou
-TypeScript, execução automática/manual, restauração e mensagens de erro.
-Somente imports de `vue` são suportados. A prévia fica isolada em iframe sandbox;
-Router, múltiplos arquivos, Git e comandos npm pertencem ao projeto local.
-Código com loop infinito ainda pode travar a aba. Não há limite de CPU.
+A aula 2 já oferece o código base confirmado pela equipe:
+https://github.com/MathuCardoso/todolist-vuejs-base. No commit inspecionado
+`837dafb`, App.vue contém formulário e lista estáticos, sem a lógica de cadastro.
+A base da Pizza da prática ainda precisa ser confirmada.
 
-As versões completas anteriores de Pizza/To-Do foram substituídas pelos iniciais.
-Os aliases `?exemplo=pizza` e `?exemplo=todo-crud` abrem a primeira missão
-correspondente. Guias dos ministrantes, soluções e PowerPoints permanecem fora
-do repositório público. São publicados três PDFs de apostila e, provisoriamente,
-dois PDFs de slides. Procedimento reversível em `content/README.md`.
+Os 23 códigos iniciais e os 27 exercícios foram preservados; seu uso é apoio à
+sequência definida pelos ministrantes. As antigas URLs de unidade levam à aula
+correspondente. A conclusão manual continua local, por curso e ID de exercício.
+
+`/#/playground` executa um único App.vue com imports de `vue`, execução
+manual/automática, restauração e prévia isolada. Git, comandos npm, Router e
+múltiplos arquivos pertencem ao projeto local. Loops infinitos ainda podem travar
+a aba; o executor não impõe limite de CPU.
+
+O questionário inicial fica disponível sem data mínima. O fechamento passa a
+aparecer na wiki em 26/11/2026, no fuso America/Sao_Paulo. A simulação de datas da
+landing não libera esse link antes da data real. Essa regra controla a exibição
+na wiki, sem alterar a configuração dos formulários Google.
+
+Guias de ministrante, soluções e PowerPoints continuam fora do repositório
+público. Modo claro não faz parte desta etapa.
 
 ## Verificação da trilha
 

@@ -202,3 +202,34 @@ Criar o projeto local com Vite e copiar apenas o código inicial da missão atua
 não distribuir `projeto-local/` recebido, pois contém o resultado completo.
 Git fica no terminal, com autoria local; push e autenticação pessoal não são
 requisitos do núcleo. Não há banco de dados, persistência das tarefas ou checkout.
+
+
+## Revisão do hub — 23/11/2026
+
+A apresentação por unidades descrita na entrega de 17/11 foi substituída por
+páginas de aula. As unidades permanecem como metadados dos exercícios, sem páginas
+longas na jornada principal. Os textos de referência de `unidades/*.md` não são
+mais enviados ao cliente.
+
+As **duas apostilas finais ainda serão recebidas**. Adaptar seu conteúdo para
+`encontros/encontro-01.md` e `encontros/encontro-02.md`, organizando explicações,
+exemplos e sumário. Não confundir essa tarefa com juntar PDFs ou acrescentar
+somente um botão de download. Os PDFs atuais são consulta anterior, não uma
+confirmação das apostilas finais. Reconciliar os cadastros de material quando as
+novas fontes chegarem, sem duplicar recursos.
+
+A base `MathuCardoso/todolist-vuejs-base`, enviada por Felipe, tem registro único
+`codigo-base-todo` nos materiais. É exibida na aula 2 e no Inventário. A inspeção
+de App.vue no commit `837dafb` confirmou formulário/lista estáticos. O package.json
+exige Node `^22.18.0 || >=24.12.0`. Não substituir os iniciais do playground por
+esse projeto nem presumir que a base da Pizza foi confirmada.
+
+Os questionários usam `liberarEm` opcional (AAAA-MM-DD). O inicial está publicado
+sem esse campo; o final usa `2026-11-26`. `availableQuestionnaires` aplica a mesma
+regra em todas as entradas, usando a data real em São Paulo. `?simular=` altera
+prioridades da landing e não antecipa formulários. Antes da data, o serviço Google
+continua fora do controle da wiki; nenhuma permissão externa foi alterada.
+
+As verificações de navegador incluem liberação na virada do dia, dropdown,
+aliases, códigos iniciais e armazenamento. Guias, gabaritos, histórico e a reversão
+provisória dos slides mantêm os limites já registrados.

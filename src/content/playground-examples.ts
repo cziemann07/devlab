@@ -8,7 +8,7 @@ export const playgroundExamples = course.exercicios
   .map(mission => ({
     id: mission.id,
     label: `${mission.codigo} · ${mission.titulo}`,
-    group: `Encontro ${mission.encontroId} · Unidade ${mission.unidadeId} — ${course.unidades.find(unit => unit.id === mission.unidadeId)!.titulo}`,
+    group: `Aula ${mission.encontroId} · ${course.unidades.find(unit => unit.id === mission.unidadeId)!.titulo}`,
     code: mission.codigoInicial[0]!.fonte!,
   }))
 

@@ -2,19 +2,18 @@
 import { computed, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import Badge from '../components/Badge.vue'
-import CodeBlock from '../components/CodeBlock.vue'
 import CourseNow from '../components/CourseNow.vue'
 import DemoBadge from '../components/DemoBadge.vue'
 import DemoNotice from '../components/DemoNotice.vue'
-import Prose from '../components/Prose.vue'
 import ResourceList from '../components/ResourceList.vue'
 import VuatiStage from '../components/VuatiStage.vue'
 import VuatiCompanion from '../components/VuatiCompanion.vue'
 import { useInventory } from '../composables/useInventory'
+import { useRealClock } from '../composables/useRealClock'
+import { availableQuestionnaires } from '../utils/questionnaires'
 import NotFoundView from './NotFoundView.vue'
 import {
   challengesFor,
-  codesFor,
   coursePath,
   exercisesFor,
   generalReferences,
@@ -48,7 +47,8 @@ const course = computed(() =>
 )
 
 const { moment, now, simulated } = useCourseMoment(course)
-const view = computed(() => (course.value ? describeMoment(course.value, moment.value) : undefined))
+const realNow = useRealClock()
+const view = computed(() => (course.value ? describeMoment(course.value, moment.value, realNow.value) : undefined))
 const atento = ref(false)
 const { openInventory } = useInventory()
 
@@ -151,21 +151,13 @@ function counts(stage: RenderedEncontro): string[] {
 }
 
 /* Preparação e recursos */
-const preparationResources = computed(() =>
-  course.value && preparation.value
-    ? materialsFor(course.value, preparation.value.id).map(materialToResource)
-    : [],
-)
-const preparationCode = computed(() =>
-  course.value && preparation.value ? codesFor(course.value, preparation.value.id)[0] : undefined,
-)
 const challengeResources = computed(() =>
   course.value
     ? course.value.desafios.map((challenge) => challengeToResource(challenge, course.value!.curso.slug))
     : [],
 )
 const questionnaireResources = computed(() =>
-  course.value ? course.value.questionarios.map(questionnaireToResource) : [],
+  course.value ? availableQuestionnaires(course.value, realNow.value).map(questionnaireToResource) : [],
 )
 const referenceResources = computed(() =>
   course.value ? generalReferences(course.value).map(materialToResource) : [],
@@ -355,21 +347,22 @@ const referenceResources = computed(() =>
 
         <div class="prep-grid">
           <div class="panel prep-copy">
-            <Prose :html="preparation.descricaoHtml" />
+            <h3><span aria-hidden="true">⌘</span> Confira no terminal</h3>
+            <ul class="prep-links">
+              <li><code>node --version</code></li>
+              <li><code>npm --version</code></li>
+              <li><code>git --version</code></li>
+            </ul>
           </div>
-          <div class="prep-side">
-            <div v-if="hasMascot" class="prep-vuati-guide">
-              <VuatiCompanion pose="notebook" size="sm" />
-              <p>Ambiente pronto?<br /><strong>Já podemos começar.</strong></p>
-            </div>
-            <h3>Downloads e links</h3>
-            <ResourceList :items="preparationResources" />
+          <div class="panel prep-copy">
+            <h3><span aria-hidden="true">↓</span> Downloads e links</h3>
+            <ul class="prep-links">
+              <li><a href="https://nodejs.org/en/download">Node.js ↗</a></li>
+              <li><a href="https://git-scm.com/install/">Git ↗</a></li>
+              <li><a href="https://code.visualstudio.com/download">VS Code ↗</a></li>
+              <li><a href="https://github.com/signup">Conta no GitHub ↗</a></li>
+            </ul>
           </div>
-        </div>
-
-        <div v-if="preparationCode" class="prep-code">
-          <h3>Confira no terminal</h3>
-          <CodeBlock :codigo="preparationCode" />
         </div>
       </div>
     </section>
@@ -389,7 +382,7 @@ const referenceResources = computed(() =>
           <div>
             <p class="eyebrow">Seu inventário</p>
             <h3>O material da aula vai com você.</h3>
-            <p>Consulte as três apostilas e os slides oficiais. Para praticar, siga as unidades de cada encontro.</p>
+            <p>Consulte os materiais recebidos e o código base dos projetos. Para acompanhar as aulas, use o cronograma.</p>
           </div>
           <button class="btn" type="button" aria-haspopup="dialog" aria-controls="inventario" @click="openInventory">Abrir inventário <span aria-hidden="true">→</span></button>
         </div>
@@ -447,9 +440,6 @@ const referenceResources = computed(() =>
 </template>
 
 <style scoped>
-.prep-vuati-guide { display: flex; align-items: center; gap: 20px; margin: 0 0 20px; }
-.prep-vuati-guide p { margin: 0; color: var(--text-2); font-size: .82rem; }
-.prep-vuati-guide strong { color: var(--text); font-weight: 500; }
 .inventory-callout { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; padding: 24px; border: 1px solid var(--primary-line); border-radius: var(--radius-lg); background: linear-gradient(115deg, var(--primary-soft), var(--surface)); }
 .callout-vuati { --vuati-h: 120px; }
 .inventory-callout .eyebrow { margin-bottom: 6px; }
@@ -797,9 +787,8 @@ const referenceResources = computed(() =>
 /* Preparação */
 .prep-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 2rem;
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .prep-copy {
@@ -807,17 +796,9 @@ const referenceResources = computed(() =>
   padding: 1.5rem;
 }
 
-.prep-side h3,
-.prep-code h3,
-.references h3,
-.resource-grid h3 {
-  margin-bottom: 0.9rem;
-  font-size: 1rem;
-}
-
-.prep-code {
-  margin-top: 2rem;
-}
+.prep-copy h3, .references h3, .resource-grid h3 { margin-bottom: .9rem; font-size: 1rem; }
+.prep-copy h3 span, .prep-links a { color: var(--primary); }
+.prep-links { display: flex; flex-wrap: wrap; gap: .5rem .85rem; padding: 0; margin: 0; list-style: none; }
 
 /* Recursos */
 .lost {

@@ -1,30 +1,28 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { getCourse, unitPath } from '../content'
+import { getCourse } from '../content'
 import { useProgress } from '../composables/useProgress'
 import MissionList from '../components/MissionList.vue'
 import NotFoundView from './NotFoundView.vue'
 
 const route = useRoute()
 const course = computed(() => getCourse(typeof route.params.slug === 'string' ? route.params.slug : undefined))
-const challenges = computed(() => route.name === 'programming-challenges')
-const filter = ref('')
+const filter = ref(typeof route.query.aula === 'string' ? route.query.aula : '')
+watch(() => route.query.aula, value => { filter.value = typeof value === 'string' ? value : '' })
 const { isComplete, storageAvailable } = useProgress()
-const tasks = computed(() => course.value?.exercicios.filter(item => item.disponivel && (item.etapa === 'opcional') === challenges.value) ?? [])
+const tasks = computed(() => course.value?.exercicios.filter(item => item.disponivel) ?? [])
 const groups = computed(() => course.value?.unidades.filter(unit => (!filter.value || unit.encontroId === filter.value) && tasks.value.some(task => task.unidadeId === unit.id)) ?? [])
 const count = computed(() => tasks.value.filter(item => isComplete(course.value!.curso.slug, item.id)).length)
 </script>
 
 <template>
   <section v-if="course" class="container practice">
-    <p class="eyebrow">{{ course.curso.titulo }} · missões por encontro</p>
-    <h1>{{ challenges ? 'Aprofundamentos opcionais' : 'Atividades práticas' }}</h1>
-    <p class="lead">{{ challenges ? 'Vá além do núcleo quando quiser. Cada atividade informa se usa o playground ou o projeto local.' : 'Siga as unidades do encontro. Preveja, experimente, teste e explique o resultado.' }}</p>
+    <p class="eyebrow">{{ course.curso.titulo }} · exercícios de apoio</p>
+    <h1>Atividades</h1>
+    <p class="lead">Todas as atividades desta página são opcionais. Escolha os exercícios que quiser fazer para praticar.</p>
     <p role="status">{{ count }}/{{ tasks.length }} concluídas · marcação manual, sem correção automática.</p>
     <nav class="actions" aria-label="Tipo de prática">
-      <RouterLink class="btn btn-sm" :to="`/cursos/${course.curso.slug}/atividades`">Atividades</RouterLink>
-      <RouterLink class="btn btn-sm" :to="`/cursos/${course.curso.slug}/desafios`">Opcionais</RouterLink>
       <RouterLink class="btn btn-sm" to="/playground">Playground</RouterLink>
     </nav>
     <label class="filter">Filtrar por aula
@@ -34,8 +32,8 @@ const count = computed(() => tasks.value.filter(item => isComplete(course.value!
       </select>
     </label>
     <section v-for="unit in groups" :key="unit.id" class="unit-group">
-      <p class="eyebrow">Encontro {{ unit.encontroId }} · Unidade {{ unit.id }}</p>
-      <h2><RouterLink :to="unitPath(course, unit.id)">{{ unit.titulo }}</RouterLink></h2>
+      <p class="eyebrow">Aula {{ unit.encontroId }}</p>
+      <h2>{{ unit.titulo }}</h2>
       <MissionList :course="course" :missions="tasks.filter(task => task.unidadeId === unit.id)" />
     </section>
     <p v-if="!groups.length">Nenhuma missão para este filtro.</p>
