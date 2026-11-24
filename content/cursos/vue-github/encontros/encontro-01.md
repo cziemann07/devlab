@@ -35,7 +35,7 @@ Antes de registrar commits, configure sua autoria com `git config user.name "Seu
 
 Use o HTML do formulário e o CSS entregues pela equipe. Se ainda precisar conferir Node.js, npm, Git ou o editor, abra a página **Preparação**.
 
-1. **Abra a base Vue com Vite** indicada para a oficina.
+1. **Abra o projeto Vue com Vite** no [repositório da oficina Pizza Vue](https://github.com/MathuCardoso/pizza-vue).
 2. **Coloque o formulário** no bloco `<template>` de `src/App.vue`.
 3. **Copie os estilos** para `src/style.css` e vincule o arquivo no `<head>` do `index.html`, como mostra a página 14.
 

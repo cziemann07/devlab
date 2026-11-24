@@ -135,7 +135,7 @@ async function main() {
    assert.notEqual((await response.body()).subarray(0,4).toString(),'%PDF')
   }
   await go('');await page.getByRole('button',{name:'Abrir inventário de materiais'}).click()
-  assert.equal(await page.getByRole('dialog').locator('.inventory-card').count(),5)
+  assert.equal(await page.getByRole('dialog').locator('.inventory-card').count(),6)
   assert.match(await page.getByRole('dialog').getByRole('link',{name:/Abrir Apostila oficial da Aula 01/}).getAttribute('href'), /apostila-aula-01\.pdf$/)
   assert.doesNotMatch(await page.getByRole('dialog').innerText(),/gabarito|guia do ministrante|aguardando|em breve/i)
   await page.getByRole('button',{name:'Fechar inventário',exact:true}).click()
