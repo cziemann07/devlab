@@ -230,6 +230,18 @@ export const vueGithub: CourseContent = {
       "origem": "oficial"
     },
     {
+      "id": "repositorio-aula-01",
+      "encontroId": "01",
+      "titulo": "Repositório da Aula 01 · Pizza Vue",
+      "tipo": "codigo",
+      "descricao": "Repositório da oficina Pizza Vue indicado pela equipe.",
+      "localizacao": {
+        "url": "https://github.com/MathuCardoso/pizza-vue"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
       "id": "codigo-base-todo",
       "encontroId": "02",
       "titulo": "Código base · To-Do List",
