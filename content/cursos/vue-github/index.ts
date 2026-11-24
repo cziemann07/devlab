@@ -37,7 +37,7 @@ export const vueGithub: CourseContent = {
       "id": "preparacao",
       "tipo": "preparacao",
       "titulo": "Prepare o ambiente",
-      "resumo": "Comece pelo navegador. Para Git e os extras, confira o ambiente local com a equipe.",
+      "resumo": "Confira Node.js, npm, Git e VS Code e aprenda a abrir a base do projeto no computador.",
       "status": "publicado",
       "origem": "oficial",
       "descricao": "encontros/preparacao.md",
@@ -53,8 +53,8 @@ export const vueGithub: CourseContent = {
     {
       "id": "01",
       "tipo": "encontro",
-      "titulo": "Pizza Vue · fundamentos e pedido reativo",
-      "resumo": "Unidades 01 e 02: retome o ecossistema e construa o pedido em missões progressivas.",
+      "titulo": "Aula 01 · Vue, Git e Pizza",
+      "resumo": "Conheça o Vue, entenda o papel do Git e pratique construindo o Pizza Vue.",
       "status": "publicado",
       "origem": "oficial",
       "descricao": "encontros/encontro-01.md",
@@ -66,72 +66,24 @@ export const vueGithub: CourseContent = {
       "local": "Laboratório de informática — IFPR Foz do Iguaçu",
       "sequencia": [
         {
-          "horario": "19:00",
-          "titulo": "Conversa inicial e contrato das duplas",
-          "detalhe": "Até 19:12"
+          "titulo": "Teoria de Vue",
+          "detalhe": "Componentes, reatividade, ref, computed e sintaxe do template."
         },
         {
-          "horario": "19:12",
-          "titulo": "Problema e critérios de aceite da Pizza",
-          "detalhe": "Até 19:25"
+          "titulo": "Teoria de Git",
+          "detalhe": "Registrar a evolução do projeto e entender o papel do GitHub."
         },
         {
-          "horario": "19:25",
-          "titulo": "Unidade 01 · retomada dos fundamentos",
-          "detalhe": "Até 19:43"
-        },
-        {
-          "horario": "19:43",
-          "titulo": "Playground · aquecimento, P01 e P02",
-          "detalhe": "Até 20:02"
-        },
-        {
-          "horario": "20:02",
-          "titulo": "Git 1 · registrar ponto de partida",
-          "detalhe": "Até 20:12"
-        },
-        {
-          "horario": "20:12",
-          "titulo": "P03 · tamanho e preço",
-          "detalhe": "Até 20:32"
-        },
-        {
-          "horario": "20:32",
-          "titulo": "Intervalo",
-          "detalhe": "Até 20:42"
-        },
-        {
-          "horario": "20:42",
-          "titulo": "P04 · seleção de sabores",
-          "detalhe": "Até 21:05"
-        },
-        {
-          "horario": "21:05",
-          "titulo": "P05 e P06 · quantidade, total e testes",
-          "detalhe": "Até 21:29"
-        },
-        {
-          "horario": "21:29",
-          "titulo": "Git 2 · registrar evolução",
-          "detalhe": "Até 21:44"
-        },
-        {
-          "horario": "21:44",
-          "titulo": "P07 opcional · autoria e teste entre duplas",
-          "detalhe": "Até 21:55"
-        },
-        {
-          "horario": "21:55",
-          "titulo": "Bilhete de saída",
-          "detalhe": "Até 22:00"
+          "titulo": "Prática Pizza Vue",
+          "detalhe": "Seguir as seis etapas da apostila, do nome reativo à confirmação do pedido."
         }
       ]
     },
     {
       "id": "02",
       "tipo": "encontro",
-      "titulo": "To-Do List · da necessidade à lista viva",
-      "resumo": "Unidade 03: crie, valide, liste e exclua tarefas. Bootstrap, edição e rotas são aprofundamentos.",
+      "titulo": "Aula 02 · To-Do List e GitHub",
+      "resumo": "Construa uma lista de tarefas e envie o projeto ao GitHub no final da aula.",
       "status": "publicado",
       "origem": "oficial",
       "descricao": "encontros/encontro-02.md",
@@ -143,64 +95,16 @@ export const vueGithub: CourseContent = {
       "local": "Laboratório de informática — IFPR Foz do Iguaçu",
       "sequencia": [
         {
-          "horario": "19:00",
-          "titulo": "Retomada com bug e transferência",
-          "detalhe": "Até 19:12"
+          "titulo": "Construir a To-Do List",
+          "detalhe": "Organizar dados e desenvolver os comportamentos da lista."
         },
         {
-          "horario": "19:12",
-          "titulo": "Problema e critérios da lista",
-          "detalhe": "Até 19:25"
+          "titulo": "Testar e revisar",
+          "detalhe": "Conferir os casos de uso do projeto com a equipe."
         },
         {
-          "horario": "19:25",
-          "titulo": "Objetos, arrays e Bootstrap como bônus",
-          "detalhe": "Até 19:37"
-        },
-        {
-          "horario": "19:37",
-          "titulo": "T01 · estrutura e Git 1",
-          "detalhe": "Até 19:55"
-        },
-        {
-          "horario": "19:55",
-          "titulo": "T02 · cadastro e validação",
-          "detalhe": "Até 20:20"
-        },
-        {
-          "horario": "20:20",
-          "titulo": "Intervalo",
-          "detalhe": "Até 20:30"
-        },
-        {
-          "horario": "20:30",
-          "titulo": "T03 · listagem, IDs e estado vazio",
-          "detalhe": "Até 20:55"
-        },
-        {
-          "horario": "20:55",
-          "titulo": "T04 · exclusão e cancelamento",
-          "detalhe": "Até 21:17"
-        },
-        {
-          "horario": "21:17",
-          "titulo": "T05 e aprofundamentos opcionais",
-          "detalhe": "Até 21:35"
-        },
-        {
-          "horario": "21:35",
-          "titulo": "Git 2 · registrar evolução",
-          "detalhe": "Até 21:47"
-        },
-        {
-          "horario": "21:47",
-          "titulo": "Galeria de soluções entre duplas",
-          "detalhe": "Até 21:56"
-        },
-        {
-          "horario": "21:56",
-          "titulo": "Bilhete de saída final",
-          "detalhe": "Até 22:00"
+          "titulo": "Enviar o projeto ao GitHub",
+          "detalhe": "Registrar as mudanças com Git e enviar ao repositório pessoal."
         }
       ]
     }
@@ -212,7 +116,7 @@ export const vueGithub: CourseContent = {
       "titulo": "Ecossistema Vue.js",
       "resumo": "HTML, CSS, JavaScript, Vue e as ferramentas do projeto.",
       "descricao": "unidades/01.md",
-      "apostilaId": "apostila-01"
+      "apostilaId": "apostila-aula-01"
     },
     {
       "id": "02",
@@ -220,7 +124,7 @@ export const vueGithub: CourseContent = {
       "titulo": "Pizza Vue",
       "resumo": "Do formulário estático ao pedido reativo, uma missão por vez.",
       "descricao": "unidades/02.md",
-      "apostilaId": "apostila-02"
+      "apostilaId": "apostila-aula-01"
     },
     {
       "id": "03",
@@ -233,25 +137,13 @@ export const vueGithub: CourseContent = {
   ],
   "materiais": [
     {
-      "id": "apostila-01",
+      "id": "apostila-aula-01",
       "encontroId": "01",
-      "titulo": "Unidade 01 · Ecossistema Vue.js",
+      "titulo": "Apostila oficial da Aula 01 · Vue e GitHub",
       "tipo": "pdf",
-      "descricao": "Apostila do aluno · material oficial de estudo e consulta.",
+      "descricao": "PDF original da equipe, com fundamentos de Vue, Git e a oficina Pizza Vue.",
       "localizacao": {
-        "arquivo": "materiais/vue-github/oficiais/apostila-unidade-01.pdf"
-      },
-      "status": "publicado",
-      "origem": "oficial"
-    },
-    {
-      "id": "apostila-02",
-      "encontroId": "01",
-      "titulo": "Unidade 02 · Pizza Vue",
-      "tipo": "pdf",
-      "descricao": "Apostila do aluno · material oficial de estudo e consulta.",
-      "localizacao": {
-        "arquivo": "materiais/vue-github/oficiais/apostila-unidade-02.pdf"
+        "arquivo": "materiais/vue-github/oficiais/apostila-aula-01.pdf"
       },
       "status": "publicado",
       "origem": "oficial"
@@ -271,9 +163,9 @@ export const vueGithub: CourseContent = {
     {
       "id": "slides-01",
       "encontroId": "01",
-      "titulo": "Slides · Aula 1 — Pizza Vue",
+      "titulo": "Slides oficiais da Aula 01 · Fundamentos e Ambiente",
       "tipo": "slides",
-      "descricao": "Apresentação oficial da aula em PDF.",
+      "descricao": "Introdução ao Vue.js, configuração do ambiente e estrutura do primeiro projeto.",
       "localizacao": {
         "arquivo": "materiais/vue-github/oficiais/slides-aula-01.pdf"
       },
@@ -333,6 +225,18 @@ export const vueGithub: CourseContent = {
       "descricao": "Documentação de repositórios, Actions e Pages.",
       "localizacao": {
         "url": "https://docs.github.com/pt"
+      },
+      "status": "publicado",
+      "origem": "oficial"
+    },
+    {
+      "id": "codigo-base-todo",
+      "encontroId": "02",
+      "titulo": "Código base · To-Do List",
+      "tipo": "codigo",
+      "descricao": "Ponto de partida da aula 2 enviado pela equipe: estrutura visual para implementar os comportamentos da lista.",
+      "localizacao": {
+        "url": "https://github.com/MathuCardoso/todolist-vuejs-base"
       },
       "status": "publicado",
       "origem": "oficial"
@@ -1032,17 +936,20 @@ export const vueGithub: CourseContent = {
     {
       "id": "diagnostico",
       "tipo": "diagnostico",
-      "titulo": "Questionário diagnóstico",
-      "descricao": "Ajuda a equipe a conhecer o que você já sabe sobre os assuntos do minicurso. Responda antes do primeiro encontro.",
-      "status": "em_breve",
+      "titulo": "Questionário inicial",
+      "descricao": "Conte o que você já conhece antes do minicurso. Disponível desde já.",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfOSAgBb0FJFxV_t7f1yoJO06jWPpottdyCn2O1jkrpDQhFQA/viewform?usp=header",
+      "status": "publicado",
       "origem": "oficial"
     },
     {
       "id": "final",
       "tipo": "final",
-      "titulo": "Questionário final",
-      "descricao": "Avalia a experiência e o que você aprendeu, para comparar com o diagnóstico. Responda depois do segundo encontro.",
-      "status": "em_breve",
+      "titulo": "Questionário de fechamento",
+      "descricao": "Depois da aula 2, conte como foi sua experiência.",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLScxKbRuAybXQ_uQx4l4eFm17Xg1otSe-6U6OJGYCp7BDWAvvQ/viewform?usp=header",
+      "liberarEm": "2026-11-26",
+      "status": "publicado",
       "origem": "oficial"
     }
   ]

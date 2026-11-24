@@ -83,7 +83,7 @@ const encounterLabel = computed(() =>
   encounter.value
     ? encounter.value.tipo === 'preparacao'
       ? 'Preparação'
-      : `Encontro ${encounter.value.id}`
+      : `Aula ${encounter.value.id}`
     : 'Encontro',
 )
 
@@ -110,7 +110,7 @@ const { goExerciseSection } = useSectionNav()
           :items="[
             { label: course.curso.titulo, to: '/' },
             { label: encounterLabel, to: encounterPath() },
-            ...(exercise.unidadeId ? [{ label: `Unidade ${exercise.unidadeId}`, to: unitPath(course, exercise.unidadeId) }] : []),
+
             { label: exercise.codigo },
           ]"
         />
@@ -147,8 +147,8 @@ const { goExerciseSection } = useSectionNav()
           <div class="practice-actions">
             <button class="btn btn-primary btn-sm" type="button" :aria-pressed="isComplete(course.curso.slug, exercise.id)" @click="toggle(course.curso.slug, exercise.id)">{{ isComplete(course.curso.slug, exercise.id) ? 'Marcar como pendente' : 'Marcar como concluído' }}</button>
             <RouterLink v-if="exercise.playgroundExemplo" class="btn btn-sm" :to="{ path: '/playground', query: { exemplo: exercise.playgroundExemplo } }">Abrir código inicial no playground</RouterLink>
-            <RouterLink class="btn btn-sm" :to="`/cursos/${course.curso.slug}/${exercise.tipo === 'desafio' ? 'desafios' : 'atividades'}`">Ver {{ exercise.tipo === 'desafio' ? 'opcionais' : 'atividades' }}</RouterLink>
-            <RouterLink v-if="exercise.unidadeId" class="btn btn-sm" :to="unitPath(course, exercise.unidadeId)">Ler unidade {{ exercise.unidadeId }}</RouterLink>
+            <RouterLink class="btn btn-sm" :to="`/cursos/${course.curso.slug}/atividades`">Ver atividades</RouterLink>
+
             <p>{{ storageAvailable ? 'Conclusão manual salva neste navegador; não há correção automática.' : 'Sem acesso ao armazenamento: conclusão mantida apenas nesta sessão.' }}</p>
           </div>
           <section

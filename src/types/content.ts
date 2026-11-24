@@ -112,6 +112,8 @@ export interface Exercicio extends Disponibilidade {
 
 /** Questionário aplicado por formulário externo. O DevLab não coleta respostas. */
 export interface Questionario extends Disponibilidade {
+  /** Data de liberação na wiki, no fuso America/Sao_Paulo. */
+  liberarEm?: string
   id: string
   tipo: 'diagnostico' | 'final'
   titulo: string
@@ -149,9 +151,7 @@ export interface Unidade {
   apostilaId: string
 }
 
-export interface RenderedUnidade extends Omit<Unidade, 'descricao'> {
-  descricaoHtml: string
-}
+export type RenderedUnidade = Omit<Unidade, 'descricao'>
 
 export type EtapaMissao = 'nucleo' | 'progressao' | 'opcional'
 
@@ -191,6 +191,7 @@ export interface RenderedEncontro {
   horario?: { inicio: string; fim: string }
   local?: string
   descricaoHtml?: string
+  sumario?: { id: string; titulo: string }[]
   sequencia: Sequencia
   disponivel: boolean
   demonstrativo: boolean
@@ -253,6 +254,7 @@ export interface RenderedExercicio {
 }
 
 export interface RenderedQuestionario {
+  liberarEm?: string
   id: string
   tipo: 'diagnostico' | 'final'
   titulo: string

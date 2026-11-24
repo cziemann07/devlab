@@ -21,6 +21,7 @@ const LANGUAGE_ALIASES: Record<string, LinguagemCodigo> = {
 
 export interface Renderer {
   markdown: (source: string) => string
+  lesson: (source: string) => { html: string; sumario: { id: string; titulo: string }[] }
   inlineMarkdown: (source: string) => string
   code: (source: string, language: LinguagemCodigo) => string
 }
@@ -66,6 +67,24 @@ export async function createRenderer(): Promise<Renderer> {
 
   return {
     markdown: (source) => md.render(source),
+    lesson: (source) => {
+      const tokens = md.parse(source, {})
+      const sumario: { id: string; titulo: string }[] = []
+      const used = new Set<string>()
+      tokens.forEach((token, index) => {
+        if (token.type !== 'heading_open' || token.tag !== 'h2') return
+        const inline = tokens[index + 1]
+        const titulo = inline.children?.map(child => child.type === 'text' || child.type === 'code_inline' ? child.content : '').join('') || inline.content
+        const base = 'conteudo-' + titulo.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+        let id = base
+        let suffix = 2
+        while (used.has(id)) id = `${base}-${suffix++}`
+        used.add(id)
+        token.attrSet('id', id)
+        sumario.push({ id, titulo })
+      })
+      return { html: md.renderer.render(tokens, md.options, {}), sumario }
+    },
     inlineMarkdown: (source) => md.renderInline(source),
     code: (source, language) => highlighter.codeToHtml(source, { lang: language, theme: THEME }),
   }

@@ -39,6 +39,9 @@ function renderEncounter(
   renderer: Renderer,
 ): RenderedEncontro {
   const available = encounter.status === 'publicado'
+  const lesson = available && encounter.descricao
+    ? renderer.lesson(readFileSync(join(courseDir, encounter.descricao), 'utf8'))
+    : undefined
   return {
     id: encounter.id,
     tipo: encounter.tipo,
@@ -47,10 +50,8 @@ function renderEncounter(
     data: encounter.data,
     horario: encounter.horario,
     local: encounter.local,
-    descricaoHtml:
-      available && encounter.descricao
-        ? renderer.markdown(readFileSync(join(courseDir, encounter.descricao), 'utf8'))
-        : undefined,
+    descricaoHtml: lesson?.html,
+    sumario: lesson?.sumario,
     sequencia: available ? encounter.sequencia : [],
     disponivel: available,
     demonstrativo: isDemonstrativo(encounter),
@@ -208,6 +209,7 @@ function renderQuestionnaire(questionnaire: Questionario): RenderedQuestionario 
   return {
     id: questionnaire.id,
     tipo: questionnaire.tipo,
+    liberarEm: questionnaire.liberarEm,
     titulo: questionnaire.titulo,
     descricao: questionnaire.descricao,
     disponivel: available,
@@ -279,10 +281,7 @@ export async function renderContent(
     )
 
     return {
-      unidades: (course.unidades ?? []).map(({ descricao, ...unit }) => ({
-        ...unit,
-        descricaoHtml: renderer.markdown(readFileSync(join(courseDir, descricao), 'utf8')),
-      })),
+      unidades: (course.unidades ?? []).map(({ descricao: _descricao, ...unit }) => unit),
       redirecionamentos: course.redirecionamentos ?? {},
       curso: {
         slug: course.curso.slug,

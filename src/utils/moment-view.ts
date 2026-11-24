@@ -4,6 +4,7 @@ import type { CourseMoment } from '../composables/useCourseMoment'
 import { challengesFor, codesFor, coursePath, exercisesFor } from '../content'
 import type { RenderedCourseContent, RenderedEncontro } from '../types/content'
 import { formatDateShort, formatTimeRange } from './date'
+import { availableQuestionnaires } from './questionnaires'
 
 export interface MomentAction {
   label: string
@@ -38,8 +39,9 @@ function encounterTo(
 function questionnaireAction(
   course: RenderedCourseContent,
   tipo: 'diagnostico' | 'final',
+  at: Date,
 ): MomentAction | undefined {
-  const questionnaire = course.questionarios.find((item) => item.tipo === tipo)
+  const questionnaire = availableQuestionnaires(course, at).find((item) => item.tipo === tipo)
   if (!questionnaire?.disponivel || !questionnaire.url) return undefined
   return { label: `Responder o ${questionnaire.titulo.toLowerCase()}`, href: questionnaire.url }
 }
@@ -63,6 +65,7 @@ function days(count: number): string {
 export function describeMoment(
   course: RenderedCourseContent,
   moment: CourseMoment,
+  at = new Date(),
 ): MomentView | undefined {
   const preparation = course.encontros.find((item) => item.tipo === 'preparacao')
 
@@ -79,7 +82,7 @@ export function describeMoment(
             to: encounterTo(course, preparation) ?? { path: '/', hash: '#preparacao' },
             primary: true,
           },
-          questionnaireAction(course, 'diagnostico'),
+          questionnaireAction(course, 'diagnostico', at),
           { label: `Ver o ${meetingLabel(proximo).toLowerCase()}`, to: encounterTo(course, proximo) },
         ]),
         pose: 'front',
@@ -130,7 +133,7 @@ export function describeMoment(
         texto:
           'Materiais, exercícios, desafios e códigos continuam disponíveis para você estudar no seu ritmo.',
         acoes: compact([
-          questionnaireAction(course, 'final'),
+          questionnaireAction(course, 'final', at),
           { label: 'Rever o cronograma', to: { path: '/', hash: '#cronograma' } },
           { label: 'Referências', to: { path: '/', hash: '#recursos' } },
         ]),

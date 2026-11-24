@@ -5,11 +5,11 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     { path: '/atividades', redirect: '/cursos/vue-github/atividades' },
-    { path: '/desafios', redirect: '/cursos/vue-github/desafios' },
+    { path: '/desafios', redirect: to => ({ path: '/cursos/vue-github/atividades', query: to.query }) },
     { path: '/aula/1', redirect: '/cursos/vue-github/encontros/01' },
     { path: '/aula/2', redirect: '/cursos/vue-github/encontros/02' },
     { path: '/cursos/:slug/atividades', name: 'practice', component: () => import('./views/PracticeView.vue') },
-    { path: '/cursos/:slug/desafios', name: 'programming-challenges', component: () => import('./views/PracticeView.vue') },
+    { path: '/cursos/:slug/desafios', redirect: to => ({ path: `/cursos/${to.params.slug}/atividades`, query: to.query }) },
     {
       path: '/',
       name: 'home',
@@ -25,7 +25,11 @@ const router = createRouter({
       name: 'course',
       component: () => import('./views/CourseLanding.vue'),
     },
-    { path: '/cursos/:slug/unidades/:id', name: 'unit', component: () => import('./views/UnitView.vue') },
+    { path: '/cursos/:slug/unidades/:id', name: 'unit', redirect: to => {
+      const course = getCourse(String(to.params.slug))
+      const unit = course?.unidades.find(unit => unit.id === to.params.id)
+      return unit ? { path: `/cursos/${course!.curso.slug}/encontros/${unit.encontroId}`, hash: '#conceitos' } : '/404'
+    } },
     {
       path: '/cursos/:slug/encontros/:id',
       name: 'encounter',
@@ -50,7 +54,7 @@ const router = createRouter({
   scrollBehavior(to, _from, savedPosition) {
     if (savedPosition) return savedPosition
     // Âncoras dentro de uma página (ex.: #exercicios no encontro).
-    if (to.hash) return { el: to.hash, top: 88 }
+    if (to.hash) return { el: to.hash, top: to.name === 'encounter' && window.matchMedia('(max-width: 680px)').matches ? 190 : 88 }
     return { top: 0 }
   },
 })
@@ -88,8 +92,8 @@ router.afterEach((to) => {
     return
   }
 
-  if (to.name === 'practice' || to.name === 'programming-challenges') {
-    document.title = `${to.name === 'practice' ? 'Atividades' : 'Desafios de programação'} — DevLab`
+  if (to.name === 'practice') {
+    document.title = 'Atividades — DevLab'
     return
   }
 
