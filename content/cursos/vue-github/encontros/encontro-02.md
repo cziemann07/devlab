@@ -1,37 +1,62 @@
-## Da Pizza à lista de tarefas
+Na Pizza Vue, você ligou os campos de um pedido a um resumo na tela. Agora vai usar a mesma reatividade para cadastrar, listar, editar e excluir tarefas. Siga as seis missões com o professor. A apostila original está em **Materiais da aula** e no **Inventário**.
 
-Na primeira aula, os dados de um pedido mudavam a interface. Agora, vamos aplicar essa mesma ideia a uma To-Do List: uma lista que ajuda a organizar o que precisa ser feito.
+## 1. Preparar o projeto e as rotas
 
-## Os conceitos que vamos usar
-
-- **Estado:** os dados que a aplicação guarda enquanto está aberta, como os campos do formulário e a lista de tarefas.
-- **Eventos:** ações da pessoa, como clicar para adicionar ou excluir.
-- **Renderização de listas:** mostrar na interface os itens presentes nos dados, sem repetir manualmente o HTML de cada tarefa.
-- **Validação:** conferir o que foi preenchido antes de alterar a lista.
-
-A equipe está fechando a sequência de implementação. Os materiais e exercícios abaixo servem de apoio; o ministrante orientará quais etapas serão trabalhadas durante o encontro.
-
-## Começar pelo código base
-
-A equipe enviou o repositório **todolist-vuejs-base**, disponível nos materiais abaixo. Ele contém o formulário e a listagem estática; a lógica será construída durante a aula.
-
-Com Node.js, npm e Git prontos, abra o terminal na pasta em que guarda seus projetos:
+Comece com um projeto novo. No terminal, confira Node.js, npm e Git e abra o assistente do Vue:
 
 ```bash
-git clone https://github.com/MathuCardoso/todolist-vuejs-base.git
-cd todolist-vuejs-base
-npm install
-npm run dev
+node -v
+npm -v
+git --version
+npm create vue@latest todo-projeto
 ```
 
-Abra no navegador o endereço que aparecer no terminal e deixe esse terminal aberto. Para parar o servidor, use `Ctrl+C`. Se já clonou o repositório, entre na pasta existente em vez de repetir o clone.
+Selecione JavaScript e Vue Router. Entre em `todo-projeto`, execute `npm install` e depois `npm run dev`. Abra o endereço indicado no terminal.
 
-O clone já traz um repositório Git: não precisa executar `git init` nessa pasta. No final da aula, a equipe orientará o envio para o seu próprio GitHub.
+Ligue o Bootstrap em `index.html`. Em `src/main.js`, registre o router antes de montar a aplicação em `#app`. Crie a página `TodoList.vue` e o layout `MainLayout.vue`. Configure a rota inicial para mostrar a página dentro do layout usando `RouterView`.
 
-## Fechar o projeto e enviar ao GitHub
+**Confira:** a rota inicial mostra “Cadastro de Tarefas” com os estilos aplicados. Registre o primeiro commit com a estrutura e as rotas antes de seguir.
 
-No final da aula, vamos conferir o projeto, registrar as mudanças com Git e enviá-lo ao repositório pessoal no GitHub. **Enviar o código ao GitHub** é diferente de publicar um site na internet: nesta etapa, estamos falando do repositório do projeto.
+## 2. Conectar o formulário
 
-Os comandos, o repositório e a autenticação serão orientados pela equipe no laboratório. Não exponha senha ou token na projeção ou nos arquivos do projeto.
+Em `TodoList.vue`, guarde o título e a descrição num objeto reativo com `ref`. Ligue os campos com `v-model` e mostre uma prévia do título no template. Dentro do script, acesse o objeto por `.value`.
 
-Use os slides e a apostila como consulta. Os exercícios do playground continuam disponíveis para experimentar e retomar conceitos.
+**Confira:** ao digitar ou apagar uma letra, a prévia muda imediatamente.
+
+## 3. Reutilizar campos e botões
+
+Extraia o campo para `Input.vue`. Ele recebe o valor do componente pai pela prop `modelValue` e emite `update:modelValue` quando o aluno digita. Assim o formulário continua usando `v-model` mesmo com um componente próprio.
+
+Em `Button.vue`, use um slot para o conteúdo do botão. Deixe a ação de salvar, editar ou excluir na página que conhece a lista. Acrescente os ícones conforme o guia.
+
+**Confira:** trocar o campo original pelo componente mantém a prévia funcionando. O botão continua acionando o evento esperado.
+
+## 4. Construir a lista de tarefas
+
+### Cadastrar e listar
+
+Valide título e descrição com `trim()` para rejeitar campos só com espaços. Ao salvar, crie uma tarefa com ID estável e data de criação, acrescente-a ao array reativo e limpe o formulário. Mostre as tarefas com `v-for`, usando o ID como chave.
+
+### Editar e cancelar
+
+Carregue **uma cópia** da tarefa no formulário. Ao salvar, atualize o item com o mesmo ID. Ao cancelar, descarte a cópia. Teste cancelar depois de digitar: o texto original deve continuar no card.
+
+### Excluir
+
+Peça confirmação antes de remover. Cancele uma vez e confirme na segunda tentativa. Só a tarefa escolhida deve desaparecer.
+
+## 5. Registrar e enviar ao GitHub
+
+Com o cadastro, a edição e a exclusão funcionando, revise as alterações com `git status`, prepare os arquivos do projeto e faça o segundo commit. Use `git log --oneline` para localizar os dois marcos: estrutura com rotas e CRUD com validação.
+
+Crie o repositório na sua conta. Confira o destino com `git remote -v`; se ainda não houver remoto, adicione a URL do seu repositório como `origin`. Envie a branch com `git push -u origin main` se ela se chamar `main`. No GitHub, confira os arquivos e os dois commits. No laboratório, siga a orientação do professor para autenticar e encerrar a sessão.
+
+## 6. Testar o resultado
+
+- Tente salvar campos vazios ou com espaços. Depois cadastre duas tarefas válidas.
+- Edite uma tarefa, cancele e repita salvando. Compare os dois resultados.
+- Exclua a última tarefa e cadastre outra. Confira se os IDs continuam únicos.
+- Recarregue a página. A lista volta a ficar vazia porque os dados vivem na memória.
+- Execute `npm run build` e confira o histórico com `git log --oneline`.
+
+Se quiser praticar mais, experimente uma mensagem de lista vazia, um contador reativo ou a persistência com `localStorage`. São desafios opcionais da apostila.

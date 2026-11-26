@@ -52,7 +52,7 @@ Para enviar o projeto ao final da aula 2, prepare uma [conta no GitHub](https://
 
 ## 5. Abra a base da To-Do List
 
-A equipe confirmou o [repositório inicial da aula 2](https://github.com/MathuCardoso/todolist-vuejs-base). Ele tem a estrutura visual para desenvolver os comportamentos durante o encontro.
+Para testar o ambiente antes da aula, você pode usar o [repositório de consulta da aula 2](https://github.com/MathuCardoso/todolist-vuejs-base). Durante a oficina, siga a apostila para criar um projeto novo.
 
 Escolha uma pasta para seus projetos e abra o terminal nela. Execute:
 

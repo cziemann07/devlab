@@ -95,16 +95,16 @@ export const vueGithub: CourseContent = {
       "local": "Laboratório de informática — IFPR Foz do Iguaçu",
       "sequencia": [
         {
-          "titulo": "Construir a To-Do List",
-          "detalhe": "Organizar dados e desenvolver os comportamentos da lista."
+          "titulo": "Preparar, conectar e reutilizar",
+          "detalhe": "Criar o projeto com Vue Router e Bootstrap e ligar o formulário aos componentes."
         },
         {
-          "titulo": "Testar e revisar",
-          "detalhe": "Conferir os casos de uso do projeto com a equipe."
+          "titulo": "Construir o CRUD",
+          "detalhe": "Cadastrar, listar, editar e excluir tarefas com validação."
         },
         {
-          "titulo": "Enviar o projeto ao GitHub",
-          "detalhe": "Registrar as mudanças com Git e enviar ao repositório pessoal."
+          "titulo": "Registrar e testar",
+          "detalhe": "Conferir os dois commits no GitHub e testar o comportamento da aplicação."
         }
       ]
     }
@@ -151,11 +151,11 @@ export const vueGithub: CourseContent = {
     {
       "id": "apostila-03",
       "encontroId": "02",
-      "titulo": "Unidade 03 · To-Do List",
+      "titulo": "Apostila oficial da Aula 02 · Guia prático da TodoList",
       "tipo": "pdf",
       "descricao": "Apostila do aluno · material oficial de estudo e consulta.",
       "localizacao": {
-        "arquivo": "materiais/vue-github/oficiais/apostila-unidade-03.pdf"
+        "arquivo": "materiais/vue-github/oficiais/apostila-aula-02.pdf"
       },
       "status": "publicado",
       "origem": "oficial"
@@ -246,7 +246,7 @@ export const vueGithub: CourseContent = {
       "encontroId": "02",
       "titulo": "Código base · To-Do List",
       "tipo": "codigo",
-      "descricao": "Ponto de partida da aula 2 enviado pela equipe: estrutura visual para implementar os comportamentos da lista.",
+      "descricao": "Base de consulta enviada pela equipe. A oficina da apostila começa em um projeto novo.",
       "localizacao": {
         "url": "https://github.com/MathuCardoso/todolist-vuejs-base"
       },
