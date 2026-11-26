@@ -60,7 +60,7 @@ async function main() {
   await go('aula/2')
   const baseLink=page.getByRole('link',{name:/Abrir Código base · To-Do List/})
   assert.equal(await baseLink.getAttribute('href'),'https://github.com/MathuCardoso/todolist-vuejs-base')
-  assert.match(await page.locator('#conceitos').innerText(),/git clone https:\/\/github.com\/MathuCardoso\/todolist-vuejs-base.git/)
+  assert.match(await page.locator('#conceitos').innerText(), /npm create vue@latest todo-projeto/)
   for(const [at,visible] of [['2026-11-26T02:59:59Z',false],['2026-11-26T03:00:00Z',true]]) {
    const dated=await context.newPage()
    await dated.clock.setFixedTime(new Date(at))
@@ -126,7 +126,7 @@ async function main() {
   await go('cursos/vue-github/exercicios/pizza-vue');assert(page.url().endsWith('/u02-m01'))
   await go('desafios');assert(page.url().includes('/atividades'));assert.equal(await page.locator('.mission-list > li').count(),27)
   await go('cursos/vue-github/desafios/pizza-vue-git-oficial');await page.getByRole('heading',{name:'Página não encontrada'}).waitFor()
-  for(const file of ['apostila-aula-01.pdf','apostila-unidade-03.pdf','slides-aula-01.pdf','slides-aula-02.pdf']) {
+  for(const file of ['apostila-aula-01.pdf','apostila-aula-02.pdf','slides-aula-01.pdf','slides-aula-02.pdf']) {
    const response=await page.request.get(base+'materiais/vue-github/oficiais/'+file)
    assert.equal(response.status(),200);assert.equal((await response.body()).subarray(0,4).toString(),'%PDF')
   }
